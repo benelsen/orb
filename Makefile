@@ -8,12 +8,12 @@ test:
 
 orb.js: $(shell node_modules/.bin/smash --list src/orb.js)
 	@rm -f $@
-	node_modules/.bin/smash src/orb.js | node_modules/.bin/uglifyjs - -b indent-level=2 -o $@
+	node_modules/.bin/smash src/orb.js | node_modules/.bin/uglifyjs - --beautify indent-level=2 --output $@
 	@chmod a-w $@
 
 orb.min.js: orb.js
 	@rm -f $@
-	node_modules/.bin/uglifyjs $< -c -m -o $@
+	node_modules/.bin/uglifyjs $< --compress --mangle --output $@
 
 # build: components index.js
 # 	@component build --dev
