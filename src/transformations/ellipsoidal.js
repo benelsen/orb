@@ -21,8 +21,10 @@ orb.transformations.cartesianToEllipsoidal = function(x, y, z, a, e) {
     e = orb.constants.earth.e;
   }
 
+  var p = Math.sqrt( x*x + y*y );
+
   var L = Math.atan2(y,x),
-      β = Math.asin( z / a );
+      β = Math.acos( p / a );
 
   return [L, β];
 };
