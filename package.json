@@ -1,0 +1,30 @@
+{
+  "name": "orbitalmech",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [
+    "orbit",
+    "orbital mechanics",
+    "orbit determination"
+  ],
+  "homepage": "",
+  "author": {
+    "name": "Ben Elsen",
+    "url": "http://benelsen.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benelsen/orb.git"
+  },
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "smash": "latest",
+    "uglify-js": "latest"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "license": "MIT"
+}
