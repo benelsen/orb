@@ -3,13 +3,15 @@
   "repo": "benelsen/orb",
   "description": "",
   "version": "0.0.1",
-  "keywords": [],
+  "keywords": [
+    "orbit",
+    "orbital mechanics",
+    "orbit determination"
+  ],
   "dependencies": {},
   "development": {},
-  "license": "MIT",
   "scripts": [
-    "index.js",
-    "lib/constants.js",
-    "lib/time.js"
-  ]
+    "orb.js"
+  ],
+  "license": "MIT"
 }
