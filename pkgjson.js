@@ -33,7 +33,9 @@ var packagejson = {
   devDependencies: {
     'smash': 'latest',
     'uglify-js': 'latest',
-    'jshint': 'latest'
+    'jshint': 'latest',
+    'mocha': 'latest',
+    'should': 'latest'
   },
   scripts: {
     'test': 'make test'

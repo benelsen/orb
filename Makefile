@@ -3,8 +3,8 @@ all: orb.js orb.min.js pkgjson
 
 .PHONY: clean all jshint test
 
-test:
-	@npm test
+test: orb.js
+	node_modules/.bin/mocha --recursive --reporter spec --require should
 
 jshint: orb.js
 	node_modules/.bin/jshint orb.js
