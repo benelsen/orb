@@ -17,11 +17,11 @@
     "url": "https://github.com/benelsen/orb.git"
   },
   "main": "index.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "smash": "latest",
-    "uglify-js": "latest"
+    "uglify-js": "latest",
+    "jshint": "latest"
   },
   "scripts": {
     "test": "make test"

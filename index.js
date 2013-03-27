@@ -1,6 +1,4 @@
 
-var time = require('./lib/time');
+require("./orb");
 
-module.exports = {
-  time: time
-};
+module.exports = orb;
