@@ -3,14 +3,17 @@ import "../constants/common";
 import "../constants/earth";
 import "../transformations/rotation";
 
-orb.position.directMethod = function(a, e, i, Ω, ω, T0, t) {
+orb.position.directMethod = function(a, e, i, Ω, ω, T0, t, m1, m2) {
 
-  var GME = orb.constants.common.G * orb.constants.earth.M;
+  if ( m1 === undefined ) m1 = orb.constants.earth.M;
+  if ( m2 === undefined ) m2 = 0;
+
+  var GM = orb.constants.common.G * (m1 + m2);
 
   var p = a * (1 - e*e);
 
   // Mean motion
-  var n = Math.sqrt( GME / Math.pow(a,3) );
+  var n = Math.sqrt( GM / Math.pow(a,3) );
 
   // Mean anomaly at t
   var M = n * ( t - T0 );
@@ -32,8 +35,8 @@ orb.position.directMethod = function(a, e, i, Ω, ω, T0, t) {
   ];
 
   var xdot_o = [
-    -Math.sqrt(GME/p) * Math.sin(ν),
-     Math.sqrt(GME/p) * (e + Math.cos(ν)),
+    -Math.sqrt(GM/p) * Math.sin(ν),
+     Math.sqrt(GM/p) * (e + Math.cos(ν)),
      0
   ];
 
