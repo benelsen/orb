@@ -1,13 +1,15 @@
-
 # orb
 
+orb is a simple javascript library for various problems of orbital mechanics.
+This library is far from complete right now and missing a lot of things 
+waiting to be implemented.
 
-## Installation
+## TODO
 
-
-## API
-
+See #1
 
 ## License
 
-  MIT
+  [MIT](LICENSE)
+
+
