@@ -6,7 +6,7 @@ waiting to be implemented.
 
 ## TODO
 
-See #1
+See [#1](https://github.com/benelsen/orb/issues/1)
 
 ## License
 
