@@ -6,4 +6,4 @@ orb.constants.earth = {
   invf: 298.257222101,
   e: 0.08181919104281579,
   M: 5.9721986e24 // Mass of the Earth [kg]
-}
+};

@@ -20,4 +20,4 @@ orb.constants.time = {
 
   // TAI - UTC = 35.000 seconds (Leap seconds) (valid until at least 2013-12-31)
   TAIUTC : +35000
-}
+};

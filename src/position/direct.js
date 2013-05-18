@@ -1,3 +1,4 @@
+import "position";
 import "keplerEquation";
 import "../constants/common";
 import "../constants/earth";
@@ -44,5 +45,4 @@ orb.position.directMethod = function(a, e, i, Ω, ω, T0, t, m1, m2) {
   var xdot = orb.transformations.orbitalPlaneToECI(xdot_o, Ω, ω, i);
 
   return [x, xdot];
-
-}
+};

@@ -1,3 +1,4 @@
+import "position";
 
 orb.position.keplerEquation = function(e, M) {
   var E;
@@ -15,4 +16,4 @@ orb.position.keplerEquation = function(e, M) {
   }
 
   return E;
-}
+};
