@@ -3,5 +3,5 @@ node_modules
 
 build
 
-orb.js
-orb.min.js
+/orb.js
+/orb.min.js
