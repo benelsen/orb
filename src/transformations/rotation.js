@@ -1,4 +1,5 @@
 import "transformations";
+import "../vector/";
 
 orb.transformations.orbitalPlaneToECI = function(x, Ω, ω, i) {
 
