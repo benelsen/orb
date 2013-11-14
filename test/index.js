@@ -9,7 +9,7 @@ describe('orb', function() {
   });
 
   it('should be a object', function() {
-    orb.should.be.a('object');
+    orb.should.be.an.Object;
   });
 
 });
