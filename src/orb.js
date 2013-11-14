@@ -1,9 +1,13 @@
 import "start";
 
-import "common/";
 import "constants/";
 
+import "common/";
+
+import "vector/";
+
 import "time/";
+
 import "transformations/";
 
 import "position/";
