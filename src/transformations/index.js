@@ -1,4 +1,4 @@
-import "transformations";
+orb.transformations = {};
 
 import "spherical";
 import "ellipsoidal";

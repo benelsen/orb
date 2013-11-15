@@ -1,10 +1,10 @@
-import "transformations";
+import "./";
 import "../constants/earth";
 
 orb.transformations.ellipsoidalToCartesian = function(L, β, a, e) {
   if ( a === undefined || e === undefined ) {
-    a = orb.constants.earth.a;
-    e = orb.constants.earth.e;
+    a = orb.constants.grs80.a;
+    e = orb.constants.grs80.e;
   }
 
   var b = Math.sqrt( a*a * (1-e*e));
@@ -18,8 +18,8 @@ orb.transformations.ellipsoidalToCartesian = function(L, β, a, e) {
 
 orb.transformations.cartesianToEllipsoidal = function(x, y, z, a, e) {
   if ( a === undefined || e === undefined ) {
-    a = orb.constants.earth.a;
-    e = orb.constants.earth.e;
+    a = orb.constants.grs80.a;
+    e = orb.constants.grs80.e;
   }
 
   var p = Math.sqrt( x*x + y*y ),

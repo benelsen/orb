@@ -6,10 +6,11 @@ import "../transformations/rotation";
 
 orb.position.directMethod = function(a, e, i, Ω, ω, T0, t, m1, m2) {
 
-  if ( m1 === undefined ) m1 = orb.constants.earth.M;
-  if ( m2 === undefined ) m2 = 0;
+  var GM = orb.constants.earth.GM;
 
-  var GM = orb.constants.common.G * (m1 + m2);
+  if ( m1 ) GM = orb.constants.common.G * m1;
+
+  if ( m2 ) m2 = orb.constants.common.G * (m1 + m2);
 
   var p = a * (1 - e*e);
 

@@ -1,4 +1,4 @@
-import "transformations";
+import "./";
 
 orb.transformations.sphericalToCartesian = function(λ, φ, r) {
   var x = r * Math.cos(φ) * Math.cos(λ),

@@ -1,4 +1,4 @@
-import "constants";
+orb.constants = {};
 
 import "common";
 import "time";

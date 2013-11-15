@@ -1,3 +1,3 @@
-import "time";
+orb.time = {};
 
 import "conversions";
