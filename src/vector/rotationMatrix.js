@@ -11,21 +11,21 @@ orb.vector.rotationMatrix = function(α, e) {
         0,  cosα, sinα,
         0, -sinα, cosα
       ];
-      break;
+
     case 2:
       return [
         cosα, 0, -sinα,
            0, 1,     0,
         sinα, 0,  cosα
       ];
-      break;
+
     case 3:
       return [
          cosα, sinα, 0,
         -sinα, cosα, 0,
             0,    0, 1
       ];
-      break;
+
   }
 };
 
