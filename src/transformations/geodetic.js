@@ -3,8 +3,8 @@ import "../constants/earth";
 
 orb.transformations.geodeticToCartesian = function(L, B, h, a, e) {
   if ( a === undefined || e === undefined ) {
-    a = orb.constants.wgs84.a;
-    e = orb.constants.wgs84.e;
+    a = orb.constants.earth.a;
+    e = orb.constants.earth.e;
   }
 
   var N = a / Math.sqrt( 1 - Math.pow(e * Math.sin(B), 2) ); //
@@ -18,8 +18,8 @@ orb.transformations.geodeticToCartesian = function(L, B, h, a, e) {
 
 orb.transformations.cartesianToGeodetic = function(x, y, z, a, e) {
   if ( a === undefined || e === undefined ) {
-    a = orb.constants.wgs84.a;
-    e = orb.constants.wgs84.e;
+    a = orb.constants.earth.a;
+    e = orb.constants.earth.e;
   }
 
   var L = Math.atan2(y,x),
