@@ -9,10 +9,12 @@ orb.position.keplerEquation = function(e, M) {
     E = Math.PI;
   }
 
-  var dE = 1;
-  while ( Math.abs(dE) > 1e-12 ) {
-    dE = (E - e*Math.sin(E) - M) / (1 - e*Math.cos(E));
-    E = E - dE;
+  var dE = 1,
+      i = 0;
+  while ( Math.abs(dE) > 1e-18 && i < 100 ) {
+    dE = (M + e*Math.sin(E) - E) / (1 - e*Math.cos(E));
+    E = E + dE;
+    i++;
   }
 
   return E;

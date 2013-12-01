@@ -4,7 +4,9 @@ import "../constants/common";
 import "../constants/earth";
 import "../transformations/rotation";
 
-orb.position.directMethod = function(a, e, i, Ω, ω, T0, t, m1, m2) {
+orb.position.directMethod = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
+
+  if ( !M0 ) M0 = 0;
 
   var GM = orb.constants.earth.GM;
 
@@ -18,13 +20,14 @@ orb.position.directMethod = function(a, e, i, Ω, ω, T0, t, m1, m2) {
   var n = Math.sqrt( GM / Math.pow(a,3) );
 
   // Mean anomaly at t
-  var M = n * ( t - T0 );
+  var M = ( M0 + (n * ( t - T0 )) );
 
   // Eccentric anomaly
   var E = orb.position.keplerEquation(e, M);
 
   // True anomaly
   var ν = 2*Math.atan( Math.sqrt((1+e)/(1-e)) * Math.tan(E/2) );
+  // var ν = Math.atan2( Math.sqrt(1-e*e) * Math.sin(E), Math.cos(E) - e );
 
   // radius
   var r = p / (1 + e * Math.cos(ν));
