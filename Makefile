@@ -1,11 +1,11 @@
 
 
-.PHONY: clean all
+all: orb.js orb.min.js pkgjson
 
-all: orb.js orb.min.js pkgjson jshint test
+.PHONY: clean all test jshint
 
 test: orb.js
-	node_modules/.bin/mocha --recursive --reporter spec --require should
+	@npm test
 
 jshint: orb.js
 	node_modules/.bin/jshint orb.js
