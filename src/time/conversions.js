@@ -3,8 +3,7 @@ import "../constants/time";
 
 /**
  * Common conversions between time standards
- * All time values are in milliseconds
- * unless specified
+ * All time values are in seconds unless specified
  */
 
 // JD -> MJD [days]
