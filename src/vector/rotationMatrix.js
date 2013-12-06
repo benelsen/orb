@@ -26,6 +26,9 @@ orb.vector.rotationMatrix = function(α, e) {
             0,    0, 1
       ];
 
+    default:
+      throw new Error('rotation axis has to be 1, 2 or 3');
+
   }
 };
 
