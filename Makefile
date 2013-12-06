@@ -1,7 +1,8 @@
 
-all: orb.js orb.min.js pkgjson
 
-.PHONY: clean all jshint test
+.PHONY: clean all
+
+all: orb.js orb.min.js pkgjson jshint test
 
 test: orb.js
 	node_modules/.bin/mocha --recursive --reporter spec --require should
@@ -16,7 +17,7 @@ orb.js: $(shell node_modules/.bin/smash --list src/orb.js)
 
 orb.min.js: orb.js
 	@rm -f $@
-	node_modules/.bin/uglifyjs $< --compress --mangle --output $@
+	node_modules/.bin/uglifyjs $< --compress --mangle --output $@ --source-map $@.map
 
 pkgjson: orb.js
 	node pkgjson.js

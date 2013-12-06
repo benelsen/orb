@@ -14,9 +14,9 @@ var testLocation = {
 describe('orb.transformations.sphericalToCartesian', function() {
   it('should convert to cartesian coordinates', function() {
     var cartesian = orb.transformations.sphericalToCartesian(testLocation.λ, testLocation.φ, testLocation.r);
-    cartesian[0].should.be.approximately(testLocation.x, 1e-4);
-    cartesian[1].should.be.approximately(testLocation.y, 1e-4);
-    cartesian[2].should.be.approximately(testLocation.z, 1e-4);
+    cartesian[0].should.be.approximately(testLocation.x, 1e-9);
+    cartesian[1].should.be.approximately(testLocation.y, 1e-9);
+    cartesian[2].should.be.approximately(testLocation.z, 1e-9);
   })
 });
 

@@ -37,3 +37,27 @@ describe('orb.time.UTCtoTAI', function() {
     orb.time.UTCtoTAI(0).should.equal(35000);
   })
 });
+
+describe('orb.time.TAItoGPS', function() {
+  it('should convert TAI to GPS', function() {
+    orb.time.TAItoGPS(0).should.equal(-19000);
+  })
+});
+
+describe('orb.time.GPStoTAI', function() {
+  it('should convert GPS to TAI', function() {
+    orb.time.GPStoTAI(0).should.equal(19000);
+  })
+});
+
+describe('orb.time.UTCtoGPS', function() {
+  it('should convert UTC to GPS', function() {
+    orb.time.UTCtoGPS(0).should.equal(16000);
+  })
+});
+
+describe('orb.time.GPStoUTC', function() {
+  it('should convert GPS to UTC', function() {
+    orb.time.GPStoUTC(0).should.equal(-16000);
+  })
+});

@@ -36,3 +36,23 @@ orb.time.TAItoUTC = function(tai) {
 orb.time.UTCtoTAI = function(utc) {
   return utc + orb.constants.time.TAIUTC;
 };
+
+// TAI -> GPS
+orb.time.TAItoGPS = function(tai) {
+  return tai - orb.constants.time.TAIGPS;
+};
+
+// GPS -> TAI
+orb.time.GPStoTAI = function(gps) {
+  return gps + orb.constants.time.TAIGPS;
+};
+
+// UTC -> GPS
+orb.time.UTCtoGPS = function(utc) {
+  return orb.time.TAItoGPS( orb.time.UTCtoTAI(utc) );
+};
+
+// GPS -> UTC
+orb.time.GPStoUTC = function(gps) {
+  return orb.time.TAItoUTC( orb.time.GPStoTAI(gps) );
+};

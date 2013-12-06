@@ -27,13 +27,13 @@ describe('orb.position.directMethod', function() {
       },
     };
 
-    var x = orb.position.directMethod(a, e, i, Ω, ω, T0, t);
-    x[0][0].should.be.approximately(testPosition.x.x, 1e-4);
-    x[0][1].should.be.approximately(testPosition.x.y, 1e-4);
-    x[0][2].should.be.approximately(testPosition.x.z, 1e-4);
-    x[1][0].should.be.approximately(testPosition.v.x, 1e-4);
-    x[1][1].should.be.approximately(testPosition.v.y, 1e-4);
-    x[1][2].should.be.approximately(testPosition.v.z, 1e-4);
+    var x = orb.position.directMethod(a, e, i, Ω, ω, t, T0);
+    x[0][0].should.be.approximately(testPosition.x.x, 1e-5);
+    x[0][1].should.be.approximately(testPosition.x.y, 1e-5);
+    x[0][2].should.be.approximately(testPosition.x.z, 1e-5);
+    x[1][0].should.be.approximately(testPosition.v.x, 1e-7);
+    x[1][1].should.be.approximately(testPosition.v.y, 1e-7);
+    x[1][2].should.be.approximately(testPosition.v.z, 1e-7);
   });
 
   it('should return the state vectors of earth after 1yr', function() {
@@ -62,13 +62,13 @@ describe('orb.position.directMethod', function() {
       },
     };
 
-    var x = orb.position.directMethod(a, e, i, Ω, ω, T0, t, m1, m2);
-    x[0][0].should.be.approximately(testPosition.x.x, 1e-2);
-    x[0][1].should.be.approximately(testPosition.x.y, 1e-2);
-    x[0][2].should.be.approximately(testPosition.x.z, 1e-2);
-    x[1][0].should.be.approximately(testPosition.v.x, 1e-2);
-    x[1][1].should.be.approximately(testPosition.v.y, 1e-2);
-    x[1][2].should.be.approximately(testPosition.v.z, 1e-2);
+    var x = orb.position.directMethod(a, e, i, Ω, ω, t, T0, 0, m1, m2);
+    x[0][0].should.be.approximately(testPosition.x.x, 1e-3);
+    x[0][1].should.be.approximately(testPosition.x.y, 1e-3);
+    x[0][2].should.be.approximately(testPosition.x.z, 1e-3);
+    x[1][0].should.be.approximately(testPosition.v.x, 1e-3);
+    x[1][1].should.be.approximately(testPosition.v.y, 1e-3);
+    x[1][2].should.be.approximately(testPosition.v.z, 1e-3);
   });
 
 });

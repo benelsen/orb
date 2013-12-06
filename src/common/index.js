@@ -1,3 +1,3 @@
-import "common";
+orb.common = {};
 
 import "angular";

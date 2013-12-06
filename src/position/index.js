@@ -1,4 +1,4 @@
-import "position";
+orb.position = {};
 
 import "keplerEquation";
 import "direct";
