@@ -38,7 +38,7 @@ var packagejson = {
     'should': 'latest'
   },
   scripts: {
-    'test': 'make test'
+    'test': 'node_modules/.bin/mocha --recursive --reporter spec --require should'
   },
   license: common.license
 };
