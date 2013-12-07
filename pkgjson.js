@@ -57,5 +57,5 @@ var componentjson = {
   license: common.license
 };
 
-fs.writeFile('package.json', JSON.stringify(packagejson, null, '  '), 'utf8');
-fs.writeFile('component.json', JSON.stringify(componentjson, null, '  '), 'utf8');
+fs.writeFile('package.json', JSON.stringify(packagejson, null, '  ') + '\n', 'utf8');
+fs.writeFile('component.json', JSON.stringify(componentjson, null, '  ') + '\n', 'utf8');
