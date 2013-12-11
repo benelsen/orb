@@ -3,12 +3,13 @@ import "./geodetic";
 import "../vector/";
 import "../constants/earth";
 
-orb.transformations.fixedToTopocentric = function(x, L, B, h, a, e, nwu) {
+// x: [x, y, z], obs: [L, B, h]
+orb.transformations.fixedToTopocentric = function(x, obs, a, e, nwu) {
 
   if ( !a ) a = orb.constants.earth.a;
   if ( !e ) e = orb.constants.earth.e;
 
-  var xObserver = orb.transformations.geodeticToCartesian(L, B, h, a, e);
+  var xObserver = orb.transformations.geodeticToCartesian(obs, a, e);
 
   var Δx = x.map(function(xi, i) {
     return xi - xObserver[i];

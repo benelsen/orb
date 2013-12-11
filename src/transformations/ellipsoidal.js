@@ -1,7 +1,8 @@
 import "./";
 import "../constants/earth";
 
-orb.transformations.ellipsoidalToCartesian = function(L, β, a, e) {
+// x: [ L, β ]
+orb.transformations.ellipsoidalToCartesian = function(x, a, e) {
   if ( a === undefined || e === undefined ) {
     a = orb.constants.grs80.a;
     e = orb.constants.grs80.e;
@@ -9,24 +10,27 @@ orb.transformations.ellipsoidalToCartesian = function(L, β, a, e) {
 
   var b = Math.sqrt( a*a * (1-e*e));
 
-  var x = a * Math.cos(β) * Math.cos(L),
-      y = a * Math.cos(β) * Math.sin(L),
-      z = b * Math.sin(β);
+  return [
+    a * Math.cos(x[1]) * Math.cos(x[0]), // x
+    a * Math.cos(x[1]) * Math.sin(x[0]), // y
+    b * Math.sin(x[1])                   // z
+  ];
 
-  return [x, y, z];
 };
 
-orb.transformations.cartesianToEllipsoidal = function(x, y, z, a, e) {
+// x: [ x, y, z ]
+orb.transformations.cartesianToEllipsoidal = function(x, a, e) {
   if ( a === undefined || e === undefined ) {
     a = orb.constants.grs80.a;
     e = orb.constants.grs80.e;
   }
 
-  var p = Math.sqrt( x*x + y*y ),
+  var p = Math.sqrt( x[0]*x[0] + x[1]*x[1] ),
       b = Math.sqrt( a*a * (1-e*e));
 
-  var L = Math.atan2(y,x),
-      β = Math.atan2( z*a, p*b );
+  return [
+    Math.atan2( x[1], x[0] ), // L
+    Math.atan2( x[2]*a, p*b ) // β
+  ];
 
-  return [L, β];
 };

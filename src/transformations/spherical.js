@@ -1,17 +1,23 @@
 import "./";
 
-orb.transformations.sphericalToCartesian = function(λ, φ, r) {
-  var x = r * Math.cos(φ) * Math.cos(λ),
-      y = r * Math.cos(φ) * Math.sin(λ),
-      z = r * Math.sin(φ);
+// x: [ λ, φ, r ]
+orb.transformations.sphericalToCartesian = function(x) {
 
-  return [x, y, z];
+  return [
+    x[2] * Math.cos(x[1]) * Math.cos(x[0]), // x
+    x[2] * Math.cos(x[1]) * Math.sin(x[0]), // y
+    x[2] * Math.sin(x[1])                   // z
+  ];
+
 };
 
-orb.transformations.cartesianToSpherical = function(x, y, z) {
-  var r = Math.sqrt( x*x + y*y + z*z ),
-      λ = Math.atan2(y,x),
-      φ = Math.atan2( z, Math.sqrt( x*x + y*y) );
+// x: [ x, y, z ]
+orb.transformations.cartesianToSpherical = function(x) {
 
-  return [λ, φ, r];
+  return [
+    Math.atan2(x[1],x[0]),                                 // λ
+    Math.atan2( x[2], Math.sqrt( x[0]*x[0] + x[1]*x[1]) ), // φ
+    Math.sqrt( x[0]*x[0] + x[1]*x[1] + x[2]*x[2] )         // r
+  ];
+
 };
