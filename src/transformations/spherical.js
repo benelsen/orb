@@ -9,9 +9,9 @@ orb.transformations.sphericalToCartesian = function(λ, φ, r) {
 };
 
 orb.transformations.cartesianToSpherical = function(x, y, z) {
-  var r = Math.sqrt( x*x + y*y + z*z );
-  var λ = Math.atan2(y,x);
-  var φ = Math.atan2( z, Math.sqrt( x*x + y*y) );
+  var r = Math.sqrt( x*x + y*y + z*z ),
+      λ = Math.atan2(y,x),
+      φ = Math.atan2( z, Math.sqrt( x*x + y*y) );
 
   return [λ, φ, r];
 };

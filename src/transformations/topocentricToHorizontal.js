@@ -1,5 +1,4 @@
 import "./";
-import "../vector/";
 
 orb.transformations.topocentricToHorizontal = function(x) {
 

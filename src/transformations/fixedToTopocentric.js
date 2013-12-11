@@ -1,4 +1,5 @@
 import "./";
+import "./geodetic";
 import "../vector/";
 import "../constants/earth";
 
@@ -34,5 +35,4 @@ orb.transformations.fixedToTopocentric = function(x, L, B, h, a, e, nwu) {
   }
 
   return orb.v.mm( rTopo, Δx );
-
 };
