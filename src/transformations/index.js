@@ -4,3 +4,4 @@ import "spherical";
 import "ellipsoidal";
 import "geodetic";
 import "orbitalPlaneToECI";
+import "inertialToFixed";

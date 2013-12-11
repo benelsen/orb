@@ -1,0 +1,12 @@
+import "./";
+import "../vector/";
+import "../constants/earth";
+
+orb.transformations.inertialToFixed = function(x, Δt, ω, axis) {
+
+  if ( !axis ) axis = 3;
+  if ( !ω ) ω = orb.constants.earth.ω;
+
+  return orb.v.mm( orb.v.r( ω * Δt, 3), x );
+
+};
