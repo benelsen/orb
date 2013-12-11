@@ -17,16 +17,16 @@ orb.transformations.fixedToTopocentric = function(x, L, B, h, a, e, nwu) {
 
   if ( nwu ) {
 
-  rTopo = orb.v.mm(
-      orb.v.r( pi/2 - B, 2),
-      orb.v.r( L, 3)
-    );
+    rTopo = orb.v.mm(
+        orb.v.r( Math.PI/2 - B, 2),
+        orb.v.r( L, 3)
+      );
 
   } else {
 
     rTopo = orb.v.mm(
         orb.v.q(1), orb.v.mm(
-          orb.v.r( pi/2 - B, 2),
+          orb.v.r( Math.PI/2 - B, 2),
           orb.v.r( L, 3)
         )
       );
