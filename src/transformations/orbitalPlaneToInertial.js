@@ -1,7 +1,7 @@
 import "./";
 import "../vector/";
 
-orb.transformations.orbitalPlaneToECI = function(x, Ω, ω, i) {
+orb.transformations.orbitalPlaneToInertial = function(x, Ω, ω, i) {
 
   return orb.v.mm(
     orb.v.r(-Ω,3), orb.v.mm(

@@ -2,7 +2,7 @@ import "./";
 import "keplerEquation";
 import "../constants/common";
 import "../constants/earth";
-import "../transformations/orbitalPlaneToECI";
+import "../transformations/orbitalPlaneToInertial";
 
 orb.position.directMethod = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
 
@@ -45,8 +45,8 @@ orb.position.directMethod = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
      0
   ];
 
-  var x = orb.transformations.orbitalPlaneToECI(x_o, Ω, ω, i),
-      xdot = orb.transformations.orbitalPlaneToECI(xdot_o, Ω, ω, i);
+  var x = orb.transformations.orbitalPlaneToInertial(x_o, Ω, ω, i),
+      xdot = orb.transformations.orbitalPlaneToInertial(xdot_o, Ω, ω, i);
 
   return [x, xdot];
 };
