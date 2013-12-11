@@ -29,7 +29,7 @@ orb.transformations.cartesianToGeodetic = function(x, y, z, a, e) {
       N, B;
 
   var i = 0;
-  while (i < 25) {
+  while (i < 100) {
     N = a / Math.sqrt( 1 - Math.pow( e * Math.sin(B_), 2) );
     var Z_ = z + e*e * N * Math.sin(B_);
     B = Math.atan2(Z_, p);
