@@ -1,8 +1,27 @@
 import "./";
 
 orb.vector.rotationMatrix = function(α, e) {
-  var cosα = Math.cos(α),
-      sinα = Math.sin(α);
+
+  α = α % ( 2*Math.PI );
+
+  var cosα, sinα;
+
+  if ( α === 0 ) {
+    cosα = 1;
+    sinα = 0;
+  } else if ( α === Math.PI/2 || α === -3/2*Math.PI ) {
+    cosα = 0;
+    sinα = 1;
+  } else if ( α === Math.PI || α === -Math.PI ) {
+    cosα = -1;
+    sinα = 0;
+  } else if ( α === 3/2*Math.PI || α === -Math.PI/2 ) {
+    cosα = 0;
+    sinα = -1;
+  } else {
+    cosα = Math.cos(α);
+    sinα = Math.sin(α);
+  }
 
   switch(e) {
     case 1:
