@@ -1,8 +1,7 @@
 
-
 all: orb.js orb.min.js pkgjson
 
-.PHONY: clean all test jshint
+.PHONY: clean all test jshint complex
 
 test: orb.js
 	@npm test
@@ -21,6 +20,9 @@ orb.min.js: orb.js
 
 pkgjson: orb.js
 	node pkgjson.js
+
+complex:
+	node_modules/.bin/cr orb.js
 
 clean:
 	rm -f orb*.js

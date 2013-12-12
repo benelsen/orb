@@ -23,7 +23,8 @@
     "uglify-js": "latest",
     "jshint": "latest",
     "mocha": "latest",
-    "should": "latest"
+    "should": "latest",
+    "complexity-report": "latest"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha --recursive --reporter spec --require should"
