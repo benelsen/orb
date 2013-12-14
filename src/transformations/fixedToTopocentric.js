@@ -7,7 +7,7 @@ import "../constants/earth";
 orb.transformations.fixedToTopocentric = function(x, obs, a, e, nwu) {
 
   if ( !a ) a = orb.constants.earth.a;
-  if ( !e ) e = orb.constants.earth.e;
+  if ( !e && e !== 0 ) e = orb.constants.earth.e;
 
   var xObserver = orb.transformations.geodeticToCartesian(obs, a, e);
 
@@ -20,16 +20,16 @@ orb.transformations.fixedToTopocentric = function(x, obs, a, e, nwu) {
   if ( nwu ) {
 
     rTopo = orb.v.mm(
-        orb.v.r( Math.PI/2 - B, 2),
-        orb.v.r( L, 3)
+        orb.v.r( Math.PI/2 - obs[1], 2),
+        orb.v.r( obs[0], 3)
       );
 
   } else {
 
     rTopo = orb.v.mm(
         orb.v.q(1), orb.v.mm(
-          orb.v.r( Math.PI/2 - B, 2),
-          orb.v.r( L, 3)
+          orb.v.r( Math.PI/2 - obs[1], 2),
+          orb.v.r( obs[0], 3)
         )
       );
 
