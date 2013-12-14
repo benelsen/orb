@@ -1,5 +1,15 @@
 import "./";
 
+/**
+ * rotationMatrix() returns a matrix for a coordinate system rotation
+ * of α radians around axis e relative to the origin.
+ * These rotation matrices are for CRS transformations not geometric
+ * point transformations!
+ *
+ * @param <Number> α [radians]
+          <Integer> e {1,2,3}
+ * @return <[Number]> // 3x3 matrix represented as Array with 9 elements
+ */
 orb.vector.rotationMatrix = function(α, e) {
 
   α = α % ( 2*Math.PI );
