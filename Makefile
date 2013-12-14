@@ -1,5 +1,5 @@
 
-all: orb.js orb.min.js pkgjson
+all: orb.js orb.min.js
 
 .PHONY: clean all test jshint complex
 
@@ -17,9 +17,6 @@ orb.js: $(shell node_modules/.bin/smash --list src/orb.js)
 orb.min.js: orb.js
 	@rm -f $@
 	node_modules/.bin/uglifyjs $< --compress --mangle --output $@ --source-map $@.map
-
-pkgjson: orb.js
-	node pkgjson.js
 
 complex:
 	node_modules/.bin/cr orb.js
