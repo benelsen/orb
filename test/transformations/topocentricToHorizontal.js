@@ -14,6 +14,10 @@ describe('orb.transformations.topocentricToHorizontal', function() {
     hor[2].should.be.approximately(Math.sqrt(3), 1e-15);
   });
 
+});
+
+describe('orb.transformations.horizontalToTopocentric', function() {
+
   it('should calculate x, y, z from azimith, elevation and distance', function() {
 
     var x = [
