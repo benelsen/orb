@@ -37,3 +37,37 @@ orb.transformations.fixedToTopocentric = function(x, obs, a, e, nwu) {
 
   return orb.v.mm( rTopo, Δx );
 };
+
+orb.transformations.topocentricToFixed = function(x, obs, a, e, nwu) {
+
+  if ( !a ) a = orb.constants.earth.a;
+  if ( !e && e !== 0 ) e = orb.constants.earth.e;
+
+  var xObserver = orb.transformations.geodeticToCartesian(obs, a, e);
+
+  var rFixed;
+
+  if ( nwu ) {
+
+    rFixed = orb.v.mm(
+        orb.v.r( -obs[0], 3),
+        orb.v.r( obs[1]- Math.PI/2, 2)
+      );
+
+  } else {
+
+    rFixed = orb.v.mm(
+        orb.v.mm(
+          orb.v.r( -obs[0], 3),
+          orb.v.r( obs[1]- Math.PI/2, 2)
+        ), orb.v.q(1)
+      );
+
+  }
+
+  var xFixed = orb.v.mm( rFixed, x );
+
+  return xFixed.map(function(xi, i) {
+    return xi + xObserver[i];
+  });
+};
