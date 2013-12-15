@@ -2,6 +2,8 @@
 
 orb offers a few simple methods for several common problems of orbital mechanics, like transformations between various coordinate systems and simple orbit propagation using Keplerian elements.
 
+[![Build Status](https://travis-ci.org/benelsen/orb.png)](https://travis-ci.org/benelsen/orb)
+
 ## API
 
 ### orb.constants
