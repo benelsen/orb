@@ -54,8 +54,6 @@ orb offers a few simple methods for several common problems of orbital mechanics
 
 - Input:
 	* x: [λ, φ, r] Spherical
-	* a: semimajor-axis of body
-	* e: eccentricity of body
 - Output:
 	* x: [x, y, z] Cartesian
 
@@ -63,8 +61,6 @@ orb offers a few simple methods for several common problems of orbital mechanics
 
 - Input:
 	* x: [x, y, z] Cartesian
-	* a: semimajor-axis of body
-	* e: eccentricity of body
 - Output:
 	* x: [λ, φ, r] Spherical
 
