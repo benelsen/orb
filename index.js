@@ -1,7 +1,7 @@
 module.exports = function() {
   "use strict";
   var orb = {
-    version: "0.0.1"
+    version: "0.1.0"
   };
   orb.constants = {};
   orb.constants.common = {
@@ -335,16 +335,16 @@ module.exports = function() {
     }
     return E;
   };
-  orb.position.simple = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
+  orb.position.simple = function(a, e, i, Ω, ω, t, t0, M0, m1, m2) {
     if (!M0) M0 = 0;
     var GM = orb.constants.earth.GM;
     if (m1) GM = orb.constants.common.G * m1;
-    if (m2) m2 = orb.constants.common.G * (m1 + m2);
+    if (m2) GM = orb.constants.common.G * (m1 + m2);
     var p = a * (1 - e * e);
     // Mean motion
     var n = Math.sqrt(GM / Math.pow(a, 3));
     // Mean anomaly at t
-    var M = M0 + n * (t - T0);
+    var M = M0 + n * (t - t0);
     // Eccentric anomaly
     var E = orb.position.keplerEquation(e, M);
     // True anomaly
