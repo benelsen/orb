@@ -2,7 +2,7 @@
 module.exports = function() {
   "use strict";
   var orb = {
-    version: "0.1.0"
+    version: "0.1.1"
   };
   orb.constants = {};
   orb.constants.common = {
