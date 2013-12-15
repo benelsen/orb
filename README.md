@@ -1,8 +1,6 @@
 # orb
 
-orb is a simple javascript library for various problems of orbital mechanics.
-This library is far from complete right now and missing a lot of things 
-waiting to be implemented.
+orb offers a few simple methods for several common problems of orbital mechanics, like transformations between various coordinate systems and simple orbit propagation using Keplerian elements.
 
 ## TODO
 
