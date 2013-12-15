@@ -1,3 +1,3 @@
 module.exports = (function(){
   'use strict';
-  var orb = {version: '0.0.1'};
+  var orb = {version: '0.1.0'};
