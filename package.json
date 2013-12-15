@@ -1,0 +1,34 @@
+{
+  "name": "orb",
+  "version": "0.1.0",
+  "description": "orb offers a few simple methods for several common problems of orbital mechanics",
+  "keywords": [
+    "orbit",
+    "orbital mechanics",
+    "orbit determination"
+  ],
+  "homepage": "",
+  "author": {
+    "name": "Ben Elsen",
+    "url": "http://benelsen.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benelsen/orb.git"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "uglify-js": "latest",
+    "browserify": "latest",
+    "jshint": "latest",
+    "mocha": "latest",
+    "should": "latest",
+    "complexity-report": "latest"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
+    "prepublish": "make build test jshint -B"
+  },
+  "license": "MIT"
+}
