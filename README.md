@@ -4,6 +4,10 @@ orb offers a few simple methods for several common problems of orbital mechanics
 
 [![Build Status](https://travis-ci.org/benelsen/orb.png)](https://travis-ci.org/benelsen/orb)
 
+## Installation
+
+	npm install orbjs
+
 ## API
 
 ### orb.constants
