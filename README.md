@@ -102,7 +102,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 
 - Input:
 	* x: [x, y] Position of object in orbital plane
-	* Ω: right ascension of the ascending node 
+	* Ω: right ascension of the ascending node
 	* ω: argument of periapsis
 	* i: inclination
 - Output:
@@ -151,16 +151,16 @@ orb offers a few simple methods for several common problems of orbital mechanics
 [#](src/transformations/topocentricToHorizontal.js) orb.transformations.**topocentricToHorizontal**(x)
 
 - Input:
-	* x: [x, y, z]
+	* x: [x, y, z] Topocentric
 - Output:
-	* x: [azimuth, elevation, distance]
+	* x: [azimuth, elevation, distance] Horizontal
 
 [#](src/transformations/topocentricToHorizontal.js) orb.transformations.**horizontalToTopocentric**(x)
 
 - Input:
-	* x: [azimuth, elevation, distance]
+	* x: [azimuth, elevation, distance] Horizontal
 - Output:
-	* x: [x, y, z]
+	* x: [x, y, z] Topocentric
 
 ### orb.position
 [#](src/position/keplerEquation.js) orb.position.**keplerEquation**(e, M)
@@ -177,7 +177,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 	* a: semimajor-axis of orbit
 	* e: eccentricity
 	* i: inclination
-	* Ω: right ascension of the ascending node 
+	* Ω: right ascension of the ascending node
 	* ω: argument of periapsis
 	* t: time t
 	* t0: epoch of given elements
@@ -185,7 +185,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 	* m1: mass of body 1 (optional, default: GM = orb.constants.earth.GM)
 	* m2: mass of body 2 (optional, default: 0)
 - Output:
-	* [ [x, y, z], [vx, vy, vz] ]
+	* [ [x, y, z], [vx, vy, vz] ] Position and velocity in inertial CRS
 
 ### orb.vector
 Common vector and matrix operations, these are only included to make dependencies unnecessary.
