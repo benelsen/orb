@@ -1,5 +1,3 @@
-import "./";
-
 var leapSecondDates = [
   new Date("1972-06-30T23:59:59.999Z"),
   new Date("1972-12-31T23:59:59.999Z"),

@@ -1,5 +1,3 @@
-import "./";
-
 /**
  * @param x = [x, y, z]
  * @return [azimuth, elevation, distance]

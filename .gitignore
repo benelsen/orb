@@ -3,6 +3,4 @@ node_modules
 
 build
 
-/orb.js
-/orb.min.js
 orb.min.js.map

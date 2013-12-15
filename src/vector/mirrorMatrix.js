@@ -1,5 +1,3 @@
-import "./";
-
 orb.vector.mirrorMatrix = function(e) {
 
   var q = [

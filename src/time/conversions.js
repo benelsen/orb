@@ -1,6 +1,3 @@
-import "./";
-import "../constants/time";
-
 /**
  * Common conversions between time standards
  * All time values are in seconds unless specified

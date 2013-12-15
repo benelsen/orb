@@ -1,9 +1,3 @@
-import "./";
-import "keplerEquation";
-import "../constants/common";
-import "../constants/earth";
-import "../transformations/orbitalPlaneToInertial";
-
 orb.position.directMethod = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
 
   if ( !M0 ) M0 = 0;

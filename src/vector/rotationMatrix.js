@@ -1,5 +1,3 @@
-import "./";
-
 /**
  * rotationMatrix() returns a matrix for a coordinate system rotation
  * of α radians around axis e relative to the origin.

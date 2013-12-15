@@ -1,6 +1,3 @@
-import "./";
-import "../constants/earth";
-
 // x: [ L, B, h ]
 orb.transformations.geodeticToCartesian = function(x, a, e) {
   if ( a === undefined || e === undefined ) {

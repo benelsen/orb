@@ -1,5 +1,3 @@
-import "./";
-
 // IERS numerical standards
 // (as per Technical Note No.36 Table 1.1)
 orb.constants.earth = {

@@ -1,8 +1,3 @@
-import "./";
-import "./geodetic";
-import "../vector/";
-import "../constants/earth";
-
 // x: [x, y, z], obs: [L, B, h]
 orb.transformations.fixedToTopocentric = function(x, obs, a, e, nwu) {
 

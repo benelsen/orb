@@ -1,6 +1,3 @@
-import "./";
-import "../vector/";
-
 orb.transformations.orbitalPlaneToInertial = function(x, Ω, ω, i) {
 
   return orb.v.mm(

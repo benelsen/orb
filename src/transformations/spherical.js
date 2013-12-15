@@ -1,5 +1,3 @@
-import "./";
-
 // x: [ λ, φ, r ]
 orb.transformations.sphericalToCartesian = function(x) {
 

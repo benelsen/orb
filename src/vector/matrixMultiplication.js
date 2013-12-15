@@ -1,5 +1,3 @@
-import "./";
-
 orb.vector.matrixMultiplication = function(m1, m2) {
 
   if ( m2.length === 9 ) {

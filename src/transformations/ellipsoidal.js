@@ -1,6 +1,3 @@
-import "./";
-import "../constants/earth";
-
 // x: [ L, β ]
 orb.transformations.ellipsoidalToCartesian = function(x, a, e) {
   if ( a === undefined || e === undefined ) {

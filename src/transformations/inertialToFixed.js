@@ -1,7 +1,3 @@
-import "./";
-import "../vector/";
-import "../constants/earth";
-
 orb.transformations.inertialToFixed = function(x, Δt, ω, axis) {
 
   if ( !axis ) axis = 3;

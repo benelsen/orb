@@ -1,5 +1,3 @@
-import "./";
-
 orb.position.keplerEquation = function(e, M) {
   var E;
 

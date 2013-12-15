@@ -19,15 +19,16 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "smash": "latest",
     "uglify-js": "latest",
+    "browserify": "latest",
     "jshint": "latest",
     "mocha": "latest",
     "should": "latest",
     "complexity-report": "latest"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --recursive --reporter spec --require should"
+    "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
+    "prepublish": "make build test jshint -B"
   },
   "license": "MIT"
 }
