@@ -1,4 +1,4 @@
-orb.position.directMethod = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
+orb.position.simple = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
 
   if ( !M0 ) M0 = 0;
 

@@ -335,7 +335,7 @@ module.exports = function() {
     }
     return E;
   };
-  orb.position.directMethod = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
+  orb.position.simple = function(a, e, i, Ω, ω, t, T0, M0, m1, m2) {
     if (!M0) M0 = 0;
     var GM = orb.constants.earth.GM;
     if (m1) GM = orb.constants.common.G * m1;

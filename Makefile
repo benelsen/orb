@@ -42,7 +42,7 @@ index.js:
 		\
 		src/position/index.js \
 		src/position/keplerEquation.js \
-		src/position/direct.js \
+		src/position/simple.js \
 		\
 		src/end.js \
 	| node_modules/.bin/uglifyjs \
