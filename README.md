@@ -47,13 +47,13 @@ orb offers a few simple methods for several common problems of orbital mechanics
 
 [#](src/time/conversions.js) orb.time.**GPStoUTC**(gps) GPS to UTC
 
-[#](src/time/leapSeconds.js) orb.time.**leapSeconds**(date) Amount of leap seconds that occurred before `date`
+[#](src/time/leapSeconds.js) orb.time.**leapSeconds**(date) Amount of leap seconds that occurred before `date`. `date` is a JS Date object.
 
 ### orb.transformations
 [#](src/transformations/spherical.js) orb.transformations.**sphericalToCartesian**(x)
 
 - Input:
-	* x: [λ, φ, r] Spherical
+	* x: [λ, φ, r] Spherical (longitude, (geocentric) latitude, radius)
 - Output:
 	* x: [x, y, z] Cartesian
 
@@ -62,12 +62,12 @@ orb offers a few simple methods for several common problems of orbital mechanics
 - Input:
 	* x: [x, y, z] Cartesian
 - Output:
-	* x: [λ, φ, r] Spherical
+	* x: [λ, φ, r] Spherical (longitude, (geocentric) latitude, radius)
 
 [#](src/transformations/ellipsoidal.js) orb.transformations.**ellipsoidalToCartesian**(x, a, e)
 
 - Input:
-	* x: [L, β] Ellipsoidal
+	* x: [L, β] Ellipsoidal (longitude, reduced latitude)
 	* a: semimajor-axis of body
 	* e: eccentricity of body
 - Output:
@@ -80,12 +80,12 @@ orb offers a few simple methods for several common problems of orbital mechanics
 	* a: semimajor-axis of body
 	* e: eccentricity of body
 - Output:
-	* x: [L, β] Ellipsoidal
+	* x: [L, β] Ellipsoidal (longitude, reduced latitude)
 
 [#](src/transformations/geodetic.js) orb.transformations.**geodeticToCartesian**(x, a, e)
 
 - Input:
-	* x: [L, B, h] Geodetic
+	* x: [L, B, h] Geodetic (longitude, geodetic latitude, height above ellipsoid)
 	* a: semimajor-axis of body
 	* e: eccentricity of body
 - Output:
@@ -98,7 +98,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 	* a: semimajor-axis of body
 	* e: eccentricity of body
 - Output:
-	* x: [L, B, h] Geodetic
+	* x: [L, B, h] Geodetic (longitude, geodetic latitude, height above ellipsoid)
 
 [#](src/transformations/orbitalPlaneToInertial.js) orb.transformations.**orbitalPlaneToInertial**(x, Ω, ω, i)
 
