@@ -30,6 +30,7 @@ index.js:
 		src/time/index.js \
 		src/time/conversions.js \
 		src/time/leapSeconds.js \
+		src/time/dateToJD.js \
 		\
 		src/transformations/index.js \
 		src/transformations/spherical.js \
