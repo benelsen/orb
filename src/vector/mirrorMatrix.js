@@ -1,4 +1,4 @@
-orb.vector.mirrorMatrix = function(e) {
+var mirrorMatrix = function(e) {
 
   var q = [
     1, 0, 0,
@@ -11,4 +11,4 @@ orb.vector.mirrorMatrix = function(e) {
   return q;
 };
 
-orb.vector.q = orb.vector.mirrorMatrix;
+exports.mirrorMatrix = mirrorMatrix;

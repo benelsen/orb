@@ -1,5 +1,5 @@
 // x: [ λ, φ, r ]
-orb.transformations.sphericalToCartesian = function(x) {
+var sphericalToCartesian = function(x) {
 
   return [
     x[2] * Math.cos(x[1]) * Math.cos(x[0]), // x
@@ -10,7 +10,7 @@ orb.transformations.sphericalToCartesian = function(x) {
 };
 
 // x: [ x, y, z ]
-orb.transformations.cartesianToSpherical = function(x) {
+var cartesianToSpherical = function(x) {
 
   return [
     Math.atan2(x[1],x[0]),                                 // λ
@@ -19,3 +19,7 @@ orb.transformations.cartesianToSpherical = function(x) {
   ];
 
 };
+
+exports.sphericalToCartesian = sphericalToCartesian;
+exports.cartesianToSpherical = cartesianToSpherical;
+

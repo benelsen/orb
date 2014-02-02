@@ -1,4 +1,4 @@
-orb.position.keplerEquation = function(e, M) {
+var keplerEquation = function(e, M) {
   var E;
 
   if ( e < 0.8 ) {
@@ -17,3 +17,5 @@ orb.position.keplerEquation = function(e, M) {
 
   return E;
 };
+
+exports.keplerEquation = keplerEquation;

@@ -9,7 +9,7 @@ var testLocation = {
   λ:  0.1,
   φ: -0.2,
   r:  6378137.0
-}
+};
 
 describe('orb.transformations.sphericalToCartesian', function() {
   it('should convert to cartesian coordinates', function() {
@@ -17,7 +17,7 @@ describe('orb.transformations.sphericalToCartesian', function() {
     cartesian[0].should.be.approximately(testLocation.x, 1e-9);
     cartesian[1].should.be.approximately(testLocation.y, 1e-9);
     cartesian[2].should.be.approximately(testLocation.z, 1e-9);
-  })
+  });
 });
 
 describe('orb.transformations.cartesianToSpherical', function() {
@@ -26,5 +26,5 @@ describe('orb.transformations.cartesianToSpherical', function() {
     spherical[0].should.be.approximately(testLocation.λ, 1e-12);
     spherical[1].should.be.approximately(testLocation.φ, 1e-12);
     spherical[2].should.be.approximately(testLocation.r, 1e-4);
-  })
+  });
 });

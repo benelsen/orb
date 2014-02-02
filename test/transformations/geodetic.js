@@ -9,7 +9,7 @@ var testLocation = {
   L:  0.1,
   B: -0.2,
   h:  200.0
-}
+};
 
 describe('orb.transformations.geodeticToCartesian', function() {
   it('should convert to cartesian coordinates', function() {
@@ -17,7 +17,7 @@ describe('orb.transformations.geodeticToCartesian', function() {
     cartesian[0].should.be.approximately(testLocation.x, 1e-12);
     cartesian[1].should.be.approximately(testLocation.y, 1e-12);
     cartesian[2].should.be.approximately(testLocation.z, 1e-12);
-  })
+  });
 });
 
 describe('orb.transformations.cartesianToGeodetic', function() {
@@ -26,5 +26,5 @@ describe('orb.transformations.cartesianToGeodetic', function() {
     geodetic[0].should.be.approximately(testLocation.L, 1e-12);
     geodetic[1].should.be.approximately(testLocation.B, 1e-12);
     geodetic[2].should.be.approximately(testLocation.h, 1e-12);
-  })
+  });
 });

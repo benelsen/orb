@@ -26,10 +26,12 @@ var leapSecondDates = [
   new Date("2012-06-30T23:59:59.999Z")
 ];
 
-orb.time.leapSeconds = function(date) {
+var leapSeconds = function(date) {
 
   return 10 + leapSecondDates.filter(function(d) {
     return date > d;
   }).length;
 
 };
+
+exports.leapSeconds = leapSeconds;

@@ -2,7 +2,7 @@
  * @param x = [x, y, z]
  * @return [azimuth, elevation, distance]
  */
-orb.transformations.topocentricToHorizontal = function(x) {
+var topocentricToHorizontal = function(x) {
 
   var azimuth = ( 2*Math.PI + Math.atan2( x[1], x[0] ) ) % (2*Math.PI);
 
@@ -18,7 +18,7 @@ orb.transformations.topocentricToHorizontal = function(x) {
  * @param x = [azimuth, elevation, distance]
  * @return [x, y, z]
  */
-orb.transformations.horizontalToTopocentric = function(x) {
+var horizontalToTopocentric = function(x) {
 
   return [
     x[2] * Math.cos( x[1] ) * Math.cos( x[0] ), // x
@@ -27,3 +27,6 @@ orb.transformations.horizontalToTopocentric = function(x) {
   ];
 
 };
+
+exports.topocentricToHorizontal = topocentricToHorizontal;
+exports.horizontalToTopocentric = horizontalToTopocentric;

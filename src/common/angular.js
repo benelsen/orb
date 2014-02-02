@@ -1,7 +1,11 @@
-orb.common.deg2rad = function(deg) {
+var angular = {};
+
+angular.deg2rad = function(deg) {
   return deg * Math.PI / 180;
 };
 
-orb.common.rad2deg = function(rad) {
+angular.rad2deg = function(rad) {
   return rad * 180 / Math.PI;
 };
+
+exports.angular = angular;

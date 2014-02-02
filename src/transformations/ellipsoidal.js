@@ -1,8 +1,10 @@
 // x: [ L, β ]
-orb.transformations.ellipsoidalToCartesian = function(x, a, e) {
+var earthConstants = require('../constants/earth').earth;
+
+var ellipsoidalToCartesian = function(x, a, e) {
   if ( a === undefined || e === undefined ) {
-    a = orb.constants.grs80.a;
-    e = orb.constants.grs80.e;
+    a = earthConstants.a;
+    e = earthConstants.e;
   }
 
   var b = Math.sqrt( a*a * (1-e*e));
@@ -16,10 +18,10 @@ orb.transformations.ellipsoidalToCartesian = function(x, a, e) {
 };
 
 // x: [ x, y, z ]
-orb.transformations.cartesianToEllipsoidal = function(x, a, e) {
+var cartesianToEllipsoidal = function(x, a, e) {
   if ( a === undefined || e === undefined ) {
-    a = orb.constants.grs80.a;
-    e = orb.constants.grs80.e;
+    a = earthConstants.a;
+    e = earthConstants.e;
   }
 
   var p = Math.sqrt( x[0]*x[0] + x[1]*x[1] ),
@@ -31,3 +33,6 @@ orb.transformations.cartesianToEllipsoidal = function(x, a, e) {
   ];
 
 };
+
+exports.ellipsoidalToCartesian = ellipsoidalToCartesian;
+exports.cartesianToEllipsoidal = cartesianToEllipsoidal;

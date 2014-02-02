@@ -1,8 +1,10 @@
 // x: [ L, B, h ]
-orb.transformations.geodeticToCartesian = function(x, a, e) {
+var earthConstants = require('../constants/earth').earth;
+
+var geodeticToCartesian = function(x, a, e) {
   if ( a === undefined || e === undefined ) {
-    a = orb.constants.earth.a;
-    e = orb.constants.earth.e;
+    a = earthConstants.a;
+    e = earthConstants.e;
   }
 
   var N = a / Math.sqrt( 1 - Math.pow(e * Math.sin(x[1]), 2) ); //
@@ -16,10 +18,10 @@ orb.transformations.geodeticToCartesian = function(x, a, e) {
 };
 
 // x: [ x, y, z ]
-orb.transformations.cartesianToGeodetic = function(x, a, e) {
+var cartesianToGeodetic = function(x, a, e) {
   if ( a === undefined || e === undefined ) {
-    a = orb.constants.earth.a;
-    e = orb.constants.earth.e;
+    a = earthConstants.a;
+    e = earthConstants.e;
   }
 
   var L = Math.atan2( x[1], x[0] ),
@@ -46,3 +48,6 @@ orb.transformations.cartesianToGeodetic = function(x, a, e) {
 
   return [L, B, h];
 };
+
+exports.geodeticToCartesian = geodeticToCartesian;
+exports.cartesianToGeodetic = cartesianToGeodetic;

@@ -1,4 +1,4 @@
-orb.vector.matrixMultiplication = function(m1, m2) {
+var matrixMultiplication = function(m1, m2) {
 
   if ( m2.length === 9 ) {
 
@@ -20,6 +20,6 @@ orb.vector.matrixMultiplication = function(m1, m2) {
 
   return null;
 
-}
+};
 
-orb.vector.mm = orb.vector.matrixMultiplication;
+exports.matrixMultiplication = matrixMultiplication;

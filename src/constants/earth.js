@@ -1,6 +1,7 @@
 // IERS numerical standards
 // (as per Technical Note No.36 Table 1.1)
-orb.constants.earth = {
+
+var earth = {
   a:    6378136.6, // Equatorial radius
   f:    0.003352819697896193, // Flattening
   invf: 298.25642, // Reciprocal flattening
@@ -14,7 +15,7 @@ orb.constants.earth = {
   θ0:   4.894961212823756, // Earth Rotation Angle (ERA) J2000.0
 };
 
-orb.constants.grs80 = {
+earth.grs80 = {
   GM:   3.986005e14,
   a:    6378137,
   J2:   1.08263e-3,
@@ -25,10 +26,12 @@ orb.constants.grs80 = {
   e2:   0.006694380022903416
 };
 
-orb.constants.wgs84 = {
+earth.wgs84 = {
   a:    6378137,
   f:    0.0033528106647474805,
   invf: 298.257223563,
   e:    0.08181919084262149,
   e2:   0.0066943799901413165
 };
+
+exports.earth = earth;

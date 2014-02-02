@@ -1,12 +1,12 @@
 {
   "name": "orbjs",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/benelsen/orb",
   "authors": [
     "Ben Elsen <ben.elsen@gmail.com>"
   ],
-  "main": "orb.js",
+  "main": "dist/orb.js",
   "ignore": [
     "**/.*",
     "node_modules",
