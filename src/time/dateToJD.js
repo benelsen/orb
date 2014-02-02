@@ -1,5 +1,5 @@
 
-orb.time.dateToJD = function(date) {
+var dateToJD = function(date) {
 
   var y, m, d, h;
 
@@ -35,3 +35,5 @@ orb.time.dateToJD = function(date) {
   return jd + h / 24;
 
 };
+
+exports.dateToJD = dateToJD;

@@ -3,52 +3,58 @@
  * All time values are in seconds unless specified
  */
 
+var timeConstants = require('../constants/time').time;
+
+var conversions = {};
+
 // JD -> MJD [days]
-orb.time.JDtoMJD = function(jd) {
-  return jd + orb.constants.time.MJDJD;
+conversions.JDtoMJD = function(jd) {
+  return jd + timeConstants.MJDJD;
 };
 
 // MJD -> JD [days]
-orb.time.MJDtoJD = function(mjd) {
-  return mjd - orb.constants.time.MJDJD;
+conversions.MJDtoJD = function(mjd) {
+  return mjd - timeConstants.MJDJD;
 };
 
 // TAI -> TT
-orb.time.TAItoTT = function(tai) {
-  return tai + orb.constants.time.TTTAI;
+conversions.TAItoTT = function(tai) {
+  return tai + timeConstants.TTTAI;
 };
 
 // TT -> TAI
-orb.time.TTtoTAI = function(tt) {
-  return tt - orb.constants.time.TTTAI;
+conversions.TTtoTAI = function(tt) {
+  return tt - timeConstants.TTTAI;
 };
 
 // TAI -> UTC
-orb.time.TAItoUTC = function(tai) {
-  return tai - orb.constants.time.TAIUTC;
+conversions.TAItoUTC = function(tai) {
+  return tai - timeConstants.TAIUTC;
 };
 
 // UTC -> TAI
-orb.time.UTCtoTAI = function(utc) {
-  return utc + orb.constants.time.TAIUTC;
+conversions.UTCtoTAI = function(utc) {
+  return utc + timeConstants.TAIUTC;
 };
 
 // TAI -> GPS
-orb.time.TAItoGPS = function(tai) {
-  return tai - orb.constants.time.TAIGPS;
+conversions.TAItoGPS = function(tai) {
+  return tai - timeConstants.TAIGPS;
 };
 
 // GPS -> TAI
-orb.time.GPStoTAI = function(gps) {
-  return gps + orb.constants.time.TAIGPS;
+conversions.GPStoTAI = function(gps) {
+  return gps + timeConstants.TAIGPS;
 };
 
 // UTC -> GPS
-orb.time.UTCtoGPS = function(utc) {
-  return orb.time.TAItoGPS( orb.time.UTCtoTAI(utc) );
+conversions.UTCtoGPS = function(utc) {
+  return conversions.TAItoGPS( conversions.UTCtoTAI(utc) );
 };
 
 // GPS -> UTC
-orb.time.GPStoUTC = function(gps) {
-  return orb.time.TAItoUTC( orb.time.GPStoTAI(gps) );
+conversions.GPStoUTC = function(gps) {
+  return conversions.TAItoUTC( conversions.GPStoTAI(gps) );
 };
+
+exports.conversions = conversions;

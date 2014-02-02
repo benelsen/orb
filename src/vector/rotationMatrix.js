@@ -8,7 +8,7 @@
           <Integer> e {1,2,3}
  * @return <[Number]> // 3x3 matrix represented as Array with 9 elements
  */
-orb.vector.rotationMatrix = function(α, e) {
+var rotationMatrix = function(α, e) {
 
   α = α % ( 2*Math.PI );
 
@@ -59,4 +59,4 @@ orb.vector.rotationMatrix = function(α, e) {
   }
 };
 
-orb.vector.r = orb.vector.rotationMatrix;
+exports.rotationMatrix = rotationMatrix;

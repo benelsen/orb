@@ -24,7 +24,7 @@ describe('orb.transformations.orbitalPlaneToInertial', function() {
     eci[0].should.be.approximately(x[0], 1e-4);
     eci[1].should.be.approximately(x[1], 1e-4);
     eci[2].should.be.approximately(x[2], 1e-4);
-  })
+  });
 });
 
 

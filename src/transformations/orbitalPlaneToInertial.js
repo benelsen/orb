@@ -1,11 +1,15 @@
-orb.transformations.orbitalPlaneToInertial = function(x, Ω, ω, i) {
+var vector = require('../vector').vector;
 
-  return orb.v.mm(
-    orb.v.r(-Ω,3), orb.v.mm(
-      orb.v.r(-i,1), orb.v.mm(
-        orb.v.r(-ω,3), x
+var orbitalPlaneToInertial = function(x, Ω, ω, i) {
+
+  return vector.mm(
+    vector.r(-Ω,3), vector.mm(
+      vector.r(-i,1), vector.mm(
+        vector.r(-ω,3), x
       )
     )
   );
 
 };
+
+exports.orbitalPlaneToInertial = orbitalPlaneToInertial;

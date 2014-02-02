@@ -1,12 +1,17 @@
-orb.transformations.inertialToFixed = function(x, Δt, ω, axis) {
+var earthConstants = require('../constants/earth').earth,
+    vector = require('../vector').vector;
+
+var inertialToFixed = function(x, Δt, ω, axis) {
 
   if ( !axis ) axis = 3;
-  if ( !ω ) ω = orb.constants.earth.ω;
+  if ( !ω ) ω = earthConstants.ω;
 
-  return orb.v.mm( orb.v.r( ω * Δt, 3), x );
+  return vector.mm( vector.r( ω * Δt, 3), x );
 };
 
-orb.transformations.fixedToInertial = function(x, Δt, ω, axis) {
-
-  return orb.transformations.inertialToFixed( x, Δt, -ω, axis );
+var fixedToInertial = function(x, Δt, ω, axis) {
+  return inertialToFixed( x, Δt, -ω, axis );
 };
+
+exports.inertialToFixed = inertialToFixed;
+exports.fixedToInertial = fixedToInertial;
