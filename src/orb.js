@@ -8,4 +8,4 @@ orb.vector = orb.v = require('./vector').vector;
 orb.transformations = require('./transformations').transformations;
 orb.position = require('./position').position;
 
-exports = module.exports = orb;
+module.exports = orb;
