@@ -1,5 +1,5 @@
 
-var orb = { version: '0.1.1' };
+var orb = { version: '0.1.2' };
 
 orb.common = require('./common').common;
 orb.constants = require('./constants').constants;
