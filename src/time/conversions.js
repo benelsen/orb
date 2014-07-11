@@ -3,7 +3,8 @@
  * All time values are in seconds unless specified
  */
 
-var timeConstants = require('../constants/time').time;
+var timeConstants = require('../constants/time').time,
+    leapSeconds = require('./leapSeconds').leapSeconds;
 
 var conversions = {};
 
@@ -29,12 +30,12 @@ conversions.TTtoTAI = function(tt) {
 
 // TAI -> UTC
 conversions.TAItoUTC = function(tai) {
-  return tai - timeConstants.TAIUTC;
+  return tai - leapSeconds(new Date(utc*1e3));
 };
 
 // UTC -> TAI
 conversions.UTCtoTAI = function(utc) {
-  return utc + timeConstants.TAIUTC;
+  return utc + leapSeconds(new Date(utc*1e3));
 };
 
 // TAI -> GPS
