@@ -97,10 +97,10 @@ var time = {
   TTTAI  : +32.184,
 
   // DUT1 = UT1 - UTC = -0.1
-  // -0.2 seconds beginning 20 February 2014 at 0000 UTC
-  DUT1   : -0.200,
+  // -0.3 seconds beginning 8 May 2014 at 0000 UTC (valid until ~ August 2014)
+  DUT1   : -0.300,
 
-  // TAI - UTC = 35.000 seconds (Leap seconds) (valid until at least 2013-12-31)
+  // TAI - UTC = 35.000 seconds (Leap seconds) (valid until at least 2015-06-30)
   TAIUTC : +35.000,
 
   // TAI - GPS = 19.000 seconds (fixed)
@@ -111,7 +111,7 @@ exports.time = time;
 
 },{}],8:[function(_dereq_,module,exports){
 
-var orb = { version: '0.1.2' };
+var orb = { version: '0.1.3' };
 
 orb.common = _dereq_('./common').common;
 orb.constants = _dereq_('./constants').constants;
@@ -213,7 +213,8 @@ exports.simple = simple;
  * All time values are in seconds unless specified
  */
 
-var timeConstants = _dereq_('../constants/time').time;
+var timeConstants = _dereq_('../constants/time').time,
+    leapSeconds = _dereq_('./leapSeconds').leapSeconds;
 
 var conversions = {};
 
@@ -239,12 +240,12 @@ conversions.TTtoTAI = function(tt) {
 
 // TAI -> UTC
 conversions.TAItoUTC = function(tai) {
-  return tai - timeConstants.TAIUTC;
+  return tai - leapSeconds(new Date( tai*1e3 ));
 };
 
 // UTC -> TAI
 conversions.UTCtoTAI = function(utc) {
-  return utc + timeConstants.TAIUTC;
+  return utc + leapSeconds(new Date( utc*1e3 ));
 };
 
 // TAI -> GPS
@@ -269,7 +270,7 @@ conversions.GPStoUTC = function(gps) {
 
 exports.conversions = conversions;
 
-},{"../constants/time":7}],13:[function(_dereq_,module,exports){
+},{"../constants/time":7,"./leapSeconds":15}],13:[function(_dereq_,module,exports){
 
 var dateToJD = function(date) {
 
