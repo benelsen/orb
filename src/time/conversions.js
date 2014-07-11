@@ -30,12 +30,12 @@ conversions.TTtoTAI = function(tt) {
 
 // TAI -> UTC
 conversions.TAItoUTC = function(tai) {
-  return tai - leapSeconds(new Date(utc*1e3));
+  return tai - leapSeconds(new Date( tai*1e3 ));
 };
 
 // UTC -> TAI
 conversions.UTCtoTAI = function(utc) {
-  return utc + leapSeconds(new Date(utc*1e3));
+  return utc + leapSeconds(new Date( utc*1e3 ));
 };
 
 // TAI -> GPS

@@ -28,13 +28,15 @@ describe('orb.time.TTtoTAI', function() {
 
 describe('orb.time.TAItoUTC', function() {
   it('should convert TAI to UTC', function() {
-    orb.time.TAItoUTC(0).should.equal(-35.000);
+    orb.time.TAItoUTC( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 )
+      .should.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 - 35.000);
   });
 });
 
 describe('orb.time.UTCtoTAI', function() {
   it('should convert UTC to TAI', function() {
-    orb.time.UTCtoTAI(0).should.equal(35.000);
+    orb.time.UTCtoTAI( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 )
+      .should.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 + 35.000);
   });
 });
 
@@ -52,12 +54,14 @@ describe('orb.time.GPStoTAI', function() {
 
 describe('orb.time.UTCtoGPS', function() {
   it('should convert UTC to GPS', function() {
-    orb.time.UTCtoGPS(0).should.equal(16.000);
+    orb.time.UTCtoGPS( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 )
+      .should.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 + 16.000);
   });
 });
 
 describe('orb.time.GPStoUTC', function() {
   it('should convert GPS to UTC', function() {
-    orb.time.GPStoUTC(0).should.equal(-16.000);
+    orb.time.GPStoUTC( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 )
+      .should.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 - 16.000);
   });
 });
