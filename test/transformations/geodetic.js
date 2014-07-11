@@ -14,17 +14,17 @@ var testLocation = {
 describe('orb.transformations.geodeticToCartesian', function() {
   it('should convert to cartesian coordinates', function() {
     var cartesian = orb.transformations.geodeticToCartesian([testLocation.L, testLocation.B, testLocation.h]);
-    cartesian[0].should.be.approximately(testLocation.x, 1e-12);
-    cartesian[1].should.be.approximately(testLocation.y, 1e-12);
-    cartesian[2].should.be.approximately(testLocation.z, 1e-12);
+    cartesian[0].should.be.approximately(testLocation.x, 1e-6);
+    cartesian[1].should.be.approximately(testLocation.y, 1e-6);
+    cartesian[2].should.be.approximately(testLocation.z, 1e-6);
   });
 });
 
 describe('orb.transformations.cartesianToGeodetic', function() {
   it('should convert to geodetic coordinates', function() {
     var geodetic = orb.transformations.cartesianToGeodetic([testLocation.x, testLocation.y, testLocation.z]);
-    geodetic[0].should.be.approximately(testLocation.L, 1e-12);
-    geodetic[1].should.be.approximately(testLocation.B, 1e-12);
-    geodetic[2].should.be.approximately(testLocation.h, 1e-12);
+    geodetic[0].should.be.approximately(testLocation.L, 1e-8);
+    geodetic[1].should.be.approximately(testLocation.B, 1e-8);
+    geodetic[2].should.be.approximately(testLocation.h, 1e-8);
   });
 });
