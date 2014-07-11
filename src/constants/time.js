@@ -14,10 +14,10 @@ var time = {
   TTTAI  : +32.184,
 
   // DUT1 = UT1 - UTC = -0.1
-  // -0.2 seconds beginning 20 February 2014 at 0000 UTC
-  DUT1   : -0.200,
+  // -0.3 seconds beginning 8 May 2014 at 0000 UTC (valid until ~ August 2014)
+  DUT1   : -0.300,
 
-  // TAI - UTC = 35.000 seconds (Leap seconds) (valid until at least 2013-12-31)
+  // TAI - UTC = 35.000 seconds (Leap seconds) (valid until at least 2015-06-30)
   TAIUTC : +35.000,
 
   // TAI - GPS = 19.000 seconds (fixed)
