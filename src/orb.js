@@ -1,5 +1,7 @@
 
-var orb = { version: '0.1.3' };
+var orb = {
+  version: require('../package.json').version
+};
 
 orb.common = require('./common').common;
 orb.constants = require('./constants').constants;

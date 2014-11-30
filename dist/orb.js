@@ -1,7 +1,43 @@
-!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.orb=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
-module.exports = _dereq_('./src/orb.js');
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.orb=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports = require('./src/orb.js');
 
-},{"./src/orb.js":8}],2:[function(_dereq_,module,exports){
+},{"./src/orb.js":9}],2:[function(require,module,exports){
+module.exports={
+  "name": "orb",
+  "version": "0.1.3",
+  "description": "orb offers a few simple methods for several common problems of orbital mechanics",
+  "keywords": [
+    "orbit",
+    "orbital mechanics",
+    "orbit determination"
+  ],
+  "homepage": "",
+  "author": {
+    "name": "Ben Elsen",
+    "url": "http://benelsen.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benelsen/orb.git"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^6.3.3",
+    "complexity-report": "^1.0.6",
+    "jshint": "^2.5.10",
+    "mocha": "^2.0.1",
+    "should": "^4.3.0",
+    "uglify-js": "^2.4.15"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
+    "prepublish": "make build test jshint -B"
+  },
+  "license": "MIT"
+}
+
+},{}],3:[function(require,module,exports){
 var angular = {};
 
 angular.deg2rad = function(deg) {
@@ -14,17 +50,17 @@ angular.rad2deg = function(rad) {
 
 exports.angular = angular;
 
-},{}],3:[function(_dereq_,module,exports){
+},{}],4:[function(require,module,exports){
 var common = {};
 
-var angular = _dereq_('./angular').angular;
+var angular = require('./angular').angular;
 for ( var key in angular ) {
   common[key] = angular[key];
 }
 
 exports.common = common;
 
-},{"./angular":2}],4:[function(_dereq_,module,exports){
+},{"./angular":3}],5:[function(require,module,exports){
 var common = {
   c: 299792458,  // Speed of light
   G: 6.67428e-11 // Gravitational constant [m^3 kg^-1]
@@ -32,7 +68,7 @@ var common = {
 
 exports.common = common;
 
-},{}],5:[function(_dereq_,module,exports){
+},{}],6:[function(require,module,exports){
 // IERS numerical standards
 // (as per Technical Note No.36 Table 1.1)
 
@@ -71,16 +107,16 @@ earth.wgs84 = {
 
 exports.earth = earth;
 
-},{}],6:[function(_dereq_,module,exports){
+},{}],7:[function(require,module,exports){
 var constants = {};
 
-constants.common = _dereq_('./common').common;
-constants.earth = _dereq_('./earth').earth;
-constants.time = _dereq_('./time').time;
+constants.common = require('./common').common;
+constants.earth = require('./earth').earth;
+constants.time = require('./time').time;
 
 exports.constants = constants;
 
-},{"./common":4,"./earth":5,"./time":7}],7:[function(_dereq_,module,exports){
+},{"./common":5,"./earth":6,"./time":8}],8:[function(require,module,exports){
 /**
  * TIME
  * ====
@@ -109,28 +145,30 @@ var time = {
 
 exports.time = time;
 
-},{}],8:[function(_dereq_,module,exports){
+},{}],9:[function(require,module,exports){
 
-var orb = { version: '0.1.3' };
+var orb = {
+  version: require('../package.json').version
+};
 
-orb.common = _dereq_('./common').common;
-orb.constants = _dereq_('./constants').constants;
-orb.time = _dereq_('./time').time;
-orb.vector = orb.v = _dereq_('./vector').vector;
-orb.transformations = _dereq_('./transformations').transformations;
-orb.position = _dereq_('./position').position;
+orb.common = require('./common').common;
+orb.constants = require('./constants').constants;
+orb.time = require('./time').time;
+orb.vector = orb.v = require('./vector').vector;
+orb.transformations = require('./transformations').transformations;
+orb.position = require('./position').position;
 
 module.exports = orb;
 
-},{"./common":3,"./constants":6,"./position":9,"./time":14,"./transformations":19,"./vector":24}],9:[function(_dereq_,module,exports){
+},{"../package.json":2,"./common":4,"./constants":7,"./position":10,"./time":15,"./transformations":20,"./vector":25}],10:[function(require,module,exports){
 var position = {};
 
-position.simple = _dereq_('./simple').simple;
-position.keplerEquation = _dereq_('./keplerEquation').keplerEquation;
+position.simple = require('./simple').simple;
+position.keplerEquation = require('./keplerEquation').keplerEquation;
 
 exports.position = position;
 
-},{"./keplerEquation":10,"./simple":11}],10:[function(_dereq_,module,exports){
+},{"./keplerEquation":11,"./simple":12}],11:[function(require,module,exports){
 var keplerEquation = function(e, M) {
   var E;
 
@@ -153,10 +191,10 @@ var keplerEquation = function(e, M) {
 
 exports.keplerEquation = keplerEquation;
 
-},{}],11:[function(_dereq_,module,exports){
-var constants = _dereq_('../constants').constants,
-    keplerEquation = _dereq_('./keplerEquation').keplerEquation,
-    orbitalPlaneToInertial = _dereq_('../transformations/orbitalPlaneToInertial').orbitalPlaneToInertial;
+},{}],12:[function(require,module,exports){
+var constants = require('../constants').constants,
+    keplerEquation = require('./keplerEquation').keplerEquation,
+    orbitalPlaneToInertial = require('../transformations/orbitalPlaneToInertial').orbitalPlaneToInertial;
 
 var simple = function(a, e, i, Ω, ω, t, t0, M0, m1, m2) {
 
@@ -207,14 +245,14 @@ var simple = function(a, e, i, Ω, ω, t, t0, M0, m1, m2) {
 
 exports.simple = simple;
 
-},{"../constants":6,"../transformations/orbitalPlaneToInertial":21,"./keplerEquation":10}],12:[function(_dereq_,module,exports){
+},{"../constants":7,"../transformations/orbitalPlaneToInertial":22,"./keplerEquation":11}],13:[function(require,module,exports){
 /**
  * Common conversions between time standards
  * All time values are in seconds unless specified
  */
 
-var timeConstants = _dereq_('../constants/time').time,
-    leapSeconds = _dereq_('./leapSeconds').leapSeconds;
+var timeConstants = require('../constants/time').time,
+    leapSeconds = require('./leapSeconds').leapSeconds;
 
 var conversions = {};
 
@@ -270,7 +308,7 @@ conversions.GPStoUTC = function(gps) {
 
 exports.conversions = conversions;
 
-},{"../constants/time":7,"./leapSeconds":15}],13:[function(_dereq_,module,exports){
+},{"../constants/time":8,"./leapSeconds":16}],14:[function(require,module,exports){
 
 var dateToJD = function(date) {
 
@@ -311,20 +349,20 @@ var dateToJD = function(date) {
 
 exports.dateToJD = dateToJD;
 
-},{}],14:[function(_dereq_,module,exports){
+},{}],15:[function(require,module,exports){
 var time = {};
 
-var conversions = _dereq_('./conversions').conversions;
+var conversions = require('./conversions').conversions;
 for ( var key in conversions ) {
   time[key] = conversions[key];
 }
 
-time.leapSeconds = _dereq_('./leapSeconds').leapSeconds;
-time.dateToJD = _dereq_('./dateToJD').dateToJD;
+time.leapSeconds = require('./leapSeconds').leapSeconds;
+time.dateToJD = require('./dateToJD').dateToJD;
 
 exports.time = time;
 
-},{"./conversions":12,"./dateToJD":13,"./leapSeconds":15}],15:[function(_dereq_,module,exports){
+},{"./conversions":13,"./dateToJD":14,"./leapSeconds":16}],16:[function(require,module,exports){
 var leapSecondDates = [
   new Date("1972-06-30T23:59:59.999Z"),
   new Date("1972-12-31T23:59:59.999Z"),
@@ -363,9 +401,9 @@ var leapSeconds = function(date) {
 
 exports.leapSeconds = leapSeconds;
 
-},{}],16:[function(_dereq_,module,exports){
+},{}],17:[function(require,module,exports){
 // x: [ L, β ]
-var earthConstants = _dereq_('../constants/earth').earth;
+var earthConstants = require('../constants/earth').earth;
 
 var ellipsoidalToCartesian = function(x, a, e) {
   if ( a === undefined || e === undefined ) {
@@ -403,11 +441,11 @@ var cartesianToEllipsoidal = function(x, a, e) {
 exports.ellipsoidalToCartesian = ellipsoidalToCartesian;
 exports.cartesianToEllipsoidal = cartesianToEllipsoidal;
 
-},{"../constants/earth":5}],17:[function(_dereq_,module,exports){
+},{"../constants/earth":6}],18:[function(require,module,exports){
 // x: [x, y, z], obs: [L, B, h]
-var earthConstants = _dereq_('../constants/earth').earth,
-    geodeticToCartesian = _dereq_('./geodetic').geodeticToCartesian,
-    vector = _dereq_('../vector').vector;
+var earthConstants = require('../constants/earth').earth,
+    geodeticToCartesian = require('./geodetic').geodeticToCartesian,
+    vector = require('../vector').vector;
 
 var fixedToTopocentric = function(x, obs, a, e, nwu) {
 
@@ -480,9 +518,9 @@ var topocentricToFixed = function(x, obs, a, e, nwu) {
 exports.fixedToTopocentric = fixedToTopocentric;
 exports.topocentricToFixed = topocentricToFixed;
 
-},{"../constants/earth":5,"../vector":24,"./geodetic":18}],18:[function(_dereq_,module,exports){
+},{"../constants/earth":6,"../vector":25,"./geodetic":19}],19:[function(require,module,exports){
 // x: [ L, B, h ]
-var earthConstants = _dereq_('../constants/earth').earth;
+var earthConstants = require('../constants/earth').earth;
 
 var geodeticToCartesian = function(x, a, e) {
   if ( a === undefined || e === undefined ) {
@@ -535,35 +573,35 @@ var cartesianToGeodetic = function(x, a, e) {
 exports.geodeticToCartesian = geodeticToCartesian;
 exports.cartesianToGeodetic = cartesianToGeodetic;
 
-},{"../constants/earth":5}],19:[function(_dereq_,module,exports){
+},{"../constants/earth":6}],20:[function(require,module,exports){
 var transformations = {};
 
 
-transformations.sphericalToCartesian = _dereq_('./spherical').sphericalToCartesian;
-transformations.cartesianToSpherical = _dereq_('./spherical').cartesianToSpherical;
+transformations.sphericalToCartesian = require('./spherical').sphericalToCartesian;
+transformations.cartesianToSpherical = require('./spherical').cartesianToSpherical;
 
-transformations.ellipsoidalToCartesian = _dereq_('./ellipsoidal').ellipsoidalToCartesian;
-transformations.cartesianToEllipsoidal = _dereq_('./ellipsoidal').cartesianToEllipsoidal;
+transformations.ellipsoidalToCartesian = require('./ellipsoidal').ellipsoidalToCartesian;
+transformations.cartesianToEllipsoidal = require('./ellipsoidal').cartesianToEllipsoidal;
 
-transformations.geodeticToCartesian = _dereq_('./geodetic').geodeticToCartesian;
-transformations.cartesianToGeodetic = _dereq_('./geodetic').cartesianToGeodetic;
+transformations.geodeticToCartesian = require('./geodetic').geodeticToCartesian;
+transformations.cartesianToGeodetic = require('./geodetic').cartesianToGeodetic;
 
-transformations.fixedToTopocentric = _dereq_('./fixedToTopocentric').fixedToTopocentric;
-transformations.topocentricToFixed = _dereq_('./fixedToTopocentric').topocentricToFixed;
+transformations.fixedToTopocentric = require('./fixedToTopocentric').fixedToTopocentric;
+transformations.topocentricToFixed = require('./fixedToTopocentric').topocentricToFixed;
 
-transformations.inertialToFixed = _dereq_('./inertialToFixed').inertialToFixed;
-transformations.fixedToInertial = _dereq_('./inertialToFixed').fixedToInertial;
+transformations.inertialToFixed = require('./inertialToFixed').inertialToFixed;
+transformations.fixedToInertial = require('./inertialToFixed').fixedToInertial;
 
-transformations.orbitalPlaneToInertial = _dereq_('./orbitalPlaneToInertial').orbitalPlaneToInertial;
+transformations.orbitalPlaneToInertial = require('./orbitalPlaneToInertial').orbitalPlaneToInertial;
 
-transformations.topocentricToHorizontal = _dereq_('./topocentricToHorizontal').topocentricToHorizontal;
-transformations.horizontalToTopocentric = _dereq_('./topocentricToHorizontal').horizontalToTopocentric;
+transformations.topocentricToHorizontal = require('./topocentricToHorizontal').topocentricToHorizontal;
+transformations.horizontalToTopocentric = require('./topocentricToHorizontal').horizontalToTopocentric;
 
 exports.transformations = transformations;
 
-},{"./ellipsoidal":16,"./fixedToTopocentric":17,"./geodetic":18,"./inertialToFixed":20,"./orbitalPlaneToInertial":21,"./spherical":22,"./topocentricToHorizontal":23}],20:[function(_dereq_,module,exports){
-var earthConstants = _dereq_('../constants/earth').earth,
-    vector = _dereq_('../vector').vector;
+},{"./ellipsoidal":17,"./fixedToTopocentric":18,"./geodetic":19,"./inertialToFixed":21,"./orbitalPlaneToInertial":22,"./spherical":23,"./topocentricToHorizontal":24}],21:[function(require,module,exports){
+var earthConstants = require('../constants/earth').earth,
+    vector = require('../vector').vector;
 
 var inertialToFixed = function(x, Δt, ω, axis) {
 
@@ -580,8 +618,8 @@ var fixedToInertial = function(x, Δt, ω, axis) {
 exports.inertialToFixed = inertialToFixed;
 exports.fixedToInertial = fixedToInertial;
 
-},{"../constants/earth":5,"../vector":24}],21:[function(_dereq_,module,exports){
-var vector = _dereq_('../vector').vector;
+},{"../constants/earth":6,"../vector":25}],22:[function(require,module,exports){
+var vector = require('../vector').vector;
 
 var orbitalPlaneToInertial = function(x, Ω, ω, i) {
 
@@ -597,7 +635,7 @@ var orbitalPlaneToInertial = function(x, Ω, ω, i) {
 
 exports.orbitalPlaneToInertial = orbitalPlaneToInertial;
 
-},{"../vector":24}],22:[function(_dereq_,module,exports){
+},{"../vector":25}],23:[function(require,module,exports){
 // x: [ λ, φ, r ]
 var sphericalToCartesian = function(x) {
 
@@ -624,7 +662,7 @@ exports.sphericalToCartesian = sphericalToCartesian;
 exports.cartesianToSpherical = cartesianToSpherical;
 
 
-},{}],23:[function(_dereq_,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * @param x = [x, y, z]
  * @return [azimuth, elevation, distance]
@@ -658,16 +696,16 @@ var horizontalToTopocentric = function(x) {
 exports.topocentricToHorizontal = topocentricToHorizontal;
 exports.horizontalToTopocentric = horizontalToTopocentric;
 
-},{}],24:[function(_dereq_,module,exports){
+},{}],25:[function(require,module,exports){
 var vector = {};
 
-vector.matrixMultiplication = vector.mm = _dereq_('./matrixMultiplication').matrixMultiplication;
-vector.mirrorMatrix         = vector.q  = _dereq_('./mirrorMatrix').mirrorMatrix;
-vector.rotationMatrix       = vector.r  = _dereq_('./rotationMatrix').rotationMatrix;
+vector.matrixMultiplication = vector.mm = require('./matrixMultiplication').matrixMultiplication;
+vector.mirrorMatrix         = vector.q  = require('./mirrorMatrix').mirrorMatrix;
+vector.rotationMatrix       = vector.r  = require('./rotationMatrix').rotationMatrix;
 
 exports.vector = vector;
 
-},{"./matrixMultiplication":25,"./mirrorMatrix":26,"./rotationMatrix":27}],25:[function(_dereq_,module,exports){
+},{"./matrixMultiplication":26,"./mirrorMatrix":27,"./rotationMatrix":28}],26:[function(require,module,exports){
 var matrixMultiplication = function(m1, m2) {
 
   if ( m2.length === 9 ) {
@@ -694,7 +732,7 @@ var matrixMultiplication = function(m1, m2) {
 
 exports.matrixMultiplication = matrixMultiplication;
 
-},{}],26:[function(_dereq_,module,exports){
+},{}],27:[function(require,module,exports){
 var mirrorMatrix = function(e) {
 
   var q = [
@@ -710,7 +748,7 @@ var mirrorMatrix = function(e) {
 
 exports.mirrorMatrix = mirrorMatrix;
 
-},{}],27:[function(_dereq_,module,exports){
+},{}],28:[function(require,module,exports){
 /**
  * rotationMatrix() returns a matrix for a coordinate system rotation
  * of α radians around axis e relative to the origin.
@@ -774,6 +812,5 @@ var rotationMatrix = function(α, e) {
 
 exports.rotationMatrix = rotationMatrix;
 
-},{}]},{},[1])
-(1)
+},{}]},{},[1])(1)
 });

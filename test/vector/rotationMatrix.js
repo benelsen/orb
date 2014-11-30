@@ -10,13 +10,13 @@ describe('orb.vector.rotationMatrix', function() {
     r1.should.eql([
       1, 0, 0,
       0, 1, 0,
-      0, 0, 1
+      0,-0, 1
     ]);
 
     var r2 = orb.vector.rotationMatrix(2*Math.PI, 2);
 
     r2.should.eql([
-      1, 0, 0,
+      1, 0,-0,
       0, 1, 0,
       0, 0, 1
     ]);
@@ -25,7 +25,7 @@ describe('orb.vector.rotationMatrix', function() {
 
     r3.should.eql([
       1, 0, 0,
-      0, 1, 0,
+     -0, 1, 0,
       0, 0, 1
     ]);
 

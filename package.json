@@ -1,5 +1,5 @@
 {
-  "name": "orbjs",
+  "name": "orb",
   "version": "0.1.3",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
@@ -19,12 +19,12 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "uglify-js": "latest",
-    "browserify": "latest",
-    "jshint": "latest",
-    "mocha": "latest",
-    "should": "latest",
-    "complexity-report": "latest"
+    "browserify": "^6.3.3",
+    "complexity-report": "^1.0.6",
+    "jshint": "^2.5.10",
+    "mocha": "^2.0.1",
+    "should": "^4.3.0",
+    "uglify-js": "^2.4.15"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
