@@ -1,5 +1,5 @@
 {
-  "name": "orb",
+  "name": "orbjs",
   "version": "0.1.3",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
@@ -7,7 +7,7 @@
     "orbital mechanics",
     "orbit determination"
   ],
-  "homepage": "",
+  "homepage": "https://github.com/benelsen/orb",
   "author": {
     "name": "Ben Elsen",
     "url": "http://benelsen.com"
