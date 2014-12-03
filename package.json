@@ -17,7 +17,9 @@
     "url": "https://github.com/benelsen/orb.git"
   },
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "leapseconds": "^1.1.0"
+  },
   "devDependencies": {
     "browserify": "^6.3.3",
     "complexity-report": "^1.0.6",

@@ -1,9 +1,58 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.orb=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = require('./src/orb.js');
 
-},{"./src/orb.js":9}],2:[function(require,module,exports){
+},{"./src/orb.js":10}],2:[function(require,module,exports){
+var leapSecondDates = [
+  "1972-07-01T00:00:00.000Z",
+  "1973-01-01T00:00:00.000Z",
+  "1974-01-01T00:00:00.000Z",
+  "1975-01-01T00:00:00.000Z",
+  "1976-01-01T00:00:00.000Z",
+  "1977-01-01T00:00:00.000Z",
+  "1978-01-01T00:00:00.000Z",
+  "1979-01-01T00:00:00.000Z",
+  "1980-01-01T00:00:00.000Z",
+  "1981-07-01T00:00:00.000Z",
+  "1982-07-01T00:00:00.000Z",
+  "1983-07-01T00:00:00.000Z",
+  "1985-07-01T00:00:00.000Z",
+  "1988-01-01T00:00:00.000Z",
+  "1990-01-01T00:00:00.000Z",
+  "1991-01-01T00:00:00.000Z",
+  "1992-07-01T00:00:00.000Z",
+  "1993-07-01T00:00:00.000Z",
+  "1994-07-01T00:00:00.000Z",
+  "1996-01-01T00:00:00.000Z",
+  "1997-07-01T00:00:00.000Z",
+  "1999-01-01T00:00:00.000Z",
+  "2006-01-01T00:00:00.000Z",
+  "2009-01-01T00:00:00.000Z",
+  "2012-07-01T00:00:00.000Z"
+].map(function (d) {
+  return new Date(d).getTime();
+});
+
+module.exports = function leapSeconds(date) {
+
+  if ( !date ) {
+    date = Date.now();
+  } else if ( date instanceof Date ) {
+    date = date.getTime()
+  } else if ( isFinite(date) ) {
+    date = +date;
+  } else {
+    date = new Date(date).getTime();
+  }
+
+  return leapSecondDates.reduce(function(m, d) {
+    return date >= d ? m+1 : m;
+  }, 10);
+
+};
+
+},{}],3:[function(require,module,exports){
 module.exports={
-  "name": "orb",
+  "name": "orbjs",
   "version": "0.1.3",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
@@ -11,7 +60,7 @@ module.exports={
     "orbital mechanics",
     "orbit determination"
   ],
-  "homepage": "",
+  "homepage": "https://github.com/benelsen/orb",
   "author": {
     "name": "Ben Elsen",
     "url": "http://benelsen.com"
@@ -21,7 +70,9 @@ module.exports={
     "url": "https://github.com/benelsen/orb.git"
   },
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "leapseconds": "^1.1.0"
+  },
   "devDependencies": {
     "browserify": "^6.3.3",
     "complexity-report": "^1.0.6",
@@ -37,7 +88,7 @@ module.exports={
   "license": "MIT"
 }
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var angular = {};
 
 angular.deg2rad = function(deg) {
@@ -50,7 +101,7 @@ angular.rad2deg = function(rad) {
 
 exports.angular = angular;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var common = {};
 
 var angular = require('./angular').angular;
@@ -60,7 +111,7 @@ for ( var key in angular ) {
 
 exports.common = common;
 
-},{"./angular":3}],5:[function(require,module,exports){
+},{"./angular":4}],6:[function(require,module,exports){
 var common = {
   c: 299792458,  // Speed of light
   G: 6.67428e-11 // Gravitational constant [m^3 kg^-1]
@@ -68,7 +119,7 @@ var common = {
 
 exports.common = common;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // IERS numerical standards
 // (as per Technical Note No.36 Table 1.1)
 
@@ -107,7 +158,7 @@ earth.wgs84 = {
 
 exports.earth = earth;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var constants = {};
 
 constants.common = require('./common').common;
@@ -116,7 +167,7 @@ constants.time = require('./time').time;
 
 exports.constants = constants;
 
-},{"./common":5,"./earth":6,"./time":8}],8:[function(require,module,exports){
+},{"./common":6,"./earth":7,"./time":9}],9:[function(require,module,exports){
 /**
  * TIME
  * ====
@@ -132,11 +183,13 @@ var time = {
   // TT = TAI + 32.184 seconds
   TTTAI  : +32.184,
 
-  // DUT1 = UT1 - UTC = -0.1
-  // -0.3 seconds beginning 8 May 2014 at 0000 UTC (valid until ~ August 2014)
-  DUT1   : -0.300,
+  // DUT1 = UT1 - UTC = -0.4 (valid from 2014-09-25 until 2014-12-25)
+  // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/17/bulletind-120.txt
+  // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/17/bulletind-121.txt
+  DUT1   : -0.400,
 
-  // TAI - UTC = 35.000 seconds (Leap seconds) (valid until at least 2015-06-30)
+  // TAI - UTC = 35.000 seconds (Leap seconds) (valid from 2012-07-01 until at least 2015-06-30)
+  // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/16/bulletinc-048.txt
   TAIUTC : +35.000,
 
   // TAI - GPS = 19.000 seconds (fixed)
@@ -145,7 +198,7 @@ var time = {
 
 exports.time = time;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 var orb = {
   version: require('../package.json').version
@@ -160,7 +213,7 @@ orb.position = require('./position').position;
 
 module.exports = orb;
 
-},{"../package.json":2,"./common":4,"./constants":7,"./position":10,"./time":15,"./transformations":20,"./vector":25}],10:[function(require,module,exports){
+},{"../package.json":3,"./common":5,"./constants":8,"./position":11,"./time":16,"./transformations":21,"./vector":26}],11:[function(require,module,exports){
 var position = {};
 
 position.simple = require('./simple').simple;
@@ -168,7 +221,7 @@ position.keplerEquation = require('./keplerEquation').keplerEquation;
 
 exports.position = position;
 
-},{"./keplerEquation":11,"./simple":12}],11:[function(require,module,exports){
+},{"./keplerEquation":12,"./simple":13}],12:[function(require,module,exports){
 var keplerEquation = function(e, M) {
   var E;
 
@@ -191,7 +244,7 @@ var keplerEquation = function(e, M) {
 
 exports.keplerEquation = keplerEquation;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var constants = require('../constants').constants,
     keplerEquation = require('./keplerEquation').keplerEquation,
     orbitalPlaneToInertial = require('../transformations/orbitalPlaneToInertial').orbitalPlaneToInertial;
@@ -245,7 +298,7 @@ var simple = function(a, e, i, Ω, ω, t, t0, M0, m1, m2) {
 
 exports.simple = simple;
 
-},{"../constants":7,"../transformations/orbitalPlaneToInertial":22,"./keplerEquation":11}],13:[function(require,module,exports){
+},{"../constants":8,"../transformations/orbitalPlaneToInertial":23,"./keplerEquation":12}],14:[function(require,module,exports){
 /**
  * Common conversions between time standards
  * All time values are in seconds unless specified
@@ -308,7 +361,7 @@ conversions.GPStoUTC = function(gps) {
 
 exports.conversions = conversions;
 
-},{"../constants/time":8,"./leapSeconds":16}],14:[function(require,module,exports){
+},{"../constants/time":9,"./leapSeconds":17}],15:[function(require,module,exports){
 
 var dateToJD = function(date) {
 
@@ -349,7 +402,7 @@ var dateToJD = function(date) {
 
 exports.dateToJD = dateToJD;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var time = {};
 
 var conversions = require('./conversions').conversions;
@@ -362,46 +415,11 @@ time.dateToJD = require('./dateToJD').dateToJD;
 
 exports.time = time;
 
-},{"./conversions":13,"./dateToJD":14,"./leapSeconds":16}],16:[function(require,module,exports){
-var leapSecondDates = [
-  new Date("1972-06-30T23:59:59.999Z"),
-  new Date("1972-12-31T23:59:59.999Z"),
-  new Date("1973-12-31T23:59:59.999Z"),
-  new Date("1974-12-31T23:59:59.999Z"),
-  new Date("1975-12-31T23:59:59.999Z"),
-  new Date("1976-12-31T23:59:59.999Z"),
-  new Date("1977-12-31T23:59:59.999Z"),
-  new Date("1978-12-31T23:59:59.999Z"),
-  new Date("1979-12-31T23:59:59.999Z"),
-  new Date("1981-06-30T23:59:59.999Z"),
-  new Date("1982-06-30T23:59:59.999Z"),
-  new Date("1983-06-30T23:59:59.999Z"),
-  new Date("1985-06-30T23:59:59.999Z"),
-  new Date("1987-12-31T23:59:59.999Z"),
-  new Date("1989-12-31T23:59:59.999Z"),
-  new Date("1990-12-31T23:59:59.999Z"),
-  new Date("1992-06-30T23:59:59.999Z"),
-  new Date("1993-06-30T23:59:59.999Z"),
-  new Date("1994-06-30T23:59:59.999Z"),
-  new Date("1995-12-31T23:59:59.999Z"),
-  new Date("1997-06-30T23:59:59.999Z"),
-  new Date("1998-12-31T23:59:59.999Z"),
-  new Date("2005-12-31T23:59:59.999Z"),
-  new Date("2008-12-31T23:59:59.999Z"),
-  new Date("2012-06-30T23:59:59.999Z")
-];
+},{"./conversions":14,"./dateToJD":15,"./leapSeconds":17}],17:[function(require,module,exports){
 
-var leapSeconds = function(date) {
+exports.leapSeconds = require('leapseconds');
 
-  return 10 + leapSecondDates.filter(function(d) {
-    return date > d;
-  }).length;
-
-};
-
-exports.leapSeconds = leapSeconds;
-
-},{}],17:[function(require,module,exports){
+},{"leapseconds":2}],18:[function(require,module,exports){
 // x: [ L, β ]
 var earthConstants = require('../constants/earth').earth;
 
@@ -441,7 +459,7 @@ var cartesianToEllipsoidal = function(x, a, e) {
 exports.ellipsoidalToCartesian = ellipsoidalToCartesian;
 exports.cartesianToEllipsoidal = cartesianToEllipsoidal;
 
-},{"../constants/earth":6}],18:[function(require,module,exports){
+},{"../constants/earth":7}],19:[function(require,module,exports){
 // x: [x, y, z], obs: [L, B, h]
 var earthConstants = require('../constants/earth').earth,
     geodeticToCartesian = require('./geodetic').geodeticToCartesian,
@@ -518,7 +536,7 @@ var topocentricToFixed = function(x, obs, a, e, nwu) {
 exports.fixedToTopocentric = fixedToTopocentric;
 exports.topocentricToFixed = topocentricToFixed;
 
-},{"../constants/earth":6,"../vector":25,"./geodetic":19}],19:[function(require,module,exports){
+},{"../constants/earth":7,"../vector":26,"./geodetic":20}],20:[function(require,module,exports){
 // x: [ L, B, h ]
 var earthConstants = require('../constants/earth').earth;
 
@@ -573,7 +591,7 @@ var cartesianToGeodetic = function(x, a, e) {
 exports.geodeticToCartesian = geodeticToCartesian;
 exports.cartesianToGeodetic = cartesianToGeodetic;
 
-},{"../constants/earth":6}],20:[function(require,module,exports){
+},{"../constants/earth":7}],21:[function(require,module,exports){
 var transformations = {};
 
 
@@ -599,7 +617,7 @@ transformations.horizontalToTopocentric = require('./topocentricToHorizontal').h
 
 exports.transformations = transformations;
 
-},{"./ellipsoidal":17,"./fixedToTopocentric":18,"./geodetic":19,"./inertialToFixed":21,"./orbitalPlaneToInertial":22,"./spherical":23,"./topocentricToHorizontal":24}],21:[function(require,module,exports){
+},{"./ellipsoidal":18,"./fixedToTopocentric":19,"./geodetic":20,"./inertialToFixed":22,"./orbitalPlaneToInertial":23,"./spherical":24,"./topocentricToHorizontal":25}],22:[function(require,module,exports){
 var earthConstants = require('../constants/earth').earth,
     vector = require('../vector').vector;
 
@@ -618,7 +636,7 @@ var fixedToInertial = function(x, Δt, ω, axis) {
 exports.inertialToFixed = inertialToFixed;
 exports.fixedToInertial = fixedToInertial;
 
-},{"../constants/earth":6,"../vector":25}],22:[function(require,module,exports){
+},{"../constants/earth":7,"../vector":26}],23:[function(require,module,exports){
 var vector = require('../vector').vector;
 
 var orbitalPlaneToInertial = function(x, Ω, ω, i) {
@@ -635,7 +653,7 @@ var orbitalPlaneToInertial = function(x, Ω, ω, i) {
 
 exports.orbitalPlaneToInertial = orbitalPlaneToInertial;
 
-},{"../vector":25}],23:[function(require,module,exports){
+},{"../vector":26}],24:[function(require,module,exports){
 // x: [ λ, φ, r ]
 var sphericalToCartesian = function(x) {
 
@@ -662,7 +680,7 @@ exports.sphericalToCartesian = sphericalToCartesian;
 exports.cartesianToSpherical = cartesianToSpherical;
 
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * @param x = [x, y, z]
  * @return [azimuth, elevation, distance]
@@ -696,7 +714,7 @@ var horizontalToTopocentric = function(x) {
 exports.topocentricToHorizontal = topocentricToHorizontal;
 exports.horizontalToTopocentric = horizontalToTopocentric;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 var vector = {};
 
 vector.matrixMultiplication = vector.mm = require('./matrixMultiplication').matrixMultiplication;
@@ -705,7 +723,7 @@ vector.rotationMatrix       = vector.r  = require('./rotationMatrix').rotationMa
 
 exports.vector = vector;
 
-},{"./matrixMultiplication":26,"./mirrorMatrix":27,"./rotationMatrix":28}],26:[function(require,module,exports){
+},{"./matrixMultiplication":27,"./mirrorMatrix":28,"./rotationMatrix":29}],27:[function(require,module,exports){
 var matrixMultiplication = function(m1, m2) {
 
   if ( m2.length === 9 ) {
@@ -732,7 +750,7 @@ var matrixMultiplication = function(m1, m2) {
 
 exports.matrixMultiplication = matrixMultiplication;
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 var mirrorMatrix = function(e) {
 
   var q = [
@@ -748,7 +766,7 @@ var mirrorMatrix = function(e) {
 
 exports.mirrorMatrix = mirrorMatrix;
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /**
  * rotationMatrix() returns a matrix for a coordinate system rotation
  * of α radians around axis e relative to the origin.
