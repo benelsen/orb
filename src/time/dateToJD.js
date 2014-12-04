@@ -1,5 +1,15 @@
-
-var dateToJD = function(date) {
+/**
+ * Converts a date to Julian Date
+ *   Input and output are on the same continuous time scale.
+ *   JD is usually specified in TT, corrections are needed
+ *   to convert a UTC date to JD in TT: UTC -> TAI -> TT -> JD
+ * 
+ * @param {array, date, number} date - The date to be converted to JD
+ *        This can either be an Array of form [year, month, day, hour, minute, second]
+ *                         or a Date
+ * @return {number} 
+ */
+var dateToJD = function dateToJD (date) {
 
   var y, m, d, h;
 
@@ -12,15 +22,15 @@ var dateToJD = function(date) {
         date[4] / 60 +
         date[5] / 3600;
 
-  } else if ( date instanceof Date ) {
+  } else if ( date instanceof Date || typeof date === 'number' ) {
 
     y = date.getUTCFullYear();
     m = date.getUTCMonth() + 1;
     d = date.getUTCDate();
     h = date.getUTCHours() +
-      date.getUTCMinutes() / 60 +
-      date.getUTCSeconds() / 3600;
-
+        date.getUTCMinutes() / 60 +
+        date.getUTCSeconds() / 3600;
+      
   } else {
     throw new Error('date is of invalid type');
   }
