@@ -53,7 +53,7 @@ module.exports = function leapSeconds(date) {
 },{}],3:[function(require,module,exports){
 module.exports={
   "name": "orbjs",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
     "orbit",
@@ -71,7 +71,7 @@ module.exports={
   },
   "main": "index.js",
   "dependencies": {
-    "leapseconds": "^1.1.0"
+    "leapseconds": "^1.1.1"
   },
   "devDependencies": {
     "browserify": "^6.3.3",
@@ -245,19 +245,25 @@ var keplerEquation = function(e, M) {
 exports.keplerEquation = keplerEquation;
 
 },{}],13:[function(require,module,exports){
-var constants = require('../constants').constants,
-    keplerEquation = require('./keplerEquation').keplerEquation,
-    orbitalPlaneToInertial = require('../transformations/orbitalPlaneToInertial').orbitalPlaneToInertial;
+var constants = require('../constants').constants;
+var keplerEquation = require('./keplerEquation').keplerEquation;
+var orbitalPlaneToInertial = require('../transformations/orbitalPlaneToInertial').orbitalPlaneToInertial;
 
-var simple = function(a, e, i, Ω, ω, t, t0, M0, m1, m2) {
+var keplerian = function keplerian (a, e, i, Ω, ω, t, t0, M0, m1, m2) {
 
-  if ( !M0 ) M0 = 0;
+  if ( !M0 ) {
+    M0 = 0;
+  }
 
   var GM = constants.earth.GM;
 
-  if ( m1 ) GM = constants.common.G * m1;
+  if ( m1 ) {
+    GM = constants.common.G * m1;
+  }
 
-  if ( m2 ) GM = constants.common.G * (m1 + m2);
+  if ( m2 ) {
+    GM = constants.common.G * (m1 + m2);
+  }
 
   var p = a * (1 - e*e);
 
@@ -265,13 +271,13 @@ var simple = function(a, e, i, Ω, ω, t, t0, M0, m1, m2) {
   var n = Math.sqrt( GM / Math.pow(a,3) );
 
   // Mean anomaly at t
-  var M = ( M0 + (n * ( t - t0 )) );
+  var M = M0 + n * ( t - t0 );
 
   // Eccentric anomaly
   var E = keplerEquation(e, M);
 
   // True anomaly
-  var ν = 2*Math.atan( Math.sqrt((1+e)/(1-e)) * Math.tan(E/2) );
+  var ν = 2 * Math.atan( Math.sqrt((1+e)/(1-e)) * Math.tan(E/2) );
   // var ν = Math.atan2( Math.sqrt(1-e*e) * Math.sin(E), Math.cos(E) - e );
 
   // radius
@@ -290,13 +296,14 @@ var simple = function(a, e, i, Ω, ω, t, t0, M0, m1, m2) {
      0
   ];
 
-  var x = orbitalPlaneToInertial(x_o, Ω, ω, i),
-      xdot = orbitalPlaneToInertial(xdot_o, Ω, ω, i);
+  var x = orbitalPlaneToInertial(x_o, Ω, ω, i);
+  var xdot = orbitalPlaneToInertial(xdot_o, Ω, ω, i);
 
   return [x, xdot];
 };
 
-exports.simple = simple;
+exports.keplerian = keplerian;
+exports.simple = exports.keplerian;
 
 },{"../constants":8,"../transformations/orbitalPlaneToInertial":23,"./keplerEquation":12}],14:[function(require,module,exports){
 /**
@@ -362,8 +369,18 @@ conversions.GPStoUTC = function(gps) {
 exports.conversions = conversions;
 
 },{"../constants/time":9,"./leapSeconds":17}],15:[function(require,module,exports){
-
-var dateToJD = function(date) {
+/**
+ * Converts a date to Julian Date
+ *   Input and output are on the same continuous time scale.
+ *   JD is usually specified in TT, corrections are needed
+ *   to convert a UTC date to JD in TT: UTC -> TAI -> TT -> JD
+ * 
+ * @param {array, date, number} date - The date to be converted to JD
+ *        This can either be an Array of form [year, month, day, hour, minute, second]
+ *                         or a Date
+ * @return {number} 
+ */
+var dateToJD = function dateToJD (date) {
 
   var y, m, d, h;
 
@@ -376,15 +393,15 @@ var dateToJD = function(date) {
         date[4] / 60 +
         date[5] / 3600;
 
-  } else if ( date instanceof Date ) {
+  } else if ( date instanceof Date || typeof date === 'number' ) {
 
     y = date.getUTCFullYear();
     m = date.getUTCMonth() + 1;
     d = date.getUTCDate();
     h = date.getUTCHours() +
-      date.getUTCMinutes() / 60 +
-      date.getUTCSeconds() / 3600;
-
+        date.getUTCMinutes() / 60 +
+        date.getUTCSeconds() / 3600;
+      
   } else {
     throw new Error('date is of invalid type');
   }
