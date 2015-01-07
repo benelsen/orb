@@ -13,10 +13,9 @@ var time = {
   // TT = TAI + 32.184 seconds
   TTTAI  : +32.184,
 
-  // DUT1 = UT1 - UTC = -0.4 (valid from 2014-09-25 until 2014-12-25)
-  // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/17/bulletind-120.txt
+  // DUT1 = UT1 - UTC = -0.5 (valid from 2014-12-25)
   // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/17/bulletind-121.txt
-  DUT1   : -0.400,
+  DUT1   : -0.500,
 
   // TAI - UTC = 35.000 seconds (Leap seconds) (valid from 2012-07-01 until at least 2015-06-30)
   // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/16/bulletinc-048.txt
