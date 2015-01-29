@@ -1,5 +1,7 @@
 # orb
 
+[![Join the chat at https://gitter.im/benelsen/orb](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/benelsen/orb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 orb offers a few simple methods for several common problems of orbital mechanics, like transformations between various coordinate systems and simple orbit propagation using Keplerian elements.
 
 [![Build Status](https://travis-ci.org/benelsen/orb.png)](https://travis-ci.org/benelsen/orb)
