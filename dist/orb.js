@@ -83,9 +83,10 @@ module.exports={
   },
   "scripts": {
     "lint": "eslint src/",
-    "browserify": "browserify src/orb.js -d -s orb -t [babelify --experimental --sourceMapRelative ./dist] | exorcist dist/orb.js.map > dist/orb.js",
-    "uglifyjs": "uglifyjs dist/orb.js -o dist/orb.min.js --source-map dist/orb.min.js.map --source-map-url orb.min.js.map --in-source-map dist/orb.js.map",
-    "build": "npm run browserify && npm run uglifyjs",
+    "babel": "babel src/ -d src5/",
+    "browserify": "browserify src/orb.js -d -s orb -t [babelify --sourceMapRelative ./dist] | exorcist dist/orb.js.map > dist/orb.js",
+    "uglifyjs": "uglifyjs dist/orb.js -o dist/orb.min.js --source-map dist/orb.min.js.map --source-map-url orb.min.js.map --in-source-map dist/orb.js.map --compress unused=false --mangle",
+    "build": "npm run babel && npm run browserify && npm run uglifyjs",
     "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
     "prepublish": "npm run build && npm run test"
   },
@@ -251,7 +252,7 @@ var orb = {
 
 module.exports = orb;
 
-},{"../package.json":2,"./common":4,"./constants":7,"./position":10,"./time":15,"./transformations":19,"./vector":24}],10:[function(require,module,exports){
+},{"../package.json":2,"./common":4,"./constants":7,"./position":10,"./time":16,"./transformations":20,"./vector":27}],10:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -260,15 +261,18 @@ var keplerian = _interopRequire(require("./keplerian"));
 
 var keplerEquation = _interopRequire(require("./keplerEquation"));
 
+var stateToKepler = _interopRequire(require("./stateToKepler"));
+
 var position = {
   keplerian: keplerian,
   simple: keplerian,
-  keplerEquation: keplerEquation
+  keplerEquation: keplerEquation,
+  stateToKepler: stateToKepler
 };
 
 module.exports = position;
 
-},{"./keplerEquation":11,"./keplerian":12}],11:[function(require,module,exports){
+},{"./keplerEquation":11,"./keplerian":12,"./stateToKepler":13}],11:[function(require,module,exports){
 "use strict";
 
 module.exports = keplerEquation;
@@ -341,17 +345,87 @@ function keplerian(a, e, i, Ω, ω, t, t0, _x, m1, m2) {
   var r = p / (1 + e * Math.cos(ν));
 
   // position in orbital plane
-  var x_o = [r * Math.cos(ν), r * Math.sin(ν), 0];
+  var xOrbitalPlane = [r * Math.cos(ν), r * Math.sin(ν), 0];
 
-  var xdot_o = [-Math.sqrt(GM / p) * Math.sin(ν), Math.sqrt(GM / p) * (e + Math.cos(ν)), 0];
+  var xDotOrbitalPlane = [-Math.sqrt(GM / p) * Math.sin(ν), Math.sqrt(GM / p) * (e + Math.cos(ν)), 0];
 
-  return [orbitalPlaneToInertial(x_o, Ω, ω, i), orbitalPlaneToInertial(xdot_o, Ω, ω, i)];
+  return [orbitalPlaneToInertial(xOrbitalPlane, Ω, ω, i), orbitalPlaneToInertial(xDotOrbitalPlane, Ω, ω, i)];
 }
 
-},{"../constants":7,"../transformations/orbitalPlaneToInertial":21,"./keplerEquation":11}],13:[function(require,module,exports){
+},{"../constants":7,"../transformations/orbitalPlaneToInertial":22,"./keplerEquation":11}],13:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+var _toConsumableArray = function (arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } };
+
+module.exports = stateToKepler;
+
+var vector = _interopRequire(require("../vector"));
+
+var constants = _interopRequire(require("../constants"));
+
+function stateToKepler(r, rDot, t, m1, m2) {
+
+  var GM;
+
+  if (m1 && m2) {
+    GM = constants.common.G * (m1 + m2);
+  } else if (m1) {
+    GM = constants.common.G * m1;
+  } else {
+    GM = constants.earth.GM;
+  }
+
+  var h = vector.cross(r, rDot);
+
+  var Ω = Math.atan2(h[0], -h[1]);
+
+  var i = Math.atan2(Math.hypot.apply(Math, _toConsumableArray(h.slice(0, 2))), h[2]);
+
+  var p = vector.dot(h, h) / GM;
+
+  var rLen = Math.hypot.apply(Math, _toConsumableArray(r));
+
+  var e = Math.sqrt(p / GM * Math.pow(vector.dot(r, rDot) / rLen, 2) + Math.pow(p / rLen - 1, 2));
+
+  var ν = Math.atan2(Math.sqrt(p / GM) * vector.dot(r, rDot), p - rLen);
+
+  var rb = vector.mm(vector.r(i, 1), vector.mm(vector.r(Ω, 3), r));
+
+  var ω = Math.atan2(rb[1], rb[0]) - ν;
+
+  var T0 = undefined,
+      a = undefined;
+
+  if (e < 1) {
+
+    a = p / (1 - Math.pow(e, 2));
+
+    var E = 2 * Math.atan(Math.sqrt((1 - e) / (1 + e)) * Math.tan(ν / 2));
+
+    T0 = t - Math.sqrt(Math.pow(a, 3) / GM) * (E - e * Math.sin(E));
+  } else if (e > 1) {
+
+    a = p / (Math.pow(e, 2) - 1);
+
+    var H = 2 * Math.atanh(Math.sqrt((1 - e) / (1 + e)) * Math.tan(ν / 2));
+
+    T0 = t + Math.sqrt(Math.pow(a, 3) / GM) * (H - e * Math.sinh(H));
+  } else if (e === 1) {
+
+    T0 = t - 0.5 * Math.sqrt(Math.pow(p, 3) / GM) * (Math.tan(ν / 2) + 1 / 3 * Math.pow(Math.tan(ν / 2), 3));
+  }
+
+  return [a || p, e, i, Ω, ω, T0];
+}
+
+},{"../constants":7,"../vector":27}],14:[function(require,module,exports){
+"use strict";
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+/*eslint-disable new-cap */
 
 // JD -> MJD [days]
 exports.JDtoMJD = JDtoMJD;
@@ -434,7 +508,9 @@ function GPStoUTC(gps) {
   return TAItoUTC(GPStoTAI(gps));
 }
 
-},{"../constants/time":8,"leapseconds":1}],14:[function(require,module,exports){
+/*eslint-enable new-cap */
+
+},{"../constants/time":8,"leapseconds":1}],15:[function(require,module,exports){
 /**
  * Converts a date to Julian Date
  *   Input and output are on the same continuous time scale.
@@ -484,7 +560,7 @@ function dateToJD(date) {
   return jd + h / 24;
 }
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 "use strict";
 
 var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
@@ -508,7 +584,7 @@ for (var key in conversions) {
 
 module.exports = time;
 
-},{"./conversions":13,"./dateToJD":14,"leapseconds":1}],16:[function(require,module,exports){
+},{"./conversions":14,"./dateToJD":15,"leapseconds":1}],17:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -548,7 +624,7 @@ function cartesianToEllipsoidal(x) {
   ];
 }
 
-},{"../constants/earth":6}],17:[function(require,module,exports){
+},{"../constants/earth":6}],18:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -612,7 +688,7 @@ function topocentricToFixed(x, obs, _x, _x2, nwu) {
   });
 }
 
-},{"../constants/earth":6,"../vector":24,"./geodetic":18}],18:[function(require,module,exports){
+},{"../constants/earth":6,"../vector":27,"./geodetic":19}],19:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -647,20 +723,21 @@ function cartesianToGeodetic(x) {
   var L = Math.atan2(x[1], x[0]),
       p = Math.hypot(x[0], x[1]);
 
-  var B_ = Math.atan2(x[2], p),
+  var Btmp = Math.atan2(x[2], p),
       N,
-      B;
+      B,
+      Ztmp;
 
   var i = 0;
   while (i < 100) {
-    N = a / Math.sqrt(1 - Math.pow(e * Math.sin(B_), 2));
-    var Z_ = x[2] + Math.pow(e, 2) * N * Math.sin(B_);
-    B = Math.atan2(Z_, p);
+    N = a / Math.sqrt(1 - Math.pow(e * Math.sin(Btmp), 2));
+    Ztmp = x[2] + Math.pow(e, 2) * N * Math.sin(Btmp);
+    B = Math.atan2(Ztmp, p);
 
-    if (Math.abs(B - B_) < 1e-15) {
+    if (Math.abs(B - Btmp) < 1e-15) {
       break;
     } else {
-      B_ = B;
+      Btmp = B;
     }
     i++;
   }
@@ -670,7 +747,7 @@ function cartesianToGeodetic(x) {
   return [L, B, h];
 }
 
-},{"../constants/earth":6}],19:[function(require,module,exports){
+},{"../constants/earth":6}],20:[function(require,module,exports){
 "use strict";
 
 var _spherical = require("./spherical");
@@ -717,7 +794,7 @@ var transformations = {
 
 module.exports = transformations;
 
-},{"./ellipsoidal":16,"./fixedToTopocentric":17,"./geodetic":18,"./inertialToFixed":20,"./orbitalPlaneToInertial":21,"./spherical":22,"./topocentricToHorizontal":23}],20:[function(require,module,exports){
+},{"./ellipsoidal":17,"./fixedToTopocentric":18,"./geodetic":19,"./inertialToFixed":21,"./orbitalPlaneToInertial":22,"./spherical":23,"./topocentricToHorizontal":24}],21:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -743,7 +820,7 @@ function fixedToInertial(x, Δt, ω, axis) {
   return inertialToFixed(x, Δt, -ω, axis);
 }
 
-},{"../constants/earth":6,"../vector":24}],21:[function(require,module,exports){
+},{"../constants/earth":6,"../vector":27}],22:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -760,7 +837,7 @@ function orbitalPlaneToInertial(x, Ω, ω, i) {
   return vector.mm(vector.r(-Ω, 3), vector.mm(vector.r(-i, 1), vector.mm(vector.r(-ω, 3), x)));
 }
 
-},{"../vector":24}],22:[function(require,module,exports){
+},{"../vector":27}],23:[function(require,module,exports){
 // x: [ λ, φ, r ]
 "use strict";
 
@@ -788,7 +865,7 @@ function cartesianToSpherical(x) {
   ];
 }
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * @param x = [x, y, z]
  * @return [azimuth, elevation, distance]
@@ -824,7 +901,39 @@ function horizontalToTopocentric(x) {
   ];
 }
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
+"use strict";
+
+module.exports = crossProduct;
+
+function crossProduct(u, v) {
+
+  if (u.length === 3 && v.length === 3) {
+
+    return [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+  } else {
+
+    throw new Error("unsupported vector sizes");
+  }
+}
+
+},{}],26:[function(require,module,exports){
+"use strict";
+
+module.exports = dotProduct;
+
+function dotProduct(u, v) {
+
+  if (u.length !== v.length) {
+    throw new Error("Vectors have different sizes");
+  }
+
+  return u.reduce(function (memo, ui, i) {
+    return memo + u[i] * v[i];
+  }, 0);
+}
+
+},{}],27:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -835,15 +944,21 @@ var mirrorMatrix = _interopRequire(require("./mirrorMatrix"));
 
 var rotationMatrix = _interopRequire(require("./rotationMatrix"));
 
+var crossProduct = _interopRequire(require("./crossProduct"));
+
+var dotProduct = _interopRequire(require("./dotProduct"));
+
 var vector = {
   matrixMultiplication: matrixMultiplication, mm: matrixMultiplication,
   mirrorMatrix: mirrorMatrix, q: mirrorMatrix,
-  rotationMatrix: rotationMatrix, r: rotationMatrix
+  rotationMatrix: rotationMatrix, r: rotationMatrix,
+  crossProduct: crossProduct, cross: crossProduct,
+  dotProduct: dotProduct, dot: dotProduct
 };
 
 module.exports = vector;
 
-},{"./matrixMultiplication":25,"./mirrorMatrix":26,"./rotationMatrix":27}],25:[function(require,module,exports){
+},{"./crossProduct":25,"./dotProduct":26,"./matrixMultiplication":28,"./mirrorMatrix":29,"./rotationMatrix":30}],28:[function(require,module,exports){
 "use strict";
 
 module.exports = matrixMultiplication;
@@ -861,7 +976,7 @@ function matrixMultiplication(m1, m2) {
   return null;
 }
 
-},{}],26:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 "use strict";
 
 module.exports = mirrorMatrix;
@@ -875,7 +990,7 @@ function mirrorMatrix(e) {
   return q;
 }
 
-},{}],27:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * rotationMatrix() returns a matrix for a coordinate system rotation
  * of α radians around axis e relative to the origin.

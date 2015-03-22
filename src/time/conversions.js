@@ -6,6 +6,8 @@
 import leapSeconds from 'leapseconds';
 import constants from '../constants/time';
 
+/*eslint-disable new-cap */
+
 // JD -> MJD [days]
 export function JDtoMJD (jd) {
   return jd + constants.MJDJD;
@@ -55,3 +57,5 @@ export function UTCtoGPS (utc) {
 export function GPStoUTC (gps) {
   return TAItoUTC( GPStoTAI(gps) );
 }
+
+/*eslint-enable new-cap */

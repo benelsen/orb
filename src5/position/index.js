@@ -6,10 +6,13 @@ var keplerian = _interopRequire(require("./keplerian"));
 
 var keplerEquation = _interopRequire(require("./keplerEquation"));
 
+var stateToKepler = _interopRequire(require("./stateToKepler"));
+
 var position = {
   keplerian: keplerian,
   simple: keplerian,
-  keplerEquation: keplerEquation
+  keplerEquation: keplerEquation,
+  stateToKepler: stateToKepler
 };
 
 module.exports = position;

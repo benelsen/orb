@@ -2,6 +2,8 @@
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
+/*eslint-disable new-cap */
+
 // JD -> MJD [days]
 exports.JDtoMJD = JDtoMJD;
 
@@ -82,3 +84,5 @@ function UTCtoGPS(utc) {
 function GPStoUTC(gps) {
   return TAItoUTC(GPStoTAI(gps));
 }
+
+/*eslint-enable new-cap */
