@@ -214,8 +214,8 @@ import orb from 'orbjs/src/orb';
 	* m2: mass of body 2 (optional, default: 0)
 - Output:
 	* [ x, xDot ]
-    * x: [x, y, z] Position in inertial CRS
-    * xDot: [vx, vy, vz] Velocity in inertial CRS
+		* x: [x, y, z] Position in inertial CRS
+		* xDot: [vx, vy, vz] Velocity in inertial CRS
 
 [#](src/position/stateToKepler.js#L5) orb.position.**stateToKepler**(x, xDot, t, m1, m2)
 
