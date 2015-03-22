@@ -72,6 +72,7 @@ module.exports={
     "leapseconds": "^1.1.1"
   },
   "devDependencies": {
+    "babel": "^4.7.16",
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
     "complexity-report": "^1.0.6",
@@ -131,8 +132,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var c = 299792458;
+
 exports.c = c;
-var G = 6.67428e-11;
+// CODATA2010, Uncertainty: (80)
+var G = 6.67384e-11;
 exports.G = G;
 
 },{}],6:[function(require,module,exports){
