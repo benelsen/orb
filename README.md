@@ -20,16 +20,16 @@ npm install orbjs
 var orb = require('orbjs');
 ```
 
-### ES6
-
-```javascript
-import orb from 'orbjs/src/orb';
-```
-
 ### ES5 - Browser
 
 ```html
 <script src="dist/orb.min.js"></script>
+```
+
+### ES6
+
+```javascript
+import orb from 'orbjs/src/orb';
 ```
 
 ## API
@@ -213,7 +213,27 @@ import orb from 'orbjs/src/orb';
 	* m1: mass of body 1 (optional, default: GM = orb.constants.earth.GM)
 	* m2: mass of body 2 (optional, default: 0)
 - Output:
-	* [ [x, y, z], [vx, vy, vz] ] Position and velocity in inertial CRS
+	* [ x, xDot ]
+    * x: [x, y, z] Position in inertial CRS
+    * xDot: [vx, vy, vz] Velocity in inertial CRS
+
+[#](src/position/stateToKepler.js#L5) orb.position.**stateToKepler**(x, xDot, t, m1, m2)
+
+- Input:
+  * x: [x, y, z] Position in inertial CRS
+  * xDot: [vx, vy, vz] Velocity in inertial CRS
+  * t: time t
+  * m1: mass of body 1 (optional, default: GM = orb.constants.earth.GM)
+  * m2: mass of body 2 (optional, default: 0)
+- Output:
+  * [a, e, i, Ω, ω, T0]
+    * a: semimajor-axis of orbit (or focal parameter for e = 1)
+    * e: eccentricity
+    * i: inclination
+    * Ω: right ascension of the ascending node
+    * ω: argument of periapsis
+    * T0: time of perihelion passage
+
 
 ### orb.vector
 Common vector and matrix operations, these are only included to make dependencies unnecessary.
