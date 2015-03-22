@@ -1,13 +1,15 @@
 
-var orb = {
-  version: require('../package.json').version
+import {version} from '../package.json';
+
+import common from './common';
+import constants from './constants';
+import time from './time';
+import vector from './vector';
+import transformations from './transformations';
+import position from './position';
+
+const orb = {
+  version, common, constants, time, vector, v: vector, transformations, position
 };
 
-orb.common = require('./common').common;
-orb.constants = require('./constants').constants;
-orb.time = require('./time').time;
-orb.vector = orb.v = require('./vector').vector;
-orb.transformations = require('./transformations').transformations;
-orb.position = require('./position').position;
-
-module.exports = orb;
+export default orb;

@@ -7,14 +7,36 @@ orb offers a few simple methods for several common problems of orbital mechanics
 
 ## Installation
 
-	npm install orbjs
+```sh
+npm install orbjs
+```
+
+## Usage
+
+### ES5 - CommonJS
+
+```javascript
+var orb = require('orbjs');
+```
+
+### ES6
+
+```javascript
+import orb from 'orbjs/src/orb';
+```
+
+### ES5 - Browser
+
+```html
+<script src="dist/orb.min.js"></script>
+```
 
 ## API
 
 ### orb.constants
-[#](src/constants/common.js#L1) orb.constants.common
+[#](src/constants/common.js) orb.constants.common
 
-[#](src/constants/time.js#L8) orb.constants.time
+[#](src/constants/time.js) orb.constants.time
 
 [#](src/constants/earth.js#L4) orb.constants.earth
 
@@ -23,34 +45,34 @@ orb offers a few simple methods for several common problems of orbital mechanics
 [#](src/constants/earth.js#L29) orb.constants.earth.grs80
 
 ### orb.common
-[#](src/common/angular.js#L3) orb.common.**deg2rad**(deg) Converts degree to radian
+[#](src/common/angular.js#L2) orb.common.**deg2rad**(deg) Converts degree to radian
 
-[#](src/common/angular.js#L7) orb.common.**rad2deg**(rad) Converts radian to degree
+[#](src/common/angular.js#L6) orb.common.**rad2deg**(rad) Converts radian to degree
 
 ### orb.time
-[#](src/time/conversions.js#L11) orb.time.**JDtoMJD**(jd) JD to MJD [days]
+[#](src/time/conversions.js#L10) orb.time.**JDtoMJD**(jd) JD to MJD [days]
 
 [#](src/time/conversions.js#L15) orb.time.**MJDtoJD**(mjd) MJD to JD [days]
 
-[#](src/time/conversions.js#L21) orb.time.**TAItoTT**(tai) TAI to TT
+[#](src/time/conversions.js#L20) orb.time.**TAItoTT**(tai) TAI to TT
 
-[#](src/time/conversions.js#L26) orb.time.**TTtoTAI**(tt) TT to TAI
+[#](src/time/conversions.js#L25) orb.time.**TTtoTAI**(tt) TT to TAI
 
-[#](src/time/conversions.js#L31) orb.time.**TAItoUTC**(tai) TAI to UTC
+[#](src/time/conversions.js#L30) orb.time.**TAItoUTC**(tai) TAI to UTC
 
 [#](src/time/conversions.js#L36) orb.time.**UTCtoTAI**(utc) UTC to TAI
 
-[#](src/time/conversions.js#L41) orb.time.**TAItoGPS**(tai) TAI to GPS
+[#](src/time/conversions.js#L40) orb.time.**TAItoGPS**(tai) TAI to GPS
 
-[#](src/time/conversions.js#L46) orb.time.**GPStoTAI**(gps) GPS to TAI
+[#](src/time/conversions.js#L45) orb.time.**GPStoTAI**(gps) GPS to TAI
 
-[#](src/time/conversions.js#L51) orb.time.**UTCtoGPS**(utc) UTC to GPS
+[#](src/time/conversions.js#L50) orb.time.**UTCtoGPS**(utc) UTC to GPS
 
-[#](src/time/conversions.js#L56) orb.time.**GPStoUTC**(gps) GPS to UTC
+[#](src/time/conversions.js#L55) orb.time.**GPStoUTC**(gps) GPS to UTC
 
-[#](src/time/leapSeconds.js#L29) orb.time.**leapSeconds**(date) Amount of leap seconds that occurred before `date`. `date` is a JS Date object.
+[#](src/time/index.js#L2) orb.time.**leapSeconds**(date) Amount of leap seconds that occurred before `date`. `date` is a JS Date object.
 
-[#](src/time/dateToJD.js#L2) orb.time.**dateToJD**(date) Convert a date to Julian Date. `date` is either a Date object, or an array of the form [y, m, d, h, m, s].
+[#](src/time/dateToJD.js#L13) orb.time.**dateToJD**(date) Convert a date to Julian Date. `date` is either a Date object, or an array of the form [y, m, d, h, m, s].
 
 ### orb.transformations
 [#](src/transformations/spherical.js#L2) orb.transformations.**sphericalToCartesian**(x)
@@ -76,7 +98,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 - Output:
 	* x: [x, y, z] Cartesian
 
-[#](src/transformations/ellipsoidal.js#L21) orb.transformations.**cartesianToEllipsoidal**(x, a, e)
+[#](src/transformations/ellipsoidal.js#L17) orb.transformations.**cartesianToEllipsoidal**(x, a, e)
 
 - Input:
 	* x: [x, y, z] Cartesian
@@ -94,7 +116,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 - Output:
 	* x: [x, y, z] Cartesian
 
-[#](src/transformations/geodetic.js#L21) orb.transformations.**cartesianToGeodetic**(x, a, e)
+[#](src/transformations/geodetic.js#L17) orb.transformations.**cartesianToGeodetic**(x, a, e)
 
 - Input:
 	* x: [x, y, z] Cartesian
@@ -123,7 +145,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 - Output:
 	* x: [x, y, z] Fixed
 
-[#](src/transformations/inertialToFixed.js#L12) orb.transformations.**fixedToInertial**(x, Δt, ω, axis)
+[#](src/transformations/inertialToFixed.js#L8) orb.transformations.**fixedToInertial**(x, Δt, ω, axis)
 
 - Input:
 	* x: [x, y, z] Fixed
@@ -143,7 +165,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 - Output:
 	* x: [x, y, z] Topocentric
 
-[#](src/transformations/fixedToTopocentric.js#L40) orb.transformations.**topocentricToFixed**(x, obs, a, e, nwu)
+[#](src/transformations/fixedToTopocentric.js#L37) orb.transformations.**topocentricToFixed**(x, obs, a, e, nwu)
 
 - Input:
 	* x: [x, y, z] Topocentric
@@ -168,7 +190,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 	* x: [x, y, z] Topocentric
 
 ### orb.position
-[#](src/position/keplerEquation.js#L1) orb.position.**keplerEquation**(e, M)
+[#](src/position/keplerEquation.js#L2) orb.position.**keplerEquation**(e, M)
 
 - Input:
 	* e: eccentricity
@@ -176,7 +198,7 @@ orb offers a few simple methods for several common problems of orbital mechanics
 - Output:
 	* ν: true anomaly
 
-[#](src/position/simple.js#L5) orb.position.**simple**(a, e, i, Ω, ω, t, t0, M0, m1, m2)
+[#](src/position/keplerian.js#L6) orb.position.**keplerian**(a, e, i, Ω, ω, t, t0, M0, m1, m2)
 
 - Input:
 	* a: semimajor-axis of orbit
@@ -195,10 +217,6 @@ orb offers a few simple methods for several common problems of orbital mechanics
 ### orb.vector
 Common vector and matrix operations, these are only included to make dependencies unnecessary.
 Don’t use these, there are a lot of better, more comprehensive and well tested libraries to do this.
-
-## TODO
-
-See [#1](https://github.com/benelsen/orb/issues/1)
 
 ## License
 

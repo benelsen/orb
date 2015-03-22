@@ -1,7 +1,10 @@
-var constants = {};
 
-constants.common = require('./common').common;
-constants.earth = require('./earth').earth;
-constants.time = require('./time').time;
+import * as common from './common';
+import earth from './earth';
+import time from './time';
 
-exports.constants = constants;
+const constants = {
+  common, earth, time
+};
+
+export default constants;

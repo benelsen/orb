@@ -8,22 +8,23 @@
           <Integer> e {1,2,3}
  * @return <[Number]> // 3x3 matrix represented as Array with 9 elements
  */
-var rotationMatrix = function(α, e) {
 
-  α = α % ( 2*Math.PI );
+export default function rotationMatrix (α, e) {
+
+  α = α % ( 2 * Math.PI );
 
   var cosα, sinα;
 
   if ( α === 0 ) {
     cosα = 1;
     sinα = 0;
-  } else if ( α === Math.PI/2 || α === -3/2*Math.PI ) {
+  } else if ( α === Math.PI / 2 || α === -3 / 2 * Math.PI ) {
     cosα = 0;
     sinα = 1;
   } else if ( α === Math.PI || α === -Math.PI ) {
     cosα = -1;
     sinα = 0;
-  } else if ( α === 3/2*Math.PI || α === -Math.PI/2 ) {
+  } else if ( α === 3 / 2 * Math.PI || α === -Math.PI / 2 ) {
     cosα = 0;
     sinα = -1;
   } else {
@@ -57,6 +58,4 @@ var rotationMatrix = function(α, e) {
       throw new Error('rotation axis has to be 1, 2 or 3');
 
   }
-};
-
-exports.rotationMatrix = rotationMatrix;
+}

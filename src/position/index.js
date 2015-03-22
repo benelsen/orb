@@ -1,6 +1,11 @@
-var position = {};
 
-position.simple = require('./simple').simple;
-position.keplerEquation = require('./keplerEquation').keplerEquation;
+import keplerian from './keplerian';
+import keplerEquation from './keplerEquation';
 
-exports.position = position;
+const position = {
+  keplerian,
+  simple: keplerian,
+  keplerEquation
+};
+
+export default position;

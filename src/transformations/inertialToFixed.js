@@ -1,17 +1,10 @@
-var earthConstants = require('../constants/earth').earth,
-    vector = require('../vector').vector;
+import earthConstants from '../constants/earth';
+import vector from '../vector';
 
-var inertialToFixed = function(x, Δt, ω, axis) {
-
-  if ( !axis ) axis = 3;
-  if ( !ω ) ω = earthConstants.ω;
-
+export function inertialToFixed (x, Δt, ω=earthConstants.ω, axis=3) {
   return vector.mm( vector.r( ω * Δt, 3), x );
-};
+}
 
-var fixedToInertial = function(x, Δt, ω, axis) {
+export function fixedToInertial (x, Δt, ω, axis) {
   return inertialToFixed( x, Δt, -ω, axis );
-};
-
-exports.inertialToFixed = inertialToFixed;
-exports.fixedToInertial = fixedToInertial;
+}

@@ -1,6 +1,6 @@
 {
   "name": "orbjs",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
     "orbit",
@@ -21,16 +21,22 @@
     "leapseconds": "^1.1.1"
   },
   "devDependencies": {
-    "browserify": "^6.3.3",
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
     "complexity-report": "^1.0.6",
-    "jshint": "^2.5.10",
+    "eslint": "^0.17.1",
+    "exorcist": "^0.1.6",
     "mocha": "^2.0.1",
     "should": "^4.3.0",
     "uglify-js": "^2.4.15"
   },
   "scripts": {
+    "lint": "eslint src/",
+    "browserify": "browserify src/orb.js -d -s orb -t [babelify --experimental --sourceMapRelative ./dist] | exorcist dist/orb.js.map > dist/orb.js",
+    "uglifyjs": "uglifyjs dist/orb.js -o dist/orb.min.js --source-map dist/orb.min.js.map --source-map-url orb.min.js.map --in-source-map dist/orb.js.map",
+    "build": "npm run browserify && npm run uglifyjs",
     "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
-    "prepublish": "make build test jshint -B"
+    "prepublish": "npm run build && npm run test"
   },
   "license": "MIT"
 }

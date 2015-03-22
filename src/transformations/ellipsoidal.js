@@ -1,13 +1,9 @@
+import earthConstants from '../constants/earth';
+
 // x: [ L, β ]
-var earthConstants = require('../constants/earth').earth;
+export function ellipsoidalToCartesian (x, a=earthConstants.a, e=earthConstants.e) {
 
-var ellipsoidalToCartesian = function(x, a, e) {
-  if ( a === undefined || e === undefined ) {
-    a = earthConstants.a;
-    e = earthConstants.e;
-  }
-
-  var b = Math.sqrt( a*a * (1-e*e));
+  var b = Math.sqrt( Math.pow(a, 2) * (1 - Math.pow(e, 2)) );
 
   return [
     a * Math.cos(x[1]) * Math.cos(x[0]), // x
@@ -15,24 +11,17 @@ var ellipsoidalToCartesian = function(x, a, e) {
     b * Math.sin(x[1])                   // z
   ];
 
-};
+}
 
 // x: [ x, y, z ]
-var cartesianToEllipsoidal = function(x, a, e) {
-  if ( a === undefined || e === undefined ) {
-    a = earthConstants.a;
-    e = earthConstants.e;
-  }
+export function cartesianToEllipsoidal (x, a=earthConstants.a, e=earthConstants.e) {
 
-  var p = Math.sqrt( x[0]*x[0] + x[1]*x[1] ),
-      b = Math.sqrt( a*a * (1-e*e));
+  var p = Math.hypot( x[0], x[1] ),
+      b = Math.sqrt( Math.pow(a, 2) * (1 - Math.pow(e, 2)) );
 
   return [
     Math.atan2( x[1], x[0] ), // L
-    Math.atan2( x[2]*a, p*b ) // β
+    Math.atan2( x[2] * a, p * b ) // β
   ];
 
-};
-
-exports.ellipsoidalToCartesian = ellipsoidalToCartesian;
-exports.cartesianToEllipsoidal = cartesianToEllipsoidal;
+}

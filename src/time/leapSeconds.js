@@ -1,2 +1,0 @@
-
-exports.leapSeconds = require('leapseconds');

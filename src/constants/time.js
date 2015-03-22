@@ -5,7 +5,7 @@
  * Naming convention: T1T2 = T1 - T2
  */
 
-var time = {
+const time = {
 
   // MJD = JD - 2400000.5 days
   MJDJD  : -2400000.5, // days
@@ -25,4 +25,4 @@ var time = {
   TAIGPS : +19.000
 };
 
-exports.time = time;
+export default time;

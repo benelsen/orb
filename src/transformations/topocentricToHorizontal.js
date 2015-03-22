@@ -2,9 +2,9 @@
  * @param x = [x, y, z]
  * @return [azimuth, elevation, distance]
  */
-var topocentricToHorizontal = function(x) {
+export function topocentricToHorizontal (x) {
 
-  var azimuth = ( 2*Math.PI + Math.atan2( x[1], x[0] ) ) % (2*Math.PI);
+  let azimuth = ( 2 * Math.PI + Math.atan2( x[1], x[0] ) ) % (2 * Math.PI);
 
   return [
     azimuth, // Azimuth
@@ -12,13 +12,13 @@ var topocentricToHorizontal = function(x) {
     Math.sqrt( Math.pow(x[0], 2) + Math.pow(x[1], 2) + Math.pow(x[2], 2) ) // Distance
   ];
 
-};
+}
 
 /**
  * @param x = [azimuth, elevation, distance]
  * @return [x, y, z]
  */
-var horizontalToTopocentric = function(x) {
+export function horizontalToTopocentric (x) {
 
   return [
     x[2] * Math.cos( x[1] ) * Math.cos( x[0] ), // x
@@ -26,7 +26,4 @@ var horizontalToTopocentric = function(x) {
     x[2] * Math.sin( x[1] )                     // z
   ];
 
-};
-
-exports.topocentricToHorizontal = topocentricToHorizontal;
-exports.horizontalToTopocentric = horizontalToTopocentric;
+}

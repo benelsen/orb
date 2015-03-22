@@ -3,59 +3,55 @@
  * All time values are in seconds unless specified
  */
 
-var timeConstants = require('../constants/time').time,
-    leapSeconds = require('./leapSeconds').leapSeconds;
-
-var conversions = {};
+import leapSeconds from 'leapseconds';
+import constants from '../constants/time';
 
 // JD -> MJD [days]
-conversions.JDtoMJD = function(jd) {
-  return jd + timeConstants.MJDJD;
-};
+export function JDtoMJD (jd) {
+  return jd + constants.MJDJD;
+}
 
 // MJD -> JD [days]
-conversions.MJDtoJD = function(mjd) {
-  return mjd - timeConstants.MJDJD;
-};
+export function MJDtoJD (mjd) {
+  return mjd - constants.MJDJD;
+}
 
 // TAI -> TT
-conversions.TAItoTT = function(tai) {
-  return tai + timeConstants.TTTAI;
-};
+export function TAItoTT (tai) {
+  return tai + constants.TTTAI;
+}
 
 // TT -> TAI
-conversions.TTtoTAI = function(tt) {
-  return tt - timeConstants.TTTAI;
-};
+export function TTtoTAI (tt) {
+  return tt - constants.TTTAI;
+}
 
 // TAI -> UTC
-conversions.TAItoUTC = function(tai) {
-  return tai - leapSeconds(new Date( tai*1e3 ));
-};
+export function TAItoUTC (tai) {
+  return tai - leapSeconds(new Date( tai * 1e3 ));
+}
 
 // UTC -> TAI
-conversions.UTCtoTAI = function(utc) {
-  return utc + leapSeconds(new Date( utc*1e3 ));
-};
+export function UTCtoTAI (utc) {
+  return utc + leapSeconds(new Date( utc * 1e3 ));
+}
 
 // TAI -> GPS
-conversions.TAItoGPS = function(tai) {
-  return tai - timeConstants.TAIGPS;
-};
+export function TAItoGPS (tai) {
+  return tai - constants.TAIGPS;
+}
 
 // GPS -> TAI
-conversions.GPStoTAI = function(gps) {
-  return gps + timeConstants.TAIGPS;
-};
+export function GPStoTAI (gps) {
+  return gps + constants.TAIGPS;
+}
 
 // UTC -> GPS
-conversions.UTCtoGPS = function(utc) {
-  return conversions.TAItoGPS( conversions.UTCtoTAI(utc) );
-};
+export function UTCtoGPS (utc) {
+  return TAItoGPS( UTCtoTAI(utc) );
+}
 
 // GPS -> UTC
-conversions.GPStoUTC = function(gps) {
-  return conversions.TAItoUTC( conversions.GPStoTAI(gps) );
-};
-
-exports.conversions = conversions;
+export function GPStoUTC (gps) {
+  return TAItoUTC( GPStoTAI(gps) );
+}
