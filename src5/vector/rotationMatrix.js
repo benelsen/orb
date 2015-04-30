@@ -1,3 +1,8 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 /**
  * rotationMatrix() returns a matrix for a coordinate system rotation
  * of α radians around axis e relative to the origin.
@@ -9,9 +14,7 @@
  * @return <[Number]> // 3x3 matrix represented as Array with 9 elements
  */
 
-"use strict";
-
-module.exports = rotationMatrix;
+exports['default'] = rotationMatrix;
 
 function rotationMatrix(α, e) {
 
@@ -47,7 +50,9 @@ function rotationMatrix(α, e) {
       return [cosα, sinα, 0, -sinα, cosα, 0, 0, 0, 1];
 
     default:
-      throw new Error("rotation axis has to be 1, 2 or 3");
+      throw new Error('rotation axis has to be 1, 2 or 3');
 
   }
 }
+
+module.exports = exports['default'];

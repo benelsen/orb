@@ -1,22 +1,33 @@
-"use strict";
+'use strict';
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-var leapSeconds = _interopRequire(require("leapseconds"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var conversions = _interopRequireWildcard(require("./conversions"));
+var _leapseconds = require('leapseconds');
 
-var dateToJD = _interopRequire(require("./dateToJD"));
+var _leapseconds2 = _interopRequireDefault(_leapseconds);
+
+var _conversions = require('./conversions');
+
+var conversions = _interopRequireWildcard(_conversions);
+
+var _dateToJD = require('./dateToJD');
+
+var _dateToJD2 = _interopRequireDefault(_dateToJD);
 
 var time = {
-  leapSeconds: leapSeconds,
-  dateToJD: dateToJD
+  leapSeconds: _leapseconds2['default'],
+  dateToJD: _dateToJD2['default']
 };
 
 for (var key in conversions) {
   time[key] = conversions[key];
 }
 
-module.exports = time;
+exports['default'] = time;
+module.exports = exports['default'];

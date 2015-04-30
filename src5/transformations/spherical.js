@@ -1,13 +1,13 @@
-// x: [ λ, φ, r ]
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// x: [ λ, φ, r ]
 exports.sphericalToCartesian = sphericalToCartesian;
 
 // x: [ x, y, z ]
 exports.cartesianToSpherical = cartesianToSpherical;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 function sphericalToCartesian(x) {
 

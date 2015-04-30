@@ -1,12 +1,14 @@
-"use strict";
+'use strict';
 
-var _angular = require("./angular");
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var deg2rad = _angular.deg2rad;
-var rad2deg = _angular.rad2deg;
+var _angular = require('./angular');
 
 var common = {
-  deg2rad: deg2rad, rad2deg: rad2deg
+  deg2rad: _angular.deg2rad, rad2deg: _angular.rad2deg
 };
 
-module.exports = common;
+exports['default'] = common;
+module.exports = exports['default'];

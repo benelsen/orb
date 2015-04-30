@@ -49,59 +49,13 @@ module.exports = function leapSeconds(date) {
 };
 
 },{}],2:[function(require,module,exports){
-module.exports={
-  "name": "orbjs",
-  "version": "1.0.0",
-  "description": "orb offers a few simple methods for several common problems of orbital mechanics",
-  "keywords": [
-    "orbit",
-    "orbital mechanics",
-    "orbit determination"
-  ],
-  "homepage": "https://github.com/benelsen/orb",
-  "author": {
-    "name": "Ben Elsen",
-    "url": "http://benelsen.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/benelsen/orb.git"
-  },
-  "main": "index.js",
-  "dependencies": {
-    "leapseconds": "^1.1.1"
-  },
-  "devDependencies": {
-    "babel": "^4.7.16",
-    "babelify": "^5.0.4",
-    "browserify": "^9.0.3",
-    "complexity-report": "^1.0.6",
-    "eslint": "^0.17.1",
-    "exorcist": "^0.1.6",
-    "mocha": "^2.0.1",
-    "should": "^4.3.0",
-    "uglify-js": "^2.4.15"
-  },
-  "scripts": {
-    "lint": "eslint src/",
-    "babel": "babel src/ -d src5/",
-    "browserify": "browserify src/orb.js -d -s orb -t [babelify --sourceMapRelative ./dist] | exorcist dist/orb.js.map > dist/orb.js",
-    "uglifyjs": "uglifyjs dist/orb.js -o dist/orb.min.js --source-map dist/orb.min.js.map --source-map-url orb.min.js.map --in-source-map dist/orb.js.map --compress unused=false --mangle",
-    "build": "npm run babel && npm run browserify && npm run uglifyjs",
-    "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
-    "prepublish": "npm run build && npm run test"
-  },
-  "license": "MIT"
-}
-
-},{}],3:[function(require,module,exports){
 "use strict";
 
-exports.deg2rad = deg2rad;
-exports.rad2deg = rad2deg;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.deg2rad = deg2rad;
+exports.rad2deg = rad2deg;
 
 function deg2rad(deg) {
   return deg * Math.PI / 180;
@@ -111,21 +65,23 @@ function rad2deg(rad) {
   return rad * 180 / Math.PI;
 }
 
-},{}],4:[function(require,module,exports){
-"use strict";
+},{}],3:[function(require,module,exports){
+'use strict';
 
-var _angular = require("./angular");
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var deg2rad = _angular.deg2rad;
-var rad2deg = _angular.rad2deg;
+var _deg2rad$rad2deg = require('./angular');
 
 var common = {
-  deg2rad: deg2rad, rad2deg: rad2deg
+  deg2rad: _deg2rad$rad2deg.deg2rad, rad2deg: _deg2rad$rad2deg.rad2deg
 };
 
-module.exports = common;
+exports['default'] = common;
+module.exports = exports['default'];
 
-},{"./angular":3}],5:[function(require,module,exports){
+},{"./angular":2}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -138,11 +94,14 @@ exports.c = c;
 var G = 6.67384e-11;
 exports.G = G;
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 // IERS numerical standards
 // (as per Technical Note No.36 Table 1.1)
-
-"use strict";
 
 var earth = {
   a: 6378136.6, // Equatorial radius
@@ -177,36 +136,51 @@ earth.wgs84 = {
   e2: 0.0066943799901413165
 };
 
-module.exports = earth;
+exports["default"] = earth;
+module.exports = exports["default"];
 
-},{}],7:[function(require,module,exports){
-"use strict";
+},{}],6:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+var _interopRequireWildcard = function (obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (typeof obj === 'object' && obj !== null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } };
 
-var common = _interopRequireWildcard(require("./common"));
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var earth = _interopRequire(require("./earth"));
+var _import = require('./common');
 
-var time = _interopRequire(require("./time"));
+var common = _interopRequireWildcard(_import);
+
+var _earth = require('./earth');
+
+var _earth2 = _interopRequireDefault(_earth);
+
+var _time = require('./time');
+
+var _time2 = _interopRequireDefault(_time);
 
 var constants = {
-  common: common, earth: earth, time: time
+  common: common, earth: _earth2['default'], time: _time2['default']
 };
 
-module.exports = constants;
+exports['default'] = constants;
+module.exports = exports['default'];
 
-},{"./common":5,"./earth":6,"./time":8}],8:[function(require,module,exports){
+},{"./common":4,"./earth":5,"./time":7}],7:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * TIME
  * ====
  * All values in milliseconds unless specified
  * Naming convention: T1T2 = T1 - T2
  */
-
-"use strict";
 
 var time = {
 
@@ -228,57 +202,47 @@ var time = {
   TAIGPS: +19
 };
 
-module.exports = time;
+exports["default"] = time;
+module.exports = exports["default"];
 
-},{}],9:[function(require,module,exports){
-"use strict";
+},{}],8:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var version = require("../package.json").version;
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var common = _interopRequire(require("./common"));
+var _keplerian = require('./keplerian');
 
-var constants = _interopRequire(require("./constants"));
+var _keplerian2 = _interopRequireDefault(_keplerian);
 
-var time = _interopRequire(require("./time"));
+var _keplerEquation = require('./keplerEquation');
 
-var vector = _interopRequire(require("./vector"));
+var _keplerEquation2 = _interopRequireDefault(_keplerEquation);
 
-var transformations = _interopRequire(require("./transformations"));
+var _stateToKepler = require('./stateToKepler');
 
-var position = _interopRequire(require("./position"));
-
-var orb = {
-  version: version, common: common, constants: constants, time: time, vector: vector, v: vector, transformations: transformations, position: position
-};
-
-module.exports = orb;
-
-},{"../package.json":2,"./common":4,"./constants":7,"./position":10,"./time":16,"./transformations":20,"./vector":27}],10:[function(require,module,exports){
-"use strict";
-
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-var keplerian = _interopRequire(require("./keplerian"));
-
-var keplerEquation = _interopRequire(require("./keplerEquation"));
-
-var stateToKepler = _interopRequire(require("./stateToKepler"));
+var _stateToKepler2 = _interopRequireDefault(_stateToKepler);
 
 var position = {
-  keplerian: keplerian,
-  simple: keplerian,
-  keplerEquation: keplerEquation,
-  stateToKepler: stateToKepler
+  keplerian: _keplerian2['default'],
+  simple: _keplerian2['default'],
+  keplerEquation: _keplerEquation2['default'],
+  stateToKepler: _stateToKepler2['default']
 };
 
-module.exports = position;
+exports['default'] = position;
+module.exports = exports['default'];
 
-},{"./keplerEquation":11,"./keplerian":12,"./stateToKepler":13}],11:[function(require,module,exports){
+},{"./keplerEquation":9,"./keplerian":10,"./stateToKepler":11}],9:[function(require,module,exports){
 "use strict";
 
-module.exports = keplerEquation;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = keplerEquation;
 
 function keplerEquation(e, M) {
   var ε = arguments[2] === undefined ? 1e-18 : arguments[2];
@@ -303,30 +267,39 @@ function keplerEquation(e, M) {
   return E;
 }
 
-},{}],12:[function(require,module,exports){
-"use strict";
+module.exports = exports["default"];
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+},{}],10:[function(require,module,exports){
+'use strict';
 
-module.exports = keplerian;
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var constants = _interopRequire(require("../constants"));
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = keplerian;
 
-var keplerEquation = _interopRequire(require("./keplerEquation"));
+var _constants = require('../constants');
 
-var orbitalPlaneToInertial = require("../transformations/orbitalPlaneToInertial").orbitalPlaneToInertial;
+var _constants2 = _interopRequireDefault(_constants);
+
+var _keplerEquation = require('./keplerEquation');
+
+var _keplerEquation2 = _interopRequireDefault(_keplerEquation);
+
+var _orbitalPlaneToInertial = require('../transformations/orbitalPlaneToInertial');
 
 function keplerian(a, e, i, Ω, ω, t, t0, _x, m1, m2) {
   var M0 = arguments[7] === undefined ? 0 : arguments[7];
 
-  var GM = constants.earth.GM;
+  var GM = _constants2['default'].earth.GM;
 
   if (m1) {
-    GM = constants.common.G * m1;
+    GM = _constants2['default'].common.G * m1;
   }
 
   if (m2) {
-    GM = constants.common.G * (m1 + m2);
+    GM = _constants2['default'].common.G * (m1 + m2);
   }
 
   var p = a * (1 - Math.pow(e, 2));
@@ -338,7 +311,7 @@ function keplerian(a, e, i, Ω, ω, t, t0, _x, m1, m2) {
   var M = M0 + n * (t - t0);
 
   // Eccentric anomaly
-  var E = keplerEquation(e, M);
+  var E = _keplerEquation2['default'](e, M);
 
   // True anomaly
   var ν = 2 * Math.atan(Math.sqrt((1 + e) / (1 - e)) * Math.tan(E / 2));
@@ -352,49 +325,58 @@ function keplerian(a, e, i, Ω, ω, t, t0, _x, m1, m2) {
 
   var xDotOrbitalPlane = [-Math.sqrt(GM / p) * Math.sin(ν), Math.sqrt(GM / p) * (e + Math.cos(ν)), 0];
 
-  return [orbitalPlaneToInertial(xOrbitalPlane, Ω, ω, i), orbitalPlaneToInertial(xDotOrbitalPlane, Ω, ω, i)];
+  return [_orbitalPlaneToInertial.orbitalPlaneToInertial(xOrbitalPlane, Ω, ω, i), _orbitalPlaneToInertial.orbitalPlaneToInertial(xDotOrbitalPlane, Ω, ω, i)];
 }
 
-},{"../constants":7,"../transformations/orbitalPlaneToInertial":22,"./keplerEquation":11}],13:[function(require,module,exports){
-"use strict";
+module.exports = exports['default'];
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+},{"../constants":6,"../transformations/orbitalPlaneToInertial":20,"./keplerEquation":9}],11:[function(require,module,exports){
+'use strict';
+
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
 var _toConsumableArray = function (arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } };
 
-module.exports = stateToKepler;
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = stateToKepler;
 
-var vector = _interopRequire(require("../vector"));
+var _vector = require('../vector');
 
-var constants = _interopRequire(require("../constants"));
+var _vector2 = _interopRequireDefault(_vector);
+
+var _constants = require('../constants');
+
+var _constants2 = _interopRequireDefault(_constants);
 
 function stateToKepler(r, rDot, t, m1, m2) {
 
   var GM;
 
   if (m1 && m2) {
-    GM = constants.common.G * (m1 + m2);
+    GM = _constants2['default'].common.G * (m1 + m2);
   } else if (m1) {
-    GM = constants.common.G * m1;
+    GM = _constants2['default'].common.G * m1;
   } else {
-    GM = constants.earth.GM;
+    GM = _constants2['default'].earth.GM;
   }
 
-  var h = vector.cross(r, rDot);
+  var h = _vector2['default'].cross(r, rDot);
 
   var Ω = Math.atan2(h[0], -h[1]);
 
   var i = Math.atan2(Math.hypot.apply(Math, _toConsumableArray(h.slice(0, 2))), h[2]);
 
-  var p = vector.dot(h, h) / GM;
+  var p = _vector2['default'].dot(h, h) / GM;
 
   var rLen = Math.hypot.apply(Math, _toConsumableArray(r));
 
-  var e = Math.sqrt(p / GM * Math.pow(vector.dot(r, rDot) / rLen, 2) + Math.pow(p / rLen - 1, 2));
+  var e = Math.sqrt(p / GM * Math.pow(_vector2['default'].dot(r, rDot) / rLen, 2) + Math.pow(p / rLen - 1, 2));
 
-  var ν = Math.atan2(Math.sqrt(p / GM) * vector.dot(r, rDot), p - rLen);
+  var ν = Math.atan2(Math.sqrt(p / GM) * _vector2['default'].dot(r, rDot), p - rLen);
 
-  var rb = vector.mm(vector.r(i, 1), vector.mm(vector.r(Ω, 3), r));
+  var rb = _vector2['default'].mm(_vector2['default'].r(i, 1), _vector2['default'].mm(_vector2['default'].r(Ω, 3), r));
 
   var ω = Math.atan2(rb[1], rb[0]) - ν;
 
@@ -423,10 +405,16 @@ function stateToKepler(r, rDot, t, m1, m2) {
   return [a || p, e, i, Ω, ω, T0];
 }
 
-},{"../constants":7,"../vector":27}],14:[function(require,module,exports){
-"use strict";
+module.exports = exports['default'];
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+},{"../constants":6,"../vector":25}],12:[function(require,module,exports){
+'use strict';
+
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 /*eslint-disable new-cap */
 
@@ -459,48 +447,49 @@ exports.UTCtoGPS = UTCtoGPS;
 
 // GPS -> UTC
 exports.GPStoUTC = GPStoUTC;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 /**
  * Common conversions between time standards
  * All time values are in seconds unless specified
  */
 
-var leapSeconds = _interopRequire(require("leapseconds"));
+var _leapSeconds = require('leapseconds');
 
-var constants = _interopRequire(require("../constants/time"));
+var _leapSeconds2 = _interopRequireDefault(_leapSeconds);
+
+var _constants = require('../constants/time');
+
+var _constants2 = _interopRequireDefault(_constants);
 
 function JDtoMJD(jd) {
-  return jd + constants.MJDJD;
+  return jd + _constants2['default'].MJDJD;
 }
 
 function MJDtoJD(mjd) {
-  return mjd - constants.MJDJD;
+  return mjd - _constants2['default'].MJDJD;
 }
 
 function TAItoTT(tai) {
-  return tai + constants.TTTAI;
+  return tai + _constants2['default'].TTTAI;
 }
 
 function TTtoTAI(tt) {
-  return tt - constants.TTTAI;
+  return tt - _constants2['default'].TTTAI;
 }
 
 function TAItoUTC(tai) {
-  return tai - leapSeconds(new Date(tai * 1000));
+  return tai - _leapSeconds2['default'](new Date(tai * 1000));
 }
 
 function UTCtoTAI(utc) {
-  return utc + leapSeconds(new Date(utc * 1000));
+  return utc + _leapSeconds2['default'](new Date(utc * 1000));
 }
 
 function TAItoGPS(tai) {
-  return tai - constants.TAIGPS;
+  return tai - _constants2['default'].TAIGPS;
 }
 
 function GPStoTAI(gps) {
-  return gps + constants.TAIGPS;
+  return gps + _constants2['default'].TAIGPS;
 }
 
 function UTCtoGPS(utc) {
@@ -513,7 +502,12 @@ function GPStoUTC(gps) {
 
 /*eslint-enable new-cap */
 
-},{"../constants/time":8,"leapseconds":1}],15:[function(require,module,exports){
+},{"../constants/time":7,"leapseconds":1}],13:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 /**
  * Converts a date to Julian Date
  *   Input and output are on the same continuous time scale.
@@ -526,9 +520,7 @@ function GPStoUTC(gps) {
  * @return {number}
  */
 
-"use strict";
-
-module.exports = dateToJD;
+exports['default'] = dateToJD;
 
 function dateToJD(date) {
 
@@ -543,14 +535,14 @@ function dateToJD(date) {
     m = date[1];
     d = date[2];
     h = date[3] + date[4] / 60 + date[5] / 3600;
-  } else if (date instanceof Date || typeof date === "number") {
+  } else if (date instanceof Date || typeof date === 'number') {
 
     y = date.getUTCFullYear();
     m = date.getUTCMonth() + 1;
     d = date.getUTCDate();
     h = date.getUTCHours() + date.getUTCMinutes() / 60 + date.getUTCSeconds() / 3600;
   } else {
-    throw new Error("date is of invalid type");
+    throw new Error('date is of invalid type');
   }
 
   var f = m > 2 ? y : y - 1;
@@ -563,49 +555,65 @@ function dateToJD(date) {
   return jd + h / 24;
 }
 
-},{}],16:[function(require,module,exports){
-"use strict";
+module.exports = exports['default'];
 
-var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+},{}],14:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (typeof obj === 'object' && obj !== null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } };
 
-var leapSeconds = _interopRequire(require("leapseconds"));
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var conversions = _interopRequireWildcard(require("./conversions"));
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var dateToJD = _interopRequire(require("./dateToJD"));
+var _leapSeconds = require('leapseconds');
+
+var _leapSeconds2 = _interopRequireDefault(_leapSeconds);
+
+var _import = require('./conversions');
+
+var conversions = _interopRequireWildcard(_import);
+
+var _dateToJD = require('./dateToJD');
+
+var _dateToJD2 = _interopRequireDefault(_dateToJD);
 
 var time = {
-  leapSeconds: leapSeconds,
-  dateToJD: dateToJD
+  leapSeconds: _leapSeconds2['default'],
+  dateToJD: _dateToJD2['default']
 };
 
 for (var key in conversions) {
   time[key] = conversions[key];
 }
 
-module.exports = time;
+exports['default'] = time;
+module.exports = exports['default'];
 
-},{"./conversions":14,"./dateToJD":15,"leapseconds":1}],17:[function(require,module,exports){
-"use strict";
+},{"./conversions":12,"./dateToJD":13,"leapseconds":1}],15:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 // x: [ L, β ]
 exports.ellipsoidalToCartesian = ellipsoidalToCartesian;
 
 // x: [ x, y, z ]
 exports.cartesianToEllipsoidal = cartesianToEllipsoidal;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var earthConstants = _interopRequire(require("../constants/earth"));
+var _earthConstants = require('../constants/earth');
+
+var _earthConstants2 = _interopRequireDefault(_earthConstants);
 
 function ellipsoidalToCartesian(x) {
-  var a = arguments[1] === undefined ? earthConstants.a : arguments[1];
-  var e = arguments[2] === undefined ? earthConstants.e : arguments[2];
+  var a = arguments[1] === undefined ? _earthConstants2['default'].a : arguments[1];
+  var e = arguments[2] === undefined ? _earthConstants2['default'].e : arguments[2];
 
   var b = Math.sqrt(Math.pow(a, 2) * (1 - Math.pow(e, 2)));
 
@@ -616,8 +624,8 @@ function ellipsoidalToCartesian(x) {
 }
 
 function cartesianToEllipsoidal(x) {
-  var a = arguments[1] === undefined ? earthConstants.a : arguments[1];
-  var e = arguments[2] === undefined ? earthConstants.e : arguments[2];
+  var a = arguments[1] === undefined ? _earthConstants2['default'].a : arguments[1];
+  var e = arguments[2] === undefined ? _earthConstants2['default'].e : arguments[2];
 
   var p = Math.hypot(x[0], x[1]),
       b = Math.sqrt(Math.pow(a, 2) * (1 - Math.pow(e, 2)));
@@ -627,29 +635,34 @@ function cartesianToEllipsoidal(x) {
   ];
 }
 
-},{"../constants/earth":6}],18:[function(require,module,exports){
-"use strict";
+},{"../constants/earth":5}],16:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 // x: [x, y, z], obs: [L, B, h]
 exports.fixedToTopocentric = fixedToTopocentric;
 exports.topocentricToFixed = topocentricToFixed;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var earthConstants = _interopRequire(require("../constants/earth"));
+var _earthConstants = require('../constants/earth');
 
-var geodeticToCartesian = require("./geodetic").geodeticToCartesian;
+var _earthConstants2 = _interopRequireDefault(_earthConstants);
 
-var vector = _interopRequire(require("../vector"));
+var _geodeticToCartesian = require('./geodetic');
+
+var _vector = require('../vector');
+
+var _vector2 = _interopRequireDefault(_vector);
 
 function fixedToTopocentric(x, obs, _x, _x2, nwu) {
-  var a = arguments[2] === undefined ? earthConstants.a : arguments[2];
-  var e = arguments[3] === undefined ? earthConstants.e : arguments[3];
+  var a = arguments[2] === undefined ? _earthConstants2['default'].a : arguments[2];
+  var e = arguments[3] === undefined ? _earthConstants2['default'].e : arguments[3];
 
-  var xObserver = geodeticToCartesian(obs, a, e);
+  var xObserver = _geodeticToCartesian.geodeticToCartesian(obs, a, e);
 
   var Δx = x.map(function (xi, i) {
     return xi - xObserver[i];
@@ -659,57 +672,60 @@ function fixedToTopocentric(x, obs, _x, _x2, nwu) {
 
   if (nwu) {
 
-    rTopo = vector.mm(vector.r(Math.PI / 2 - obs[1], 2), vector.r(obs[0], 3));
+    rTopo = _vector2['default'].mm(_vector2['default'].r(Math.PI / 2 - obs[1], 2), _vector2['default'].r(obs[0], 3));
   } else {
 
-    rTopo = vector.mm(vector.q(1), vector.mm(vector.r(Math.PI / 2 - obs[1], 2), vector.r(obs[0], 3)));
+    rTopo = _vector2['default'].mm(_vector2['default'].q(1), _vector2['default'].mm(_vector2['default'].r(Math.PI / 2 - obs[1], 2), _vector2['default'].r(obs[0], 3)));
   }
 
-  return vector.mm(rTopo, Δx);
+  return _vector2['default'].mm(rTopo, Δx);
 }
 
-function topocentricToFixed(x, obs, _x, _x2, nwu) {
-  var a = arguments[2] === undefined ? earthConstants.a : arguments[2];
-  var e = arguments[3] === undefined ? earthConstants.e : arguments[3];
+function topocentricToFixed(x, obs, _x3, _x4, nwu) {
+  var a = arguments[2] === undefined ? _earthConstants2['default'].a : arguments[2];
+  var e = arguments[3] === undefined ? _earthConstants2['default'].e : arguments[3];
 
-  var xObserver = geodeticToCartesian(obs, a, e);
+  var xObserver = _geodeticToCartesian.geodeticToCartesian(obs, a, e);
 
   var rFixed;
 
   if (nwu) {
 
-    rFixed = vector.mm(vector.r(-obs[0], 3), vector.r(obs[1] - Math.PI / 2, 2));
+    rFixed = _vector2['default'].mm(_vector2['default'].r(-obs[0], 3), _vector2['default'].r(obs[1] - Math.PI / 2, 2));
   } else {
 
-    rFixed = vector.mm(vector.mm(vector.r(-obs[0], 3), vector.r(obs[1] - Math.PI / 2, 2)), vector.q(1));
+    rFixed = _vector2['default'].mm(_vector2['default'].mm(_vector2['default'].r(-obs[0], 3), _vector2['default'].r(obs[1] - Math.PI / 2, 2)), _vector2['default'].q(1));
   }
 
-  var xFixed = vector.mm(rFixed, x);
+  var xFixed = _vector2['default'].mm(rFixed, x);
 
   return xFixed.map(function (xi, i) {
     return xi + xObserver[i];
   });
 }
 
-},{"../constants/earth":6,"../vector":27,"./geodetic":19}],19:[function(require,module,exports){
-"use strict";
+},{"../constants/earth":5,"../vector":25,"./geodetic":17}],17:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 // x: [ L, B, h ]
 exports.geodeticToCartesian = geodeticToCartesian;
 
 // x: [ x, y, z ]
 exports.cartesianToGeodetic = cartesianToGeodetic;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var earthConstants = _interopRequire(require("../constants/earth"));
+var _earthConstants = require('../constants/earth');
+
+var _earthConstants2 = _interopRequireDefault(_earthConstants);
 
 function geodeticToCartesian(x) {
-  var a = arguments[1] === undefined ? earthConstants.a : arguments[1];
-  var e = arguments[2] === undefined ? earthConstants.e : arguments[2];
+  var a = arguments[1] === undefined ? _earthConstants2['default'].a : arguments[1];
+  var e = arguments[2] === undefined ? _earthConstants2['default'].e : arguments[2];
 
   var N = a / Math.sqrt(1 - Math.pow(e * Math.sin(x[1]), 2)); //
 
@@ -720,8 +736,8 @@ function geodeticToCartesian(x) {
 }
 
 function cartesianToGeodetic(x) {
-  var a = arguments[1] === undefined ? earthConstants.a : arguments[1];
-  var e = arguments[2] === undefined ? earthConstants.e : arguments[2];
+  var a = arguments[1] === undefined ? _earthConstants2['default'].a : arguments[1];
+  var e = arguments[2] === undefined ? _earthConstants2['default'].e : arguments[2];
 
   var L = Math.atan2(x[1], x[0]),
       p = Math.hypot(x[0], x[1]);
@@ -750,107 +766,100 @@ function cartesianToGeodetic(x) {
   return [L, B, h];
 }
 
-},{"../constants/earth":6}],20:[function(require,module,exports){
-"use strict";
+},{"../constants/earth":5}],18:[function(require,module,exports){
+'use strict';
 
-var _spherical = require("./spherical");
-
-var sphericalToCartesian = _spherical.sphericalToCartesian;
-var cartesianToSpherical = _spherical.cartesianToSpherical;
-
-var _ellipsoidal = require("./ellipsoidal");
-
-var ellipsoidalToCartesian = _ellipsoidal.ellipsoidalToCartesian;
-var cartesianToEllipsoidal = _ellipsoidal.cartesianToEllipsoidal;
-
-var _geodetic = require("./geodetic");
-
-var geodeticToCartesian = _geodetic.geodeticToCartesian;
-var cartesianToGeodetic = _geodetic.cartesianToGeodetic;
-
-var _fixedToTopocentric = require("./fixedToTopocentric");
-
-var fixedToTopocentric = _fixedToTopocentric.fixedToTopocentric;
-var topocentricToFixed = _fixedToTopocentric.topocentricToFixed;
-
-var _inertialToFixed = require("./inertialToFixed");
-
-var inertialToFixed = _inertialToFixed.inertialToFixed;
-var fixedToInertial = _inertialToFixed.fixedToInertial;
-
-var orbitalPlaneToInertial = require("./orbitalPlaneToInertial").orbitalPlaneToInertial;
-
-var _topocentricToHorizontal = require("./topocentricToHorizontal");
-
-var topocentricToHorizontal = _topocentricToHorizontal.topocentricToHorizontal;
-var horizontalToTopocentric = _topocentricToHorizontal.horizontalToTopocentric;
-
-var transformations = {
-  sphericalToCartesian: sphericalToCartesian, cartesianToSpherical: cartesianToSpherical,
-  ellipsoidalToCartesian: ellipsoidalToCartesian, cartesianToEllipsoidal: cartesianToEllipsoidal,
-  geodeticToCartesian: geodeticToCartesian, cartesianToGeodetic: cartesianToGeodetic,
-  fixedToTopocentric: fixedToTopocentric, topocentricToFixed: topocentricToFixed,
-  inertialToFixed: inertialToFixed, fixedToInertial: fixedToInertial,
-  orbitalPlaneToInertial: orbitalPlaneToInertial,
-  topocentricToHorizontal: topocentricToHorizontal, horizontalToTopocentric: horizontalToTopocentric
-};
-
-module.exports = transformations;
-
-},{"./ellipsoidal":17,"./fixedToTopocentric":18,"./geodetic":19,"./inertialToFixed":21,"./orbitalPlaneToInertial":22,"./spherical":23,"./topocentricToHorizontal":24}],21:[function(require,module,exports){
-"use strict";
-
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-exports.inertialToFixed = inertialToFixed;
-exports.fixedToInertial = fixedToInertial;
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var earthConstants = _interopRequire(require("../constants/earth"));
+var _sphericalToCartesian$cartesianToSpherical = require('./spherical');
 
-var vector = _interopRequire(require("../vector"));
+var _ellipsoidalToCartesian$cartesianToEllipsoidal = require('./ellipsoidal');
+
+var _geodeticToCartesian$cartesianToGeodetic = require('./geodetic');
+
+var _fixedToTopocentric$topocentricToFixed = require('./fixedToTopocentric');
+
+var _inertialToFixed$fixedToInertial = require('./inertialToFixed');
+
+var _orbitalPlaneToInertial = require('./orbitalPlaneToInertial');
+
+var _topocentricToHorizontal$horizontalToTopocentric = require('./topocentricToHorizontal');
+
+var transformations = {
+  sphericalToCartesian: _sphericalToCartesian$cartesianToSpherical.sphericalToCartesian, cartesianToSpherical: _sphericalToCartesian$cartesianToSpherical.cartesianToSpherical,
+  ellipsoidalToCartesian: _ellipsoidalToCartesian$cartesianToEllipsoidal.ellipsoidalToCartesian, cartesianToEllipsoidal: _ellipsoidalToCartesian$cartesianToEllipsoidal.cartesianToEllipsoidal,
+  geodeticToCartesian: _geodeticToCartesian$cartesianToGeodetic.geodeticToCartesian, cartesianToGeodetic: _geodeticToCartesian$cartesianToGeodetic.cartesianToGeodetic,
+  fixedToTopocentric: _fixedToTopocentric$topocentricToFixed.fixedToTopocentric, topocentricToFixed: _fixedToTopocentric$topocentricToFixed.topocentricToFixed,
+  inertialToFixed: _inertialToFixed$fixedToInertial.inertialToFixed, fixedToInertial: _inertialToFixed$fixedToInertial.fixedToInertial,
+  orbitalPlaneToInertial: _orbitalPlaneToInertial.orbitalPlaneToInertial,
+  topocentricToHorizontal: _topocentricToHorizontal$horizontalToTopocentric.topocentricToHorizontal, horizontalToTopocentric: _topocentricToHorizontal$horizontalToTopocentric.horizontalToTopocentric
+};
+
+exports['default'] = transformations;
+module.exports = exports['default'];
+
+},{"./ellipsoidal":15,"./fixedToTopocentric":16,"./geodetic":17,"./inertialToFixed":19,"./orbitalPlaneToInertial":20,"./spherical":21,"./topocentricToHorizontal":22}],19:[function(require,module,exports){
+'use strict';
+
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.inertialToFixed = inertialToFixed;
+exports.fixedToInertial = fixedToInertial;
+
+var _earthConstants = require('../constants/earth');
+
+var _earthConstants2 = _interopRequireDefault(_earthConstants);
+
+var _vector = require('../vector');
+
+var _vector2 = _interopRequireDefault(_vector);
 
 function inertialToFixed(x, Δt) {
-  var ω = arguments[2] === undefined ? earthConstants.ω : arguments[2];
+  var ω = arguments[2] === undefined ? _earthConstants2['default'].ω : arguments[2];
   var axis = arguments[3] === undefined ? 3 : arguments[3];
 
-  return vector.mm(vector.r(ω * Δt, 3), x);
+  return _vector2['default'].mm(_vector2['default'].r(ω * Δt, 3), x);
 }
 
 function fixedToInertial(x, Δt, ω, axis) {
   return inertialToFixed(x, Δt, -ω, axis);
 }
 
-},{"../constants/earth":6,"../vector":27}],22:[function(require,module,exports){
-"use strict";
+},{"../constants/earth":5,"../vector":25}],20:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-exports.orbitalPlaneToInertial = orbitalPlaneToInertial;
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
+exports.orbitalPlaneToInertial = orbitalPlaneToInertial;
 
-var vector = _interopRequire(require("../vector"));
+var _vector = require('../vector');
+
+var _vector2 = _interopRequireDefault(_vector);
 
 function orbitalPlaneToInertial(x, Ω, ω, i) {
 
-  return vector.mm(vector.r(-Ω, 3), vector.mm(vector.r(-i, 1), vector.mm(vector.r(-ω, 3), x)));
+  return _vector2['default'].mm(_vector2['default'].r(-Ω, 3), _vector2['default'].mm(_vector2['default'].r(-i, 1), _vector2['default'].mm(_vector2['default'].r(-ω, 3), x)));
 }
 
-},{"../vector":27}],23:[function(require,module,exports){
-// x: [ λ, φ, r ]
+},{"../vector":25}],21:[function(require,module,exports){
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// x: [ λ, φ, r ]
 exports.sphericalToCartesian = sphericalToCartesian;
 
 // x: [ x, y, z ]
 exports.cartesianToSpherical = cartesianToSpherical;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 function sphericalToCartesian(x) {
 
@@ -868,13 +877,16 @@ function cartesianToSpherical(x) {
   ];
 }
 
-},{}],24:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * @param x = [x, y, z]
  * @return [azimuth, elevation, distance]
  */
-"use strict";
-
 exports.topocentricToHorizontal = topocentricToHorizontal;
 
 /**
@@ -882,9 +894,6 @@ exports.topocentricToHorizontal = topocentricToHorizontal;
  * @return [x, y, z]
  */
 exports.horizontalToTopocentric = horizontalToTopocentric;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 function topocentricToHorizontal(x) {
 
@@ -904,10 +913,13 @@ function horizontalToTopocentric(x) {
   ];
 }
 
-},{}],25:[function(require,module,exports){
-"use strict";
+},{}],23:[function(require,module,exports){
+'use strict';
 
-module.exports = crossProduct;
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = crossProduct;
 
 function crossProduct(u, v) {
 
@@ -916,19 +928,24 @@ function crossProduct(u, v) {
     return [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
   } else {
 
-    throw new Error("unsupported vector sizes");
+    throw new Error('unsupported vector sizes');
   }
 }
 
-},{}],26:[function(require,module,exports){
-"use strict";
+module.exports = exports['default'];
 
-module.exports = dotProduct;
+},{}],24:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = dotProduct;
 
 function dotProduct(u, v) {
 
   if (u.length !== v.length) {
-    throw new Error("Vectors have different sizes");
+    throw new Error('Vectors have different sizes');
   }
 
   return u.reduce(function (memo, ui, i) {
@@ -936,35 +953,55 @@ function dotProduct(u, v) {
   }, 0);
 }
 
-},{}],27:[function(require,module,exports){
-"use strict";
+module.exports = exports['default'];
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+},{}],25:[function(require,module,exports){
+'use strict';
 
-var matrixMultiplication = _interopRequire(require("./matrixMultiplication"));
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var mirrorMatrix = _interopRequire(require("./mirrorMatrix"));
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var rotationMatrix = _interopRequire(require("./rotationMatrix"));
+var _matrixMultiplication = require('./matrixMultiplication');
 
-var crossProduct = _interopRequire(require("./crossProduct"));
+var _matrixMultiplication2 = _interopRequireDefault(_matrixMultiplication);
 
-var dotProduct = _interopRequire(require("./dotProduct"));
+var _mirrorMatrix = require('./mirrorMatrix');
+
+var _mirrorMatrix2 = _interopRequireDefault(_mirrorMatrix);
+
+var _rotationMatrix = require('./rotationMatrix');
+
+var _rotationMatrix2 = _interopRequireDefault(_rotationMatrix);
+
+var _crossProduct = require('./crossProduct');
+
+var _crossProduct2 = _interopRequireDefault(_crossProduct);
+
+var _dotProduct = require('./dotProduct');
+
+var _dotProduct2 = _interopRequireDefault(_dotProduct);
 
 var vector = {
-  matrixMultiplication: matrixMultiplication, mm: matrixMultiplication,
-  mirrorMatrix: mirrorMatrix, q: mirrorMatrix,
-  rotationMatrix: rotationMatrix, r: rotationMatrix,
-  crossProduct: crossProduct, cross: crossProduct,
-  dotProduct: dotProduct, dot: dotProduct
+  matrixMultiplication: _matrixMultiplication2['default'], mm: _matrixMultiplication2['default'],
+  mirrorMatrix: _mirrorMatrix2['default'], q: _mirrorMatrix2['default'],
+  rotationMatrix: _rotationMatrix2['default'], r: _rotationMatrix2['default'],
+  crossProduct: _crossProduct2['default'], cross: _crossProduct2['default'],
+  dotProduct: _dotProduct2['default'], dot: _dotProduct2['default']
 };
 
-module.exports = vector;
+exports['default'] = vector;
+module.exports = exports['default'];
 
-},{"./crossProduct":25,"./dotProduct":26,"./matrixMultiplication":28,"./mirrorMatrix":29,"./rotationMatrix":30}],28:[function(require,module,exports){
+},{"./crossProduct":23,"./dotProduct":24,"./matrixMultiplication":26,"./mirrorMatrix":27,"./rotationMatrix":28}],26:[function(require,module,exports){
 "use strict";
 
-module.exports = matrixMultiplication;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = matrixMultiplication;
 
 function matrixMultiplication(m1, m2) {
 
@@ -979,10 +1016,15 @@ function matrixMultiplication(m1, m2) {
   return null;
 }
 
-},{}],29:[function(require,module,exports){
+module.exports = exports["default"];
+
+},{}],27:[function(require,module,exports){
 "use strict";
 
-module.exports = mirrorMatrix;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = mirrorMatrix;
 
 function mirrorMatrix(e) {
 
@@ -993,7 +1035,14 @@ function mirrorMatrix(e) {
   return q;
 }
 
-},{}],30:[function(require,module,exports){
+module.exports = exports["default"];
+
+},{}],28:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 /**
  * rotationMatrix() returns a matrix for a coordinate system rotation
  * of α radians around axis e relative to the origin.
@@ -1005,9 +1054,7 @@ function mirrorMatrix(e) {
  * @return <[Number]> // 3x3 matrix represented as Array with 9 elements
  */
 
-"use strict";
-
-module.exports = rotationMatrix;
+exports['default'] = rotationMatrix;
 
 function rotationMatrix(α, e) {
 
@@ -1043,13 +1090,55 @@ function rotationMatrix(α, e) {
       return [cosα, sinα, 0, -sinα, cosα, 0, 0, 0, 1];
 
     default:
-      throw new Error("rotation axis has to be 1, 2 or 3");
+      throw new Error('rotation axis has to be 1, 2 or 3');
 
   }
 }
 
-},{}]},{},[9])(9)
+module.exports = exports['default'];
+
+},{}],29:[function(require,module,exports){
+'use strict';
+
+var _interopRequireDefault = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
 });
 
+var _common = require('./common');
 
+var _common2 = _interopRequireDefault(_common);
+
+var _constants = require('./constants');
+
+var _constants2 = _interopRequireDefault(_constants);
+
+var _time = require('./time');
+
+var _time2 = _interopRequireDefault(_time);
+
+var _vector = require('./vector');
+
+var _vector2 = _interopRequireDefault(_vector);
+
+var _transformations = require('./transformations');
+
+var _transformations2 = _interopRequireDefault(_transformations);
+
+var _position = require('./position');
+
+var _position2 = _interopRequireDefault(_position);
+
+var version = '1.0.0';
+
+var orb = {
+  version: version, common: _common2['default'], constants: _constants2['default'], time: _time2['default'], vector: _vector2['default'], v: _vector2['default'], transformations: _transformations2['default'], position: _position2['default']
+};
+
+exports['default'] = orb;
+module.exports = exports['default'];
+
+},{"./common":3,"./constants":6,"./position":8,"./time":14,"./transformations":18,"./vector":25}]},{},[29])(29)
+});
 //# sourceMappingURL=orb.js.map

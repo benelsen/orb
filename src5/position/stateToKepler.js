@@ -1,42 +1,49 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = stateToKepler;
 
-var _toConsumableArray = function (arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } };
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-module.exports = stateToKepler;
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
-var vector = _interopRequire(require("../vector"));
+var _vector = require('../vector');
 
-var constants = _interopRequire(require("../constants"));
+var _vector2 = _interopRequireDefault(_vector);
+
+var _constants = require('../constants');
+
+var _constants2 = _interopRequireDefault(_constants);
 
 function stateToKepler(r, rDot, t, m1, m2) {
 
   var GM;
 
   if (m1 && m2) {
-    GM = constants.common.G * (m1 + m2);
+    GM = _constants2['default'].common.G * (m1 + m2);
   } else if (m1) {
-    GM = constants.common.G * m1;
+    GM = _constants2['default'].common.G * m1;
   } else {
-    GM = constants.earth.GM;
+    GM = _constants2['default'].earth.GM;
   }
 
-  var h = vector.cross(r, rDot);
+  var h = _vector2['default'].cross(r, rDot);
 
   var Ω = Math.atan2(h[0], -h[1]);
 
   var i = Math.atan2(Math.hypot.apply(Math, _toConsumableArray(h.slice(0, 2))), h[2]);
 
-  var p = vector.dot(h, h) / GM;
+  var p = _vector2['default'].dot(h, h) / GM;
 
   var rLen = Math.hypot.apply(Math, _toConsumableArray(r));
 
-  var e = Math.sqrt(p / GM * Math.pow(vector.dot(r, rDot) / rLen, 2) + Math.pow(p / rLen - 1, 2));
+  var e = Math.sqrt(p / GM * Math.pow(_vector2['default'].dot(r, rDot) / rLen, 2) + Math.pow(p / rLen - 1, 2));
 
-  var ν = Math.atan2(Math.sqrt(p / GM) * vector.dot(r, rDot), p - rLen);
+  var ν = Math.atan2(Math.sqrt(p / GM) * _vector2['default'].dot(r, rDot), p - rLen);
 
-  var rb = vector.mm(vector.r(i, 1), vector.mm(vector.r(Ω, 3), r));
+  var rb = _vector2['default'].mm(_vector2['default'].r(i, 1), _vector2['default'].mm(_vector2['default'].r(Ω, 3), r));
 
   var ω = Math.atan2(rb[1], rb[0]) - ν;
 
@@ -64,3 +71,5 @@ function stateToKepler(r, rDot, t, m1, m2) {
 
   return [a || p, e, i, Ω, ω, T0];
 }
+
+module.exports = exports['default'];

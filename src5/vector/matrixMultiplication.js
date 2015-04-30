@@ -1,6 +1,9 @@
 "use strict";
 
-module.exports = matrixMultiplication;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = matrixMultiplication;
 
 function matrixMultiplication(m1, m2) {
 
@@ -14,3 +17,5 @@ function matrixMultiplication(m1, m2) {
 
   return null;
 }
+
+module.exports = exports["default"];

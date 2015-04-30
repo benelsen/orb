@@ -1,11 +1,14 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * TIME
  * ====
  * All values in milliseconds unless specified
  * Naming convention: T1T2 = T1 - T2
  */
-
-"use strict";
 
 var time = {
 
@@ -27,4 +30,5 @@ var time = {
   TAIGPS: +19
 };
 
-module.exports = time;
+exports["default"] = time;
+module.exports = exports["default"];

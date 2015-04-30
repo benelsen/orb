@@ -1,23 +1,40 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var version = require("../package.json").version;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var common = _interopRequire(require("./common"));
+var _common = require('./common');
 
-var constants = _interopRequire(require("./constants"));
+var _common2 = _interopRequireDefault(_common);
 
-var time = _interopRequire(require("./time"));
+var _constants = require('./constants');
 
-var vector = _interopRequire(require("./vector"));
+var _constants2 = _interopRequireDefault(_constants);
 
-var transformations = _interopRequire(require("./transformations"));
+var _time = require('./time');
 
-var position = _interopRequire(require("./position"));
+var _time2 = _interopRequireDefault(_time);
+
+var _vector = require('./vector');
+
+var _vector2 = _interopRequireDefault(_vector);
+
+var _transformations = require('./transformations');
+
+var _transformations2 = _interopRequireDefault(_transformations);
+
+var _position = require('./position');
+
+var _position2 = _interopRequireDefault(_position);
+
+var version = '1.0.0';
 
 var orb = {
-  version: version, common: common, constants: constants, time: time, vector: vector, v: vector, transformations: transformations, position: position
+  version: version, common: _common2['default'], constants: _constants2['default'], time: _time2['default'], vector: _vector2['default'], v: _vector2['default'], transformations: _transformations2['default'], position: _position2['default']
 };
 
-module.exports = orb;
+exports['default'] = orb;
+module.exports = exports['default'];

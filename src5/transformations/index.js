@@ -1,45 +1,32 @@
-"use strict";
+'use strict';
 
-var _spherical = require("./spherical");
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var sphericalToCartesian = _spherical.sphericalToCartesian;
-var cartesianToSpherical = _spherical.cartesianToSpherical;
+var _spherical = require('./spherical');
 
-var _ellipsoidal = require("./ellipsoidal");
+var _ellipsoidal = require('./ellipsoidal');
 
-var ellipsoidalToCartesian = _ellipsoidal.ellipsoidalToCartesian;
-var cartesianToEllipsoidal = _ellipsoidal.cartesianToEllipsoidal;
+var _geodetic = require('./geodetic');
 
-var _geodetic = require("./geodetic");
+var _fixedToTopocentric = require('./fixedToTopocentric');
 
-var geodeticToCartesian = _geodetic.geodeticToCartesian;
-var cartesianToGeodetic = _geodetic.cartesianToGeodetic;
+var _inertialToFixed = require('./inertialToFixed');
 
-var _fixedToTopocentric = require("./fixedToTopocentric");
+var _orbitalPlaneToInertial = require('./orbitalPlaneToInertial');
 
-var fixedToTopocentric = _fixedToTopocentric.fixedToTopocentric;
-var topocentricToFixed = _fixedToTopocentric.topocentricToFixed;
-
-var _inertialToFixed = require("./inertialToFixed");
-
-var inertialToFixed = _inertialToFixed.inertialToFixed;
-var fixedToInertial = _inertialToFixed.fixedToInertial;
-
-var orbitalPlaneToInertial = require("./orbitalPlaneToInertial").orbitalPlaneToInertial;
-
-var _topocentricToHorizontal = require("./topocentricToHorizontal");
-
-var topocentricToHorizontal = _topocentricToHorizontal.topocentricToHorizontal;
-var horizontalToTopocentric = _topocentricToHorizontal.horizontalToTopocentric;
+var _topocentricToHorizontal = require('./topocentricToHorizontal');
 
 var transformations = {
-  sphericalToCartesian: sphericalToCartesian, cartesianToSpherical: cartesianToSpherical,
-  ellipsoidalToCartesian: ellipsoidalToCartesian, cartesianToEllipsoidal: cartesianToEllipsoidal,
-  geodeticToCartesian: geodeticToCartesian, cartesianToGeodetic: cartesianToGeodetic,
-  fixedToTopocentric: fixedToTopocentric, topocentricToFixed: topocentricToFixed,
-  inertialToFixed: inertialToFixed, fixedToInertial: fixedToInertial,
-  orbitalPlaneToInertial: orbitalPlaneToInertial,
-  topocentricToHorizontal: topocentricToHorizontal, horizontalToTopocentric: horizontalToTopocentric
+  sphericalToCartesian: _spherical.sphericalToCartesian, cartesianToSpherical: _spherical.cartesianToSpherical,
+  ellipsoidalToCartesian: _ellipsoidal.ellipsoidalToCartesian, cartesianToEllipsoidal: _ellipsoidal.cartesianToEllipsoidal,
+  geodeticToCartesian: _geodetic.geodeticToCartesian, cartesianToGeodetic: _geodetic.cartesianToGeodetic,
+  fixedToTopocentric: _fixedToTopocentric.fixedToTopocentric, topocentricToFixed: _fixedToTopocentric.topocentricToFixed,
+  inertialToFixed: _inertialToFixed.inertialToFixed, fixedToInertial: _inertialToFixed.fixedToInertial,
+  orbitalPlaneToInertial: _orbitalPlaneToInertial.orbitalPlaneToInertial,
+  topocentricToHorizontal: _topocentricToHorizontal.topocentricToHorizontal, horizontalToTopocentric: _topocentricToHorizontal.horizontalToTopocentric
 };
 
-module.exports = transformations;
+exports['default'] = transformations;
+module.exports = exports['default'];

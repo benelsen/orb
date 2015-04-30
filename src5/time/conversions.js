@@ -1,6 +1,8 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 /*eslint-disable new-cap */
 
@@ -33,48 +35,52 @@ exports.UTCtoGPS = UTCtoGPS;
 
 // GPS -> UTC
 exports.GPStoUTC = GPStoUTC;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 /**
  * Common conversions between time standards
  * All time values are in seconds unless specified
  */
 
-var leapSeconds = _interopRequire(require("leapseconds"));
+var _leapseconds = require('leapseconds');
 
-var constants = _interopRequire(require("../constants/time"));
+var _leapseconds2 = _interopRequireDefault(_leapseconds);
+
+var _constantsTime = require('../constants/time');
+
+var _constantsTime2 = _interopRequireDefault(_constantsTime);
 
 function JDtoMJD(jd) {
-  return jd + constants.MJDJD;
+  return jd + _constantsTime2['default'].MJDJD;
 }
 
 function MJDtoJD(mjd) {
-  return mjd - constants.MJDJD;
+  return mjd - _constantsTime2['default'].MJDJD;
 }
 
 function TAItoTT(tai) {
-  return tai + constants.TTTAI;
+  return tai + _constantsTime2['default'].TTTAI;
 }
 
 function TTtoTAI(tt) {
-  return tt - constants.TTTAI;
+  return tt - _constantsTime2['default'].TTTAI;
 }
 
 function TAItoUTC(tai) {
-  return tai - leapSeconds(new Date(tai * 1000));
+  return tai - _leapseconds2['default'](new Date(tai * 1000));
 }
 
 function UTCtoTAI(utc) {
-  return utc + leapSeconds(new Date(utc * 1000));
+  return utc + _leapseconds2['default'](new Date(utc * 1000));
 }
 
 function TAItoGPS(tai) {
-  return tai - constants.TAIGPS;
+  return tai - _constantsTime2['default'].TAIGPS;
 }
 
 function GPStoTAI(gps) {
-  return gps + constants.TAIGPS;
+  return gps + _constantsTime2['default'].TAIGPS;
 }
 
 function UTCtoGPS(utc) {

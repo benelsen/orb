@@ -1,6 +1,9 @@
 "use strict";
 
-module.exports = keplerEquation;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = keplerEquation;
 
 function keplerEquation(e, M) {
   var ε = arguments[2] === undefined ? 1e-18 : arguments[2];
@@ -24,3 +27,5 @@ function keplerEquation(e, M) {
 
   return E;
 }
+
+module.exports = exports["default"];

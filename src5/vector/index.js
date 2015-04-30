@@ -1,23 +1,38 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-var matrixMultiplication = _interopRequire(require("./matrixMultiplication"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var mirrorMatrix = _interopRequire(require("./mirrorMatrix"));
+var _matrixMultiplication = require('./matrixMultiplication');
 
-var rotationMatrix = _interopRequire(require("./rotationMatrix"));
+var _matrixMultiplication2 = _interopRequireDefault(_matrixMultiplication);
 
-var crossProduct = _interopRequire(require("./crossProduct"));
+var _mirrorMatrix = require('./mirrorMatrix');
 
-var dotProduct = _interopRequire(require("./dotProduct"));
+var _mirrorMatrix2 = _interopRequireDefault(_mirrorMatrix);
+
+var _rotationMatrix = require('./rotationMatrix');
+
+var _rotationMatrix2 = _interopRequireDefault(_rotationMatrix);
+
+var _crossProduct = require('./crossProduct');
+
+var _crossProduct2 = _interopRequireDefault(_crossProduct);
+
+var _dotProduct = require('./dotProduct');
+
+var _dotProduct2 = _interopRequireDefault(_dotProduct);
 
 var vector = {
-  matrixMultiplication: matrixMultiplication, mm: matrixMultiplication,
-  mirrorMatrix: mirrorMatrix, q: mirrorMatrix,
-  rotationMatrix: rotationMatrix, r: rotationMatrix,
-  crossProduct: crossProduct, cross: crossProduct,
-  dotProduct: dotProduct, dot: dotProduct
+  matrixMultiplication: _matrixMultiplication2['default'], mm: _matrixMultiplication2['default'],
+  mirrorMatrix: _mirrorMatrix2['default'], q: _mirrorMatrix2['default'],
+  rotationMatrix: _rotationMatrix2['default'], r: _rotationMatrix2['default'],
+  crossProduct: _crossProduct2['default'], cross: _crossProduct2['default'],
+  dotProduct: _dotProduct2['default'], dot: _dotProduct2['default']
 };
 
-module.exports = vector;
+exports['default'] = vector;
+module.exports = exports['default'];

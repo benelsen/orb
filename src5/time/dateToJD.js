@@ -1,3 +1,8 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 /**
  * Converts a date to Julian Date
  *   Input and output are on the same continuous time scale.
@@ -10,9 +15,7 @@
  * @return {number}
  */
 
-"use strict";
-
-module.exports = dateToJD;
+exports['default'] = dateToJD;
 
 function dateToJD(date) {
 
@@ -27,14 +30,14 @@ function dateToJD(date) {
     m = date[1];
     d = date[2];
     h = date[3] + date[4] / 60 + date[5] / 3600;
-  } else if (date instanceof Date || typeof date === "number") {
+  } else if (date instanceof Date || typeof date === 'number') {
 
     y = date.getUTCFullYear();
     m = date.getUTCMonth() + 1;
     d = date.getUTCDate();
     h = date.getUTCHours() + date.getUTCMinutes() / 60 + date.getUTCSeconds() / 3600;
   } else {
-    throw new Error("date is of invalid type");
+    throw new Error('date is of invalid type');
   }
 
   var f = m > 2 ? y : y - 1;
@@ -46,3 +49,5 @@ function dateToJD(date) {
 
   return jd + h / 24;
 }
+
+module.exports = exports['default'];

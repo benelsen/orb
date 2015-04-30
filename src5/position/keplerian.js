@@ -1,26 +1,33 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = keplerian;
 
-module.exports = keplerian;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var constants = _interopRequire(require("../constants"));
+var _constants = require('../constants');
 
-var keplerEquation = _interopRequire(require("./keplerEquation"));
+var _constants2 = _interopRequireDefault(_constants);
 
-var orbitalPlaneToInertial = require("../transformations/orbitalPlaneToInertial").orbitalPlaneToInertial;
+var _keplerEquation = require('./keplerEquation');
+
+var _keplerEquation2 = _interopRequireDefault(_keplerEquation);
+
+var _transformationsOrbitalPlaneToInertial = require('../transformations/orbitalPlaneToInertial');
 
 function keplerian(a, e, i, Ω, ω, t, t0, _x, m1, m2) {
   var M0 = arguments[7] === undefined ? 0 : arguments[7];
 
-  var GM = constants.earth.GM;
+  var GM = _constants2['default'].earth.GM;
 
   if (m1) {
-    GM = constants.common.G * m1;
+    GM = _constants2['default'].common.G * m1;
   }
 
   if (m2) {
-    GM = constants.common.G * (m1 + m2);
+    GM = _constants2['default'].common.G * (m1 + m2);
   }
 
   var p = a * (1 - Math.pow(e, 2));
@@ -32,7 +39,7 @@ function keplerian(a, e, i, Ω, ω, t, t0, _x, m1, m2) {
   var M = M0 + n * (t - t0);
 
   // Eccentric anomaly
-  var E = keplerEquation(e, M);
+  var E = _keplerEquation2['default'](e, M);
 
   // True anomaly
   var ν = 2 * Math.atan(Math.sqrt((1 + e) / (1 - e)) * Math.tan(E / 2));
@@ -46,5 +53,7 @@ function keplerian(a, e, i, Ω, ω, t, t0, _x, m1, m2) {
 
   var xDotOrbitalPlane = [-Math.sqrt(GM / p) * Math.sin(ν), Math.sqrt(GM / p) * (e + Math.cos(ν)), 0];
 
-  return [orbitalPlaneToInertial(xOrbitalPlane, Ω, ω, i), orbitalPlaneToInertial(xDotOrbitalPlane, Ω, ω, i)];
+  return [_transformationsOrbitalPlaneToInertial.orbitalPlaneToInertial(xOrbitalPlane, Ω, ω, i), _transformationsOrbitalPlaneToInertial.orbitalPlaneToInertial(xDotOrbitalPlane, Ω, ω, i)];
 }
+
+module.exports = exports['default'];

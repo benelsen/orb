@@ -1,15 +1,17 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-exports.orbitalPlaneToInertial = orbitalPlaneToInertial;
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
+exports.orbitalPlaneToInertial = orbitalPlaneToInertial;
 
-var vector = _interopRequire(require("../vector"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _vector = require('../vector');
+
+var _vector2 = _interopRequireDefault(_vector);
 
 function orbitalPlaneToInertial(x, Ω, ω, i) {
 
-  return vector.mm(vector.r(-Ω, 3), vector.mm(vector.r(-i, 1), vector.mm(vector.r(-ω, 3), x)));
+  return _vector2['default'].mm(_vector2['default'].r(-Ω, 3), _vector2['default'].mm(_vector2['default'].r(-i, 1), _vector2['default'].mm(_vector2['default'].r(-ω, 3), x)));
 }

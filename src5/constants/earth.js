@@ -1,7 +1,10 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 // IERS numerical standards
 // (as per Technical Note No.36 Table 1.1)
-
-"use strict";
 
 var earth = {
   a: 6378136.6, // Equatorial radius
@@ -36,4 +39,5 @@ earth.wgs84 = {
   e2: 0.0066943799901413165
 };
 
-module.exports = earth;
+exports["default"] = earth;
+module.exports = exports["default"];

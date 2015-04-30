@@ -1,5 +1,5 @@
 
-import {version} from '../package.json';
+const version = '1.0.0';
 
 import common from './common';
 import constants from './constants';

@@ -1,10 +1,10 @@
 "use strict";
 
-exports.deg2rad = deg2rad;
-exports.rad2deg = rad2deg;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.deg2rad = deg2rad;
+exports.rad2deg = rad2deg;
 
 function deg2rad(deg) {
   return deg * Math.PI / 180;

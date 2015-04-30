@@ -1,22 +1,26 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-exports.inertialToFixed = inertialToFixed;
-exports.fixedToInertial = fixedToInertial;
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
+exports.inertialToFixed = inertialToFixed;
+exports.fixedToInertial = fixedToInertial;
 
-var earthConstants = _interopRequire(require("../constants/earth"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var vector = _interopRequire(require("../vector"));
+var _constantsEarth = require('../constants/earth');
+
+var _constantsEarth2 = _interopRequireDefault(_constantsEarth);
+
+var _vector = require('../vector');
+
+var _vector2 = _interopRequireDefault(_vector);
 
 function inertialToFixed(x, Δt) {
-  var ω = arguments[2] === undefined ? earthConstants.ω : arguments[2];
+  var ω = arguments[2] === undefined ? _constantsEarth2['default'].ω : arguments[2];
   var axis = arguments[3] === undefined ? 3 : arguments[3];
 
-  return vector.mm(vector.r(ω * Δt, 3), x);
+  return _vector2['default'].mm(_vector2['default'].r(ω * Δt, 3), x);
 }
 
 function fixedToInertial(x, Δt, ω, axis) {

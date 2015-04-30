@@ -1,9 +1,12 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 /**
  * @param x = [x, y, z]
  * @return [azimuth, elevation, distance]
  */
-"use strict";
-
 exports.topocentricToHorizontal = topocentricToHorizontal;
 
 /**
@@ -11,9 +14,6 @@ exports.topocentricToHorizontal = topocentricToHorizontal;
  * @return [x, y, z]
  */
 exports.horizontalToTopocentric = horizontalToTopocentric;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 function topocentricToHorizontal(x) {
 

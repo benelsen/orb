@@ -1,6 +1,9 @@
 "use strict";
 
-module.exports = mirrorMatrix;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = mirrorMatrix;
 
 function mirrorMatrix(e) {
 
@@ -10,3 +13,5 @@ function mirrorMatrix(e) {
 
   return q;
 }
+
+module.exports = exports["default"];

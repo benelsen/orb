@@ -1,25 +1,30 @@
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 // x: [x, y, z], obs: [L, B, h]
 exports.fixedToTopocentric = fixedToTopocentric;
 exports.topocentricToFixed = topocentricToFixed;
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var earthConstants = _interopRequire(require("../constants/earth"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var geodeticToCartesian = require("./geodetic").geodeticToCartesian;
+var _constantsEarth = require('../constants/earth');
 
-var vector = _interopRequire(require("../vector"));
+var _constantsEarth2 = _interopRequireDefault(_constantsEarth);
+
+var _geodetic = require('./geodetic');
+
+var _vector = require('../vector');
+
+var _vector2 = _interopRequireDefault(_vector);
 
 function fixedToTopocentric(x, obs, _x, _x2, nwu) {
-  var a = arguments[2] === undefined ? earthConstants.a : arguments[2];
-  var e = arguments[3] === undefined ? earthConstants.e : arguments[3];
+  var a = arguments[2] === undefined ? _constantsEarth2['default'].a : arguments[2];
+  var e = arguments[3] === undefined ? _constantsEarth2['default'].e : arguments[3];
 
-  var xObserver = geodeticToCartesian(obs, a, e);
+  var xObserver = _geodetic.geodeticToCartesian(obs, a, e);
 
   var Δx = x.map(function (xi, i) {
     return xi - xObserver[i];
@@ -29,32 +34,32 @@ function fixedToTopocentric(x, obs, _x, _x2, nwu) {
 
   if (nwu) {
 
-    rTopo = vector.mm(vector.r(Math.PI / 2 - obs[1], 2), vector.r(obs[0], 3));
+    rTopo = _vector2['default'].mm(_vector2['default'].r(Math.PI / 2 - obs[1], 2), _vector2['default'].r(obs[0], 3));
   } else {
 
-    rTopo = vector.mm(vector.q(1), vector.mm(vector.r(Math.PI / 2 - obs[1], 2), vector.r(obs[0], 3)));
+    rTopo = _vector2['default'].mm(_vector2['default'].q(1), _vector2['default'].mm(_vector2['default'].r(Math.PI / 2 - obs[1], 2), _vector2['default'].r(obs[0], 3)));
   }
 
-  return vector.mm(rTopo, Δx);
+  return _vector2['default'].mm(rTopo, Δx);
 }
 
-function topocentricToFixed(x, obs, _x, _x2, nwu) {
-  var a = arguments[2] === undefined ? earthConstants.a : arguments[2];
-  var e = arguments[3] === undefined ? earthConstants.e : arguments[3];
+function topocentricToFixed(x, obs, _x3, _x4, nwu) {
+  var a = arguments[2] === undefined ? _constantsEarth2['default'].a : arguments[2];
+  var e = arguments[3] === undefined ? _constantsEarth2['default'].e : arguments[3];
 
-  var xObserver = geodeticToCartesian(obs, a, e);
+  var xObserver = _geodetic.geodeticToCartesian(obs, a, e);
 
   var rFixed;
 
   if (nwu) {
 
-    rFixed = vector.mm(vector.r(-obs[0], 3), vector.r(obs[1] - Math.PI / 2, 2));
+    rFixed = _vector2['default'].mm(_vector2['default'].r(-obs[0], 3), _vector2['default'].r(obs[1] - Math.PI / 2, 2));
   } else {
 
-    rFixed = vector.mm(vector.mm(vector.r(-obs[0], 3), vector.r(obs[1] - Math.PI / 2, 2)), vector.q(1));
+    rFixed = _vector2['default'].mm(_vector2['default'].mm(_vector2['default'].r(-obs[0], 3), _vector2['default'].r(obs[1] - Math.PI / 2, 2)), _vector2['default'].q(1));
   }
 
-  var xFixed = vector.mm(rFixed, x);
+  var xFixed = _vector2['default'].mm(rFixed, x);
 
   return xFixed.map(function (xi, i) {
     return xi + xObserver[i];
