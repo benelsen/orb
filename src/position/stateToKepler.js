@@ -39,30 +39,33 @@ export default function stateToKepler(r, rDot, t, m1, m2) {
 
   let ω = Math.atan2(rb[1], rb[0]) - ν;
 
-  let T0, a;
-
   if ( e < 1 ) {
 
-    a = p / (1 - Math.pow(e, 2));
+    let a = p / (1 - Math.pow(e, 2));
 
     let E = 2 * Math.atan( Math.sqrt( (1 - e) / (1 + e) ) * Math.tan(ν / 2) );
 
-    T0 = t - Math.sqrt( Math.pow(a, 3) / GM ) * (E - e * Math.sin(E));
+    let T0 = t - Math.sqrt( Math.pow(a, 3) / GM ) * (E - e * Math.sin(E));
+
+    return [a, e, i, Ω, ω, T0];
 
   } else if ( e > 1 ) {
 
-    a = p / (Math.pow(e, 2) - 1);
+    let a = p / (Math.pow(e, 2) - 1);
 
     let H = 2 * Math.atanh( Math.sqrt( (1 - e) / (1 + e) ) * Math.tan(ν / 2) );
 
-    T0 = t + Math.sqrt( Math.pow(a, 3) / GM ) * (H - e * Math.sinh(H));
+    let T0 = t + Math.sqrt( Math.pow(a, 3) / GM ) * (H - e * Math.sinh(H));
+
+    return [a, e, i, Ω, ω, T0];
 
   } else if ( e === 1 ) {
 
-    T0 = t - 0.5 * Math.sqrt( Math.pow(p, 3) / GM ) *
+    let T0 = t - 0.5 * Math.sqrt( Math.pow(p, 3) / GM ) *
       (Math.tan(ν / 2) + 1 / 3 * Math.pow( Math.tan(ν / 2), 3) );
+
+    return [p, e, i, Ω, ω, T0];
 
   }
 
-  return [a || p, e, i, Ω, ω, T0];
 }
