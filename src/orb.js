@@ -1,4 +1,6 @@
 
+require("babel/polyfill");
+
 const version = '1.0.0';
 
 import common from './common';

@@ -30,6 +30,8 @@ var _position = require('./position');
 
 var _position2 = _interopRequireDefault(_position);
 
+require('babel/polyfill');
+
 var version = '1.0.0';
 
 var orb = {
