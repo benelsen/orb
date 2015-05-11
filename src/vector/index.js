@@ -1,7 +1,16 @@
-var vector = {};
 
-vector.matrixMultiplication = vector.mm = require('./matrixMultiplication').matrixMultiplication;
-vector.mirrorMatrix         = vector.q  = require('./mirrorMatrix').mirrorMatrix;
-vector.rotationMatrix       = vector.r  = require('./rotationMatrix').rotationMatrix;
+import matrixMultiplication from './matrixMultiplication';
+import mirrorMatrix from './mirrorMatrix';
+import rotationMatrix from './rotationMatrix';
+import crossProduct from './crossProduct';
+import dotProduct from './dotProduct';
 
-exports.vector = vector;
+const vector = {
+  matrixMultiplication, mm: matrixMultiplication,
+  mirrorMatrix, q: mirrorMatrix,
+  rotationMatrix, r: rotationMatrix,
+  crossProduct, cross: crossProduct,
+  dotProduct, dot: dotProduct
+};
+
+export default vector;

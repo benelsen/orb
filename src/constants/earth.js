@@ -1,7 +1,7 @@
 // IERS numerical standards
 // (as per Technical Note No.36 Table 1.1)
 
-var earth = {
+const earth = {
   a:    6378136.6, // Equatorial radius
   f:    0.003352819697896193, // Flattening
   invf: 298.25642, // Reciprocal flattening
@@ -12,7 +12,7 @@ var earth = {
   M:    5.9721986e24, // Mass [kg]
   GM:   3.986004418e14, // Geocentric gravitational constant
   ε0:   23.439279444444445, // Obliquity of the ecliptic at J2000.0
-  θ0:   4.894961212823756, // Earth Rotation Angle (ERA) J2000.0
+  θ0:   4.894961212823756 // Earth Rotation Angle (ERA) J2000.0
 };
 
 earth.grs80 = {
@@ -34,4 +34,4 @@ earth.wgs84 = {
   e2:   0.0066943799901413165
 };
 
-exports.earth = earth;
+export default earth;

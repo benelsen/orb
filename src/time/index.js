@@ -1,11 +1,15 @@
-var time = {};
 
-var conversions = require('./conversions').conversions;
-for ( var key in conversions ) {
+import leapSeconds from 'leapseconds';
+import * as conversions from './conversions';
+import dateToJD from './dateToJD';
+
+const time = {
+  leapSeconds,
+  dateToJD
+};
+
+for ( let key in conversions ) {
   time[key] = conversions[key];
 }
 
-time.leapSeconds = require('./leapSeconds').leapSeconds;
-time.dateToJD = require('./dateToJD').dateToJD;
-
-exports.time = time;
+export default time;

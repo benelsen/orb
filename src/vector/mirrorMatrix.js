@@ -1,4 +1,5 @@
-var mirrorMatrix = function(e) {
+
+export default function mirrorMatrix (e) {
 
   var q = [
     1, 0, 0,
@@ -6,9 +7,7 @@ var mirrorMatrix = function(e) {
     0, 0, 1
   ];
 
-  q[(--e)*4] *= -1;
+  q[(--e) * 4] *= -1;
 
   return q;
-};
-
-exports.mirrorMatrix = mirrorMatrix;
+}

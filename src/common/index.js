@@ -1,8 +1,8 @@
-var common = {};
 
-var angular = require('./angular').angular;
-for ( var key in angular ) {
-  common[key] = angular[key];
-}
+import {deg2rad, rad2deg} from './angular';
 
-exports.common = common;
+const common = {
+  deg2rad, rad2deg
+};
+
+export default common;

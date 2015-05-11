@@ -1,6 +1,6 @@
 {
   "name": "orbjs",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
     "orbit",
@@ -21,16 +21,24 @@
     "leapseconds": "^1.1.1"
   },
   "devDependencies": {
-    "browserify": "^6.3.3",
+    "babel": "^5.2.17",
+    "babelify": "^6.0.2",
+    "browserify": "^10.1.3",
     "complexity-report": "^1.0.6",
-    "jshint": "^2.5.10",
-    "mocha": "^2.0.1",
-    "should": "^4.3.0",
-    "uglify-js": "^2.4.15"
+    "eslint": "^0.21.0",
+    "exorcist": "^0.3.0",
+    "mocha": "^2.2.4",
+    "should": "^6.0.1",
+    "uglify-js": "^2.4.21"
   },
   "scripts": {
+    "lint": "eslint src/",
+    "babel": "babel src/ -d src5/",
+    "browserify": "browserify src/orb.js -d -s orb -t [babelify --sourceMapRelative ./dist] | exorcist dist/orb.js.map > dist/orb.js",
+    "uglifyjs": "uglifyjs dist/orb.js -o dist/orb.min.js --source-map dist/orb.min.js.map --source-map-url orb.min.js.map --in-source-map dist/orb.js.map --compress unused=false --mangle",
+    "build": "npm run babel && npm run browserify && npm run uglifyjs",
     "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
-    "prepublish": "make build test jshint -B"
+    "prepublish": "npm run build && npm run test"
   },
   "license": "MIT"
 }
