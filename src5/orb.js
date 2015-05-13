@@ -32,7 +32,7 @@ var _position = require('./position');
 
 var _position2 = _interopRequireDefault(_position);
 
-var version = '0.2.0';
+var version = '0.2.2';
 
 var orb = {
   version: version, common: _common2['default'], constants: _constants2['default'], time: _time2['default'], vector: _vector2['default'], v: _vector2['default'], transformations: _transformations2['default'], position: _position2['default']

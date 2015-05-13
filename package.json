@@ -18,6 +18,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "core-js": "^0.9.8",
     "leapseconds": "^1.1.1"
   },
   "devDependencies": {
@@ -38,7 +39,7 @@
     "uglifyjs": "uglifyjs dist/orb.js -o dist/orb.min.js --source-map dist/orb.min.js.map --source-map-url orb.min.js.map --in-source-map dist/orb.js.map --compress unused=false --mangle",
     "build": "npm run babel && npm run browserify && npm run uglifyjs",
     "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
-    "prepublish": "npm run build && npm run test"
+    "prepublish": "npm run lint && npm run build && npm run test"
   },
   "license": "MIT"
 }

@@ -8,7 +8,7 @@ import vector from './vector';
 import transformations from './transformations';
 import position from './position';
 
-const version = '0.2.0';
+const version = '0.2.2';
 
 const orb = {
   version, common, constants, time, vector, v: vector, transformations, position

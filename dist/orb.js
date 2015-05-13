@@ -1,4 +1,283 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.orb = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require('../modules/es6.math');
+module.exports = require('../modules/$').core.Math;
+},{"../modules/$":4,"../modules/es6.math":5}],2:[function(require,module,exports){
+var $          = require('./$')
+  , global     = $.g
+  , core       = $.core
+  , isFunction = $.isFunction;
+function ctx(fn, that){
+  return function(){
+    return fn.apply(that, arguments);
+  };
+}
+global.core = core;
+// type bitmap
+$def.F = 1;  // forced
+$def.G = 2;  // global
+$def.S = 4;  // static
+$def.P = 8;  // proto
+$def.B = 16; // bind
+$def.W = 32; // wrap
+function $def(type, name, source){
+  var key, own, out, exp
+    , isGlobal = type & $def.G
+    , target   = isGlobal ? global : type & $def.S
+        ? global[name] : (global[name] || {}).prototype
+    , exports  = isGlobal ? core : core[name] || (core[name] = {});
+  if(isGlobal)source = name;
+  for(key in source){
+    // contains in native
+    own = !(type & $def.F) && target && key in target;
+    // export native or passed
+    out = (own ? target : source)[key];
+    // bind timers to global for call from export context
+    if(type & $def.B && own)exp = ctx(out, global);
+    else exp = type & $def.P && isFunction(out) ? ctx(Function.call, out) : out;
+    // extend global
+    if(target && !own){
+      if(isGlobal)target[key] = out;
+      else delete target[key] && $.hide(target, key, out);
+    }
+    // export
+    if(exports[key] != out)$.hide(exports, key, exp);
+  }
+}
+module.exports = $def;
+},{"./$":4}],3:[function(require,module,exports){
+module.exports = function($){
+  $.FW   = true;
+  $.path = $.g;
+  return $;
+};
+},{}],4:[function(require,module,exports){
+'use strict';
+var global = typeof self != 'undefined' ? self : Function('return this')()
+  , core   = {}
+  , defineProperty = Object.defineProperty
+  , hasOwnProperty = {}.hasOwnProperty
+  , ceil  = Math.ceil
+  , floor = Math.floor
+  , max   = Math.max
+  , min   = Math.min;
+// The engine works fine with descriptors? Thank's IE8 for his funny defineProperty.
+var DESC = !!function(){
+  try {
+    return defineProperty({}, 'a', {get: function(){ return 2; }}).a == 2;
+  } catch(e){ /* empty */ }
+}();
+var hide = createDefiner(1);
+// 7.1.4 ToInteger
+function toInteger(it){
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+}
+function desc(bitmap, value){
+  return {
+    enumerable  : !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable    : !(bitmap & 4),
+    value       : value
+  };
+}
+function simpleSet(object, key, value){
+  object[key] = value;
+  return object;
+}
+function createDefiner(bitmap){
+  return DESC ? function(object, key, value){
+    return $.setDesc(object, key, desc(bitmap, value));
+  } : simpleSet;
+}
+
+function isObject(it){
+  return it !== null && (typeof it == 'object' || typeof it == 'function');
+}
+function isFunction(it){
+  return typeof it == 'function';
+}
+function assertDefined(it){
+  if(it == undefined)throw TypeError("Can't call method on  " + it);
+  return it;
+}
+
+var $ = module.exports = require('./$.fw')({
+  g: global,
+  core: core,
+  html: global.document && document.documentElement,
+  // http://jsperf.com/core-js-isobject
+  isObject:   isObject,
+  isFunction: isFunction,
+  it: function(it){
+    return it;
+  },
+  that: function(){
+    return this;
+  },
+  // 7.1.4 ToInteger
+  toInteger: toInteger,
+  // 7.1.15 ToLength
+  toLength: function(it){
+    return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+  },
+  toIndex: function(index, length){
+    index = toInteger(index);
+    return index < 0 ? max(index + length, 0) : min(index, length);
+  },
+  has: function(it, key){
+    return hasOwnProperty.call(it, key);
+  },
+  create:     Object.create,
+  getProto:   Object.getPrototypeOf,
+  DESC:       DESC,
+  desc:       desc,
+  getDesc:    Object.getOwnPropertyDescriptor,
+  setDesc:    defineProperty,
+  setDescs:   Object.defineProperties,
+  getKeys:    Object.keys,
+  getNames:   Object.getOwnPropertyNames,
+  getSymbols: Object.getOwnPropertySymbols,
+  assertDefined: assertDefined,
+  // Dummy, fix for not array-like ES3 string in es5 module
+  ES5Object: Object,
+  toObject: function(it){
+    return $.ES5Object(assertDefined(it));
+  },
+  hide: hide,
+  def: createDefiner(0),
+  set: global.Symbol ? simpleSet : hide,
+  mix: function(target, src){
+    for(var key in src)hide(target, key, src[key]);
+    return target;
+  },
+  each: [].forEach
+});
+/* eslint-disable no-undef */
+if(typeof __e != 'undefined')__e = core;
+if(typeof __g != 'undefined')__g = global;
+},{"./$.fw":3}],5:[function(require,module,exports){
+var Infinity = 1 / 0
+  , $def  = require('./$.def')
+  , E     = Math.E
+  , pow   = Math.pow
+  , abs   = Math.abs
+  , exp   = Math.exp
+  , log   = Math.log
+  , sqrt  = Math.sqrt
+  , ceil  = Math.ceil
+  , floor = Math.floor
+  , EPSILON   = pow(2, -52)
+  , EPSILON32 = pow(2, -23)
+  , MAX32     = pow(2, 127) * (2 - EPSILON32)
+  , MIN32     = pow(2, -126);
+function roundTiesToEven(n){
+  return n + 1 / EPSILON - 1 / EPSILON;
+}
+
+// 20.2.2.28 Math.sign(x)
+function sign(x){
+  return (x = +x) == 0 || x != x ? x : x < 0 ? -1 : 1;
+}
+// 20.2.2.5 Math.asinh(x)
+function asinh(x){
+  return !isFinite(x = +x) || x == 0 ? x : x < 0 ? -asinh(-x) : log(x + sqrt(x * x + 1));
+}
+// 20.2.2.14 Math.expm1(x)
+function expm1(x){
+  return (x = +x) == 0 ? x : x > -1e-6 && x < 1e-6 ? x + x * x / 2 : exp(x) - 1;
+}
+
+$def($def.S, 'Math', {
+  // 20.2.2.3 Math.acosh(x)
+  acosh: function acosh(x){
+    return (x = +x) < 1 ? NaN : isFinite(x) ? log(x / E + sqrt(x + 1) * sqrt(x - 1) / E) + 1 : x;
+  },
+  // 20.2.2.5 Math.asinh(x)
+  asinh: asinh,
+  // 20.2.2.7 Math.atanh(x)
+  atanh: function atanh(x){
+    return (x = +x) == 0 ? x : log((1 + x) / (1 - x)) / 2;
+  },
+  // 20.2.2.9 Math.cbrt(x)
+  cbrt: function cbrt(x){
+    return sign(x = +x) * pow(abs(x), 1 / 3);
+  },
+  // 20.2.2.11 Math.clz32(x)
+  clz32: function clz32(x){
+    return (x >>>= 0) ? 31 - floor(log(x + 0.5) * Math.LOG2E) : 32;
+  },
+  // 20.2.2.12 Math.cosh(x)
+  cosh: function cosh(x){
+    return (exp(x = +x) + exp(-x)) / 2;
+  },
+  // 20.2.2.14 Math.expm1(x)
+  expm1: expm1,
+  // 20.2.2.16 Math.fround(x)
+  fround: function fround(x){
+    var $abs  = abs(x)
+      , $sign = sign(x)
+      , a, result;
+    if($abs < MIN32)return $sign * roundTiesToEven($abs / MIN32 / EPSILON32) * MIN32 * EPSILON32;
+    a = (1 + EPSILON32 / EPSILON) * $abs;
+    result = a - (a - $abs);
+    if(result > MAX32 || result != result)return $sign * Infinity;
+    return $sign * result;
+  },
+  // 20.2.2.17 Math.hypot([value1[, value2[, … ]]])
+  hypot: function hypot(value1, value2){ // eslint-disable-line no-unused-vars
+    var sum  = 0
+      , len1 = arguments.length
+      , len2 = len1
+      , args = Array(len1)
+      , larg = 0
+      , arg;
+    while(len1--){
+      arg = args[len1] = abs(arguments[len1]);
+      if(arg == Infinity)return Infinity;
+      if(arg > larg)larg = arg;
+    }
+    larg = larg || 1;
+    while(len2--)sum += pow(args[len2] / larg, 2);
+    return larg * sqrt(sum);
+  },
+  // 20.2.2.18 Math.imul(x, y)
+  imul: function imul(x, y){
+    var UInt16 = 0xffff
+      , xn = +x
+      , yn = +y
+      , xl = UInt16 & xn
+      , yl = UInt16 & yn;
+    return 0 | xl * yl + ((UInt16 & xn >>> 16) * yl + xl * (UInt16 & yn >>> 16) << 16 >>> 0);
+  },
+  // 20.2.2.20 Math.log1p(x)
+  log1p: function log1p(x){
+    return (x = +x) > -1e-8 && x < 1e-8 ? x - x * x / 2 : log(1 + x);
+  },
+  // 20.2.2.21 Math.log10(x)
+  log10: function log10(x){
+    return log(x) / Math.LN10;
+  },
+  // 20.2.2.22 Math.log2(x)
+  log2: function log2(x){
+    return log(x) / Math.LN2;
+  },
+  // 20.2.2.28 Math.sign(x)
+  sign: sign,
+  // 20.2.2.30 Math.sinh(x)
+  sinh: function sinh(x){
+    return abs(x = +x) < 1 ? (expm1(x) - expm1(-x)) / 2 : (exp(x - 1) - exp(-x - 1)) * (E / 2);
+  },
+  // 20.2.2.33 Math.tanh(x)
+  tanh: function tanh(x){
+    var a = expm1(x = +x)
+      , b = expm1(-x);
+    return a == Infinity ? 1 : b == Infinity ? -1 : (a - b) / (exp(x) + exp(-x));
+  },
+  // 20.2.2.34 Math.trunc(x)
+  trunc: function trunc(it){
+    return (it > 0 ? floor : ceil)(it);
+  }
+});
+},{"./$.def":2}],6:[function(require,module,exports){
 var leapSecondDates = [
   "1972-07-01T00:00:00.000Z",
   "1973-01-01T00:00:00.000Z",
@@ -48,7 +327,7 @@ module.exports = function leapSeconds(date) {
 
 };
 
-},{}],2:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -65,7 +344,7 @@ function rad2deg(rad) {
   return rad * 180 / Math.PI;
 }
 
-},{}],3:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -81,7 +360,7 @@ var common = {
 exports['default'] = common;
 module.exports = exports['default'];
 
-},{"./angular":2}],4:[function(require,module,exports){
+},{"./angular":7}],9:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -94,7 +373,7 @@ exports.c = c;
 var G = 6.67384e-11;
 exports.G = G;
 
-},{}],5:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -104,42 +383,42 @@ Object.defineProperty(exports, "__esModule", {
 // (as per Technical Note No.36 Table 1.1)
 
 var earth = {
-  a: 6378136.6, // Equatorial radius
+  a: 6378136.6, // Equatorial radius [m]
   f: 0.003352819697896193, // Flattening
   invf: 298.25642, // Reciprocal flattening
   e: 0.08181930087617338, // Eccentricity
   e2: 0.006694397995865785, // Eccentricity squared
   J2: 0.0010826359, // Dynamical form factor
-  ω: 0.0000729211514670698, // Rotation rate
+  ω: 0.0000729211514670698, // Rotation rate [rad s-1]
   M: 5.9721986e+24, // Mass [kg]
-  GM: 398600441800000, // Geocentric gravitational constant
-  ε0: 23.439279444444445, // Obliquity of the ecliptic at J2000.0
-  θ0: 4.894961212823756 // Earth Rotation Angle (ERA) J2000.0
+  GM: 398600441800000, // Geocentric gravitational constant [m3 s-2]
+  ε0: 23.439279444444445, // Obliquity of the ecliptic at J2000.0 [deg]
+  θ0: 4.894961212823756 // Earth Rotation Angle (ERA) J2000.0 [rad]
 };
 
 earth.grs80 = {
-  GM: 398600500000000,
-  a: 6378137,
-  J2: 0.00108263,
-  ω: 0.00007292115,
-  f: 0.0033528106811836376,
-  invf: 298.2572221008827,
-  e: 0.08181919104283185,
-  e2: 0.006694380022903416
+  GM: 398600500000000, // Geocentric gravitational constant [m3 s-2]
+  a: 6378137, // Equatorial radius [m]
+  J2: 0.00108263, // Dynamical form factor
+  ω: 0.00007292115, // Rotation rate [rad s-1]
+  f: 0.0033528106811836376, // Flattening
+  invf: 298.2572221008827, // Reciprocal flattening
+  e: 0.08181919104283185, // Eccentricity
+  e2: 0.006694380022903416 // Eccentricity squared
 };
 
 earth.wgs84 = {
-  a: 6378137,
-  f: 0.0033528106647474805,
-  invf: 298.257223563,
-  e: 0.08181919084262149,
-  e2: 0.0066943799901413165
+  a: 6378137, // Equatorial radius [m]
+  f: 0.0033528106647474805, // Flattening
+  invf: 298.257223563, // Reciprocal flattening
+  e: 0.08181919084262149, // Eccentricity
+  e2: 0.0066943799901413165 // Eccentricity squared
 };
 
 exports["default"] = earth;
 module.exports = exports["default"];
 
-},{}],6:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -169,7 +448,7 @@ var constants = {
 exports['default'] = constants;
 module.exports = exports['default'];
 
-},{"./common":4,"./earth":5,"./time":7}],7:[function(require,module,exports){
+},{"./common":9,"./earth":10,"./time":12}],12:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -190,9 +469,9 @@ var time = {
   // TT = TAI + 32.184 seconds
   TTTAI: +32.184,
 
-  // DUT1 = UT1 - UTC = -0.5 (valid from 2014-12-25)
-  // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/17/bulletind-121.txt
-  DUT1: -0.5,
+  // DUT1 = UT1 - UTC = -0.6 (valid from 2015-03-19)
+  // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/17/bulletind-122.txt
+  DUT1: -0.6,
 
   // TAI - UTC = 35.000 seconds (Leap seconds) (valid from 2012-07-01 until at least 2015-06-30)
   // http://datacenter.iers.org/eop/-/somos/5Rgv/getTX/16/bulletinc-048.txt
@@ -205,34 +484,14 @@ var time = {
 exports["default"] = time;
 module.exports = exports["default"];
 
-},{}],8:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 
-// Modified Math.hypot from core-js
-// The current implementation in core-js has a bug w/ negative values.
+// Polyfill ES6 Math
 'use strict';
 
-if (typeof Math.hypot === 'undefined') {
+require('core-js/es6/math');
 
-  Math.hypot = function hypot(value1, value2) {
-    // eslint-disable-line no-unused-vars
-    var sum = 0,
-        len1 = arguments.length,
-        len2 = len1,
-        args = Array(len1),
-        larg = 0,
-        arg;
-    while (len1--) {
-      arg = args[len1] = Math.abs(arguments[len1]);
-      if (arg == Infinity) return Infinity;
-      if (arg > larg) larg = arg;
-    }
-    larg = larg || 1;
-    while (len2--) sum += Math.pow(args[len2] / larg, 2);
-    return larg * Math.sqrt(sum);
-  };
-}
-
-},{}],9:[function(require,module,exports){
+},{"core-js/es6/math":1}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -263,7 +522,7 @@ var position = {
 exports['default'] = position;
 module.exports = exports['default'];
 
-},{"./keplerEquation":10,"./keplerian":11,"./stateToKepler":12}],10:[function(require,module,exports){
+},{"./keplerEquation":15,"./keplerian":16,"./stateToKepler":17}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -296,7 +555,7 @@ function keplerEquation(e, M) {
 
 module.exports = exports["default"];
 
-},{}],11:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -357,7 +616,7 @@ function keplerian(a, e, i, Ω, ω, t, t0, _x, m1, m2) {
 
 module.exports = exports['default'];
 
-},{"../constants":6,"../transformations/orbitalPlaneToInertial":21,"./keplerEquation":10}],12:[function(require,module,exports){
+},{"../constants":11,"../transformations/orbitalPlaneToInertial":26,"./keplerEquation":15}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -435,7 +694,7 @@ function stateToKepler(r, rDot, t, m1, m2) {
 
 module.exports = exports['default'];
 
-},{"../constants":6,"../vector":26}],13:[function(require,module,exports){
+},{"../constants":11,"../vector":31}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -531,7 +790,7 @@ function GPStoUTC(gps) {
 
 /*eslint-enable new-cap */
 
-},{"../constants/time":7,"leapseconds":1}],14:[function(require,module,exports){
+},{"../constants/time":12,"leapseconds":6}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -586,7 +845,7 @@ function dateToJD(date) {
 
 module.exports = exports['default'];
 
-},{}],15:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -621,7 +880,7 @@ for (var key in conversions) {
 exports['default'] = time;
 module.exports = exports['default'];
 
-},{"./conversions":13,"./dateToJD":14,"leapseconds":1}],16:[function(require,module,exports){
+},{"./conversions":18,"./dateToJD":19,"leapseconds":6}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -664,7 +923,7 @@ function cartesianToEllipsoidal(x) {
   ];
 }
 
-},{"../constants/earth":5}],17:[function(require,module,exports){
+},{"../constants/earth":10}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -733,7 +992,7 @@ function topocentricToFixed(x, obs, _x3, _x4, nwu) {
   });
 }
 
-},{"../constants/earth":5,"../vector":26,"./geodetic":18}],18:[function(require,module,exports){
+},{"../constants/earth":10,"../vector":31,"./geodetic":23}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -795,7 +1054,7 @@ function cartesianToGeodetic(x) {
   return [L, B, h];
 }
 
-},{"../constants/earth":5}],19:[function(require,module,exports){
+},{"../constants/earth":10}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -829,7 +1088,7 @@ var transformations = {
 exports['default'] = transformations;
 module.exports = exports['default'];
 
-},{"./ellipsoidal":16,"./fixedToTopocentric":17,"./geodetic":18,"./inertialToFixed":20,"./orbitalPlaneToInertial":21,"./spherical":22,"./topocentricToHorizontal":23}],20:[function(require,module,exports){
+},{"./ellipsoidal":21,"./fixedToTopocentric":22,"./geodetic":23,"./inertialToFixed":25,"./orbitalPlaneToInertial":26,"./spherical":27,"./topocentricToHorizontal":28}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -859,7 +1118,7 @@ function fixedToInertial(x, Δt, ω, axis) {
   return inertialToFixed(x, Δt, -ω, axis);
 }
 
-},{"../constants/earth":5,"../vector":26}],21:[function(require,module,exports){
+},{"../constants/earth":10,"../vector":31}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -878,7 +1137,7 @@ function orbitalPlaneToInertial(x, Ω, ω, i) {
   return _vector2['default'].mm(_vector2['default'].r(-Ω, 3), _vector2['default'].mm(_vector2['default'].r(-i, 1), _vector2['default'].mm(_vector2['default'].r(-ω, 3), x)));
 }
 
-},{"../vector":26}],22:[function(require,module,exports){
+},{"../vector":31}],27:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -906,7 +1165,7 @@ function cartesianToSpherical(x) {
   ];
 }
 
-},{}],23:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -942,7 +1201,7 @@ function horizontalToTopocentric(x) {
   ];
 }
 
-},{}],24:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -963,7 +1222,7 @@ function crossProduct(u, v) {
 
 module.exports = exports['default'];
 
-},{}],25:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -984,7 +1243,7 @@ function dotProduct(u, v) {
 
 module.exports = exports['default'];
 
-},{}],26:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1024,7 +1283,7 @@ var vector = {
 exports['default'] = vector;
 module.exports = exports['default'];
 
-},{"./crossProduct":24,"./dotProduct":25,"./matrixMultiplication":27,"./mirrorMatrix":28,"./rotationMatrix":29}],27:[function(require,module,exports){
+},{"./crossProduct":29,"./dotProduct":30,"./matrixMultiplication":32,"./mirrorMatrix":33,"./rotationMatrix":34}],32:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1047,7 +1306,7 @@ function matrixMultiplication(m1, m2) {
 
 module.exports = exports["default"];
 
-},{}],28:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1066,7 +1325,7 @@ function mirrorMatrix(e) {
 
 module.exports = exports["default"];
 
-},{}],29:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1126,7 +1385,7 @@ function rotationMatrix(α, e) {
 
 module.exports = exports['default'];
 
-},{}],30:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1161,7 +1420,7 @@ var _position = require('./position');
 
 var _position2 = _interopRequireDefault(_position);
 
-var version = '0.2.0';
+var version = '0.2.2';
 
 var orb = {
   version: version, common: _common2['default'], constants: _constants2['default'], time: _time2['default'], vector: _vector2['default'], v: _vector2['default'], transformations: _transformations2['default'], position: _position2['default']
@@ -1170,6 +1429,6 @@ var orb = {
 exports['default'] = orb;
 module.exports = exports['default'];
 
-},{"./common":3,"./constants":6,"./polyfill":8,"./position":9,"./time":15,"./transformations":19,"./vector":26}]},{},[30])(30)
+},{"./common":8,"./constants":11,"./polyfill":13,"./position":14,"./time":20,"./transformations":24,"./vector":31}]},{},[35])(35)
 });
 //# sourceMappingURL=orb.js.map
