@@ -8,7 +8,7 @@ const time = {
   dateToJD
 };
 
-for ( let key in conversions ) {
+for ( let key of Object.keys(conversions) ) {
   time[key] = conversions[key];
 }
 

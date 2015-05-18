@@ -1,7 +1,7 @@
 
 import * as common from './common';
 import earth from './earth';
-import time from './time';
+import * as time from './time';
 
 const constants = {
   common, earth, time

@@ -4,7 +4,7 @@
  */
 
 import leapSeconds from 'leapseconds';
-import constants from '../constants/time';
+import * as constants from '../constants/time';
 
 /*eslint-disable new-cap */
 
