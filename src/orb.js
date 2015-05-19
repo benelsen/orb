@@ -9,11 +9,12 @@ import time from './time';
 import vector from './vector';
 import transformations from './transformations';
 import position from './position';
+import * as functions from './functions';
 
 const version = pkg.version;
 
 const orb = {
-  version, common, constants, time, vector, v: vector, transformations, position
+  version, common, constants, time, vector, v: vector, transformations, position, functions
 };
 
 export default orb;

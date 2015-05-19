@@ -234,6 +234,13 @@ import orb from 'orbjs/src/orb';
     * ω: argument of periapsis
     * T0: time of perihelion passage
 
+### orb.functions
+[#](src/functions/era.js#L7) orb.functions.**era**(days)
+
+- Input:
+	* days: UT1 days since J2000.0
+- Output:
+	* era: ERA (radians)
 
 ### orb.vector
 Common vector and matrix operations, these are only included to make dependencies unnecessary.
