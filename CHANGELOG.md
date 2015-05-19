@@ -12,3 +12,6 @@
 
 ### Added
 - [era](src/functions/era.js#L7) to calculate the Earth Rotation Angle using amount of UT1 days since J2000.0 with the published ERA at J2000.0 and rate of advance from Petit, G., & Luzum, B. (2010). IERS conventions (2010)
+
+### Fixed
+- [dateToJD](src/time/dateToJD.js) now has millisecond resolution

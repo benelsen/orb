@@ -19,9 +19,10 @@ export default function dateToJD (date) {
     y = date[0];
     m = date[1];
     d = date[2];
-    h = date[3] +
-        date[4] / 60 +
-        date[5] / 3600;
+    h = (date[3] || 0) +
+        (date[4] || 0) / 60 +
+        (date[5] || 0) / 3600 +
+        (date[6] || 0) / 3600e3;
 
   } else if ( date instanceof Date || typeof date === 'number' ) {
 
@@ -30,7 +31,8 @@ export default function dateToJD (date) {
     d = date.getUTCDate();
     h = date.getUTCHours() +
         date.getUTCMinutes() / 60 +
-        date.getUTCSeconds() / 3600;
+        date.getUTCSeconds() / 3600 +
+        date.getUTCMilliseconds() / 3600e3;
 
   } else {
     throw new Error('date is of invalid type');
