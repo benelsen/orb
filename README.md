@@ -136,22 +136,20 @@ import orb from 'orbjs/src/orb';
 - Output:
 	* x: [x, y, z] Inertial
 
-[#](src/transformations/inertialToFixed.js#L4) orb.transformations.**inertialToFixed**(x, Δt, ω, axis)
+[#](src/transformations/inertialToFixed.js#L4) orb.transformations.**inertialToFixed**(x, α, axis)
 
 - Input:
 	* x: [x, y, z] Inertial
-	* Δt: time since x1 axis of inertial and fixed were congruent
-	* ω: rotational speed of body
+	* α: angle between the inertial and fixed systems
 	* axis: 1, 2 or 3
 - Output:
 	* x: [x, y, z] Fixed
 
-[#](src/transformations/inertialToFixed.js#L8) orb.transformations.**fixedToInertial**(x, Δt, ω, axis)
+[#](src/transformations/inertialToFixed.js#L8) orb.transformations.**fixedToInertial**(x, α, axis)
 
 - Input:
 	* x: [x, y, z] Fixed
-	* Δt: time since x1 axis of inertial and fixed were congruent
-	* ω: rotational speed of body
+	* α: angle between the fixed and inertial systems
 	* axis: 1, 2 or 3
 - Output:
 	* x: [x, y, z] Inertial
