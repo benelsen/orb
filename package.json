@@ -34,12 +34,13 @@
   },
   "scripts": {
     "lint": "eslint src/",
-    "babel": "babel src/ -d src5/",
-    "browserify": "browserify src/orb.js -d -s orb -t [babelify --sourceMapRelative ./dist] | exorcist dist/orb.js.map > dist/orb.js",
+    "babel": "babel src/ -d src5/ --source-maps",
+    "browserify": "browserify src/orb.js -d -s orb -t [babelify --sourceMapRelative .] | exorcist dist/orb.js.map > dist/orb.js",
     "uglifyjs": "uglifyjs dist/orb.js -o dist/orb.min.js --source-map dist/orb.min.js.map --source-map-url orb.min.js.map --in-source-map dist/orb.js.map --compress unused=false --mangle",
     "build": "npm run babel && npm run browserify && npm run uglifyjs",
-    "test": "node_modules/.bin/mocha --recursive --reporter spec --require should",
-    "prepublish": "npm run lint && npm run build && npm run test"
+    "pretest": "npm run lint && npm run babel",
+    "test": "mocha --recursive --reporter spec --require should",
+    "prepublish": "npm run build"
   },
   "license": "MIT"
 }
