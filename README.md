@@ -20,16 +20,16 @@ npm install orbjs
 var orb = require('orbjs');
 ```
 
+### ES6
+
+```javascript
+import orb from 'orbjs';
+```
+
 ### ES5 - Browser
 
 ```html
 <script src="dist/orb.min.js"></script>
-```
-
-### ES6
-
-```javascript
-import orb from 'orbjs/src/orb';
 ```
 
 ## API
