@@ -2,8 +2,10 @@
 
 orb offers a few simple methods for several common problems of orbital mechanics, like transformations between various coordinate systems and simple orbit propagation using Keplerian elements.
 
-[![npm version](https://badge.fury.io/js/orbjs.svg)](http://badge.fury.io/js/orbjs)
-[![Build Status](https://travis-ci.org/benelsen/orb.png)](https://travis-ci.org/benelsen/orb)
+[![npm version](https://badge.fury.io/js/orbjs.svg)](https://badge.fury.io/js/orbjs)
+[![Build Status](https://travis-ci.org/benelsen/orb.svg?branch=master)](https://travis-ci.org/benelsen/orb)
+[![Dependency Status](https://david-dm.org/benelsen/orb.svg)](https://david-dm.org/benelsen/orb)
+[![devDependency Status](https://david-dm.org/benelsen/orb/dev-status.svg)](https://david-dm.org/benelsen/orb#info=devDependencies)
 
 ## Installation
 
@@ -13,19 +15,19 @@ npm install orbjs
 
 ## Usage
 
-### ES5 - CommonJS
-
-```javascript
-var orb = require('orbjs');
-```
-
-### ES6
+### ES2015 Module
 
 ```javascript
 import orb from 'orbjs';
 ```
 
-### ES5 - Browser
+### CommonJS Module
+
+```javascript
+var orb = require('orbjs').orb;
+```
+
+### Browser
 
 ```html
 <script src="dist/orb.min.js"></script>
@@ -34,62 +36,62 @@ import orb from 'orbjs';
 ## API
 
 ### orb.constants
-[#](src/constants/common.js) orb.constants.common
+[#](lib/constants/common.js) orb.constants.common
 
-[#](src/constants/time.js) orb.constants.time
+[#](lib/constants/time.js) orb.constants.time
 
-[#](src/constants/earth.js#L4) orb.constants.earth
+[#](lib/constants/earth.js#L4) orb.constants.earth
 
-[#](src/constants/earth.js#L18) orb.constants.earth.wgs84
+[#](lib/constants/earth.js#L18) orb.constants.earth.wgs84
 
-[#](src/constants/earth.js#L29) orb.constants.earth.grs80
+[#](lib/constants/earth.js#L29) orb.constants.earth.grs80
 
 ### orb.common
-[#](src/common/angular.js#L2) orb.common.**deg2rad**(deg) Converts degree to radian
+[#](lib/common/angular.js#L2) orb.common.**deg2rad**(deg) Converts degree to radian
 
-[#](src/common/angular.js#L6) orb.common.**rad2deg**(rad) Converts radian to degree
+[#](lib/common/angular.js#L6) orb.common.**rad2deg**(rad) Converts radian to degree
 
 ### orb.time
-[#](src/time/conversions.js#L10) orb.time.**JDtoMJD**(jd) JD to MJD [days]
+[#](lib/time/conversions.js#L10) orb.time.**JDtoMJD**(jd) JD to MJD [days]
 
-[#](src/time/conversions.js#L15) orb.time.**MJDtoJD**(mjd) MJD to JD [days]
+[#](lib/time/conversions.js#L15) orb.time.**MJDtoJD**(mjd) MJD to JD [days]
 
-[#](src/time/conversions.js#L20) orb.time.**TAItoTT**(tai) TAI to TT
+[#](lib/time/conversions.js#L20) orb.time.**TAItoTT**(tai) TAI to TT
 
-[#](src/time/conversions.js#L25) orb.time.**TTtoTAI**(tt) TT to TAI
+[#](lib/time/conversions.js#L25) orb.time.**TTtoTAI**(tt) TT to TAI
 
-[#](src/time/conversions.js#L30) orb.time.**TAItoUTC**(tai) TAI to UTC
+[#](lib/time/conversions.js#L30) orb.time.**TAItoUTC**(tai) TAI to UTC
 
-[#](src/time/conversions.js#L36) orb.time.**UTCtoTAI**(utc) UTC to TAI
+[#](lib/time/conversions.js#L36) orb.time.**UTCtoTAI**(utc) UTC to TAI
 
-[#](src/time/conversions.js#L40) orb.time.**TAItoGPS**(tai) TAI to GPS
+[#](lib/time/conversions.js#L40) orb.time.**TAItoGPS**(tai) TAI to GPS
 
-[#](src/time/conversions.js#L45) orb.time.**GPStoTAI**(gps) GPS to TAI
+[#](lib/time/conversions.js#L45) orb.time.**GPStoTAI**(gps) GPS to TAI
 
-[#](src/time/conversions.js#L50) orb.time.**UTCtoGPS**(utc) UTC to GPS
+[#](lib/time/conversions.js#L50) orb.time.**UTCtoGPS**(utc) UTC to GPS
 
-[#](src/time/conversions.js#L55) orb.time.**GPStoUTC**(gps) GPS to UTC
+[#](lib/time/conversions.js#L55) orb.time.**GPStoUTC**(gps) GPS to UTC
 
-[#](src/time/index.js#L2) orb.time.**leapSeconds**(date) Amount of leap seconds that occurred before `date`. `date` is a JS Date object.
+[#](lib/time/index.js#L2) orb.time.**leapSeconds**(date) Amount of leap seconds that occurred before `date`. `date` is a JS Date object.
 
-[#](src/time/dateToJD.js#L13) orb.time.**dateToJD**(date) Convert a date to Julian Date. `date` is either a Date object, or an array of the form [Y, M, D, h, m, s, ms].
+[#](lib/time/dateToJD.js#L13) orb.time.**dateToJD**(date) Convert a date to Julian Date. `date` is either a Date object, or an array of the form [Y, M, D, h, m, s, ms].
 
 ### orb.transformations
-[#](src/transformations/spherical.js#L2) orb.transformations.**sphericalToCartesian**(x)
+[#](lib/transformations/spherical.js#L2) orb.transformations.**sphericalToCartesian**(x)
 
 - Input:
 	* x: [λ, φ, r] Spherical (longitude, (geocentric) latitude, radius)
 - Output:
 	* x: [x, y, z] Cartesian
 
-[#](src/transformations/spherical.js#L13) orb.transformations.**cartesianToSpherical**(x)
+[#](lib/transformations/spherical.js#L13) orb.transformations.**cartesianToSpherical**(x)
 
 - Input:
 	* x: [x, y, z] Cartesian
 - Output:
 	* x: [λ, φ, r] Spherical (longitude, (geocentric) latitude, radius)
 
-[#](src/transformations/ellipsoidal.js#L4) orb.transformations.**ellipsoidalToCartesian**(x, a, e)
+[#](lib/transformations/ellipsoidal.js#L4) orb.transformations.**ellipsoidalToCartesian**(x, a, e)
 
 - Input:
 	* x: [L, β] Ellipsoidal (longitude, reduced latitude)
@@ -98,7 +100,7 @@ import orb from 'orbjs';
 - Output:
 	* x: [x, y, z] Cartesian
 
-[#](src/transformations/ellipsoidal.js#L17) orb.transformations.**cartesianToEllipsoidal**(x, a, e)
+[#](lib/transformations/ellipsoidal.js#L17) orb.transformations.**cartesianToEllipsoidal**(x, a, e)
 
 - Input:
 	* x: [x, y, z] Cartesian
@@ -107,7 +109,7 @@ import orb from 'orbjs';
 - Output:
 	* x: [L, β] Ellipsoidal (longitude, reduced latitude)
 
-[#](src/transformations/geodetic.js#L4) orb.transformations.**geodeticToCartesian**(x, a, e)
+[#](lib/transformations/geodetic.js#L4) orb.transformations.**geodeticToCartesian**(x, a, e)
 
 - Input:
 	* x: [L, B, h] Geodetic (longitude, geodetic latitude, height above ellipsoid)
@@ -116,7 +118,7 @@ import orb from 'orbjs';
 - Output:
 	* x: [x, y, z] Cartesian
 
-[#](src/transformations/geodetic.js#L17) orb.transformations.**cartesianToGeodetic**(x, a, e)
+[#](lib/transformations/geodetic.js#L17) orb.transformations.**cartesianToGeodetic**(x, a, e)
 
 - Input:
 	* x: [x, y, z] Cartesian
@@ -125,7 +127,7 @@ import orb from 'orbjs';
 - Output:
 	* x: [L, B, h] Geodetic (longitude, geodetic latitude, height above ellipsoid)
 
-[#](src/transformations/orbitalPlaneToInertial.js#L3) orb.transformations.**orbitalPlaneToInertial**(x, Ω, ω, i)
+[#](lib/transformations/orbitalPlaneToInertial.js#L3) orb.transformations.**orbitalPlaneToInertial**(x, Ω, ω, i)
 
 - Input:
 	* x: [x, y] Position of object in orbital plane
@@ -135,7 +137,7 @@ import orb from 'orbjs';
 - Output:
 	* x: [x, y, z] Inertial
 
-[#](src/transformations/inertialToFixed.js#L4) orb.transformations.**inertialToFixed**(x, α, axis)
+[#](lib/transformations/inertialToFixed.js#L4) orb.transformations.**inertialToFixed**(x, α, axis)
 
 - Input:
 	* x: [x, y, z] Inertial
@@ -144,7 +146,7 @@ import orb from 'orbjs';
 - Output:
 	* x: [x, y, z] Fixed
 
-[#](src/transformations/inertialToFixed.js#L8) orb.transformations.**fixedToInertial**(x, α, axis)
+[#](lib/transformations/inertialToFixed.js#L8) orb.transformations.**fixedToInertial**(x, α, axis)
 
 - Input:
 	* x: [x, y, z] Fixed
@@ -153,7 +155,7 @@ import orb from 'orbjs';
 - Output:
 	* x: [x, y, z] Inertial
 
-[#](src/transformations/fixedToTopocentric.js#L6) orb.transformations.**fixedToTopocentric**(x, obs, a, e, nwu)
+[#](lib/transformations/fixedToTopocentric.js#L6) orb.transformations.**fixedToTopocentric**(x, obs, a, e, nwu)
 
 - Input:
 	* x: [x, y, z] Fixed
@@ -163,7 +165,7 @@ import orb from 'orbjs';
 - Output:
 	* x: [x, y, z] Topocentric
 
-[#](src/transformations/fixedToTopocentric.js#L37) orb.transformations.**topocentricToFixed**(x, obs, a, e, nwu)
+[#](lib/transformations/fixedToTopocentric.js#L37) orb.transformations.**topocentricToFixed**(x, obs, a, e, nwu)
 
 - Input:
 	* x: [x, y, z] Topocentric
@@ -173,14 +175,14 @@ import orb from 'orbjs';
 - Output:
 	* x: [x, y, z] Fixed
 
-[#](src/transformations/topocentricToHorizontal.js#L5) orb.transformations.**topocentricToHorizontal**(x)
+[#](lib/transformations/topocentricToHorizontal.js#L5) orb.transformations.**topocentricToHorizontal**(x)
 
 - Input:
 	* x: [x, y, z] Topocentric
 - Output:
 	* x: [azimuth, elevation, distance] Horizontal
 
-[#](src/transformations/topocentricToHorizontal.js#L21) orb.transformations.**horizontalToTopocentric**(x)
+[#](lib/transformations/topocentricToHorizontal.js#L21) orb.transformations.**horizontalToTopocentric**(x)
 
 - Input:
 	* x: [azimuth, elevation, distance] Horizontal
@@ -188,7 +190,7 @@ import orb from 'orbjs';
 	* x: [x, y, z] Topocentric
 
 ### orb.position
-[#](src/position/keplerEquation.js#L2) orb.position.**keplerEquation**(e, M)
+[#](lib/position/keplerEquation.js#L2) orb.position.**keplerEquation**(e, M)
 
 - Input:
 	* e: eccentricity
@@ -196,7 +198,7 @@ import orb from 'orbjs';
 - Output:
 	* ν: true anomaly
 
-[#](src/position/keplerian.js#L6) orb.position.**keplerian**(a, e, i, Ω, ω, t, t0, M0, m1, m2)
+[#](lib/position/keplerian.js#L6) orb.position.**keplerian**(a, e, i, Ω, ω, t, t0, M0, m1, m2)
 
 - Input:
 	* a: semimajor-axis of orbit
@@ -214,7 +216,7 @@ import orb from 'orbjs';
 		* x: [x, y, z] Position in inertial CRS
 		* xDot: [vx, vy, vz] Velocity in inertial CRS
 
-[#](src/position/stateToKepler.js#L5) orb.position.**stateToKepler**(x, xDot, t, m1, m2)
+[#](lib/position/stateToKepler.js#L5) orb.position.**stateToKepler**(x, xDot, t, m1, m2)
 
 - Input:
   * x: [x, y, z] Position in inertial CRS
@@ -232,7 +234,7 @@ import orb from 'orbjs';
     * T0: time of perihelion passage
 
 ### orb.functions
-[#](src/functions/era.js#L7) orb.functions.**era**(days)
+[#](lib/functions/era.js#L7) orb.functions.**era**(days)
 
 - Input:
 	* days: UT1 days since J2000.0

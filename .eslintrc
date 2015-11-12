@@ -14,5 +14,9 @@
   "ecmaFeatures": {
     "modules": true
   },
+  "globals": {
+    "it": true,
+    "describe": true
+  },
   "extends": "eslint:recommended"
 }
