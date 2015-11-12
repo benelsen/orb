@@ -4,7 +4,6 @@ orb offers a few simple methods for several common problems of orbital mechanics
 
 [![npm version](https://badge.fury.io/js/orbjs.svg)](http://badge.fury.io/js/orbjs)
 [![Build Status](https://travis-ci.org/benelsen/orb.png)](https://travis-ci.org/benelsen/orb)
-[![Join the chat at https://gitter.im/benelsen/orb](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/benelsen/orb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Installation
 
@@ -20,16 +19,16 @@ npm install orbjs
 var orb = require('orbjs');
 ```
 
+### ES6
+
+```javascript
+import orb from 'orbjs';
+```
+
 ### ES5 - Browser
 
 ```html
 <script src="dist/orb.min.js"></script>
-```
-
-### ES6
-
-```javascript
-import orb from 'orbjs/src/orb';
 ```
 
 ## API
@@ -136,22 +135,20 @@ import orb from 'orbjs/src/orb';
 - Output:
 	* x: [x, y, z] Inertial
 
-[#](src/transformations/inertialToFixed.js#L4) orb.transformations.**inertialToFixed**(x, Δt, ω, axis)
+[#](src/transformations/inertialToFixed.js#L4) orb.transformations.**inertialToFixed**(x, α, axis)
 
 - Input:
 	* x: [x, y, z] Inertial
-	* Δt: time since x1 axis of inertial and fixed were congruent
-	* ω: rotational speed of body
+	* α: angle between the inertial and fixed systems
 	* axis: 1, 2 or 3
 - Output:
 	* x: [x, y, z] Fixed
 
-[#](src/transformations/inertialToFixed.js#L8) orb.transformations.**fixedToInertial**(x, Δt, ω, axis)
+[#](src/transformations/inertialToFixed.js#L8) orb.transformations.**fixedToInertial**(x, α, axis)
 
 - Input:
 	* x: [x, y, z] Fixed
-	* Δt: time since x1 axis of inertial and fixed were congruent
-	* ω: rotational speed of body
+	* α: angle between the fixed and inertial systems
 	* axis: 1, 2 or 3
 - Output:
 	* x: [x, y, z] Inertial
