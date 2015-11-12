@@ -2,7 +2,7 @@ var should = require('should')
 
 var orb = require('./../../')
 
-describe('orb.position.keplerian', function() {
+describe('orb.propagators.keplerian', function() {
 
   it('should return the state vectors of a satellite after 900s', function() {
 
@@ -27,7 +27,7 @@ describe('orb.position.keplerian', function() {
       },
     }
 
-    var x = orb.position.keplerian(a, e, i, Ω, ω, t, T0)
+    var x = orb.propagators.keplerian(a, e, i, Ω, ω, t, T0)
     x[0][0].should.be.approximately(testPosition.x.x, 1e-5)
     x[0][1].should.be.approximately(testPosition.x.y, 1e-5)
     x[0][2].should.be.approximately(testPosition.x.z, 1e-5)
@@ -62,7 +62,7 @@ describe('orb.position.keplerian', function() {
       },
     }
 
-    var x = orb.position.keplerian(a, e, i, Ω, ω, t, T0, 0, m1, m2)
+    var x = orb.propagators.keplerian(a, e, i, Ω, ω, t, T0, 0, m1, m2)
     x[0][0].should.be.approximately(testPosition.x.x, 1e-3)
     x[0][1].should.be.approximately(testPosition.x.y, 1e-3)
     x[0][2].should.be.approximately(testPosition.x.z, 1e-3)

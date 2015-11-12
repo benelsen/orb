@@ -189,16 +189,9 @@ var orb = require('orbjs').orb;
 - Output:
 	* x: [x, y, z] Topocentric
 
-### orb.position
-[#](lib/position/keplerEquation.js#L2) orb.position.**keplerEquation**(e, M)
+### orb.propagators
 
-- Input:
-	* e: eccentricity
-	* M: mean anomaly
-- Output:
-	* ν: true anomaly
-
-[#](lib/position/keplerian.js#L6) orb.position.**keplerian**(a, e, i, Ω, ω, t, t0, M0, m1, m2)
+[#](lib/propagators/keplerian.js#L6) orb.propagators.**keplerian**(a, e, i, Ω, ω, t, t0, M0, m1, m2)
 
 - Input:
 	* a: semimajor-axis of orbit
@@ -216,7 +209,7 @@ var orb = require('orbjs').orb;
 		* x: [x, y, z] Position in inertial CRS
 		* xDot: [vx, vy, vz] Velocity in inertial CRS
 
-[#](lib/position/stateToKepler.js#L5) orb.position.**stateToKepler**(x, xDot, t, m1, m2)
+[#](lib/propagators/stateToKepler.js#L5) orb.propagators.**stateToKepler**(x, xDot, t, m1, m2)
 
 - Input:
   * x: [x, y, z] Position in inertial CRS
@@ -240,6 +233,14 @@ var orb = require('orbjs').orb;
 	* days: UT1 days since J2000.0
 - Output:
 	* era: ERA (radians)
+
+[#](lib/functions/keplerEquation.js#L2) orb.functions.**keplerEquation**(e, M)
+
+- Input:
+	* e: eccentricity
+	* M: mean anomaly
+- Output:
+	* ν: true anomaly
 
 ### orb.vector
 Common vector and matrix operations, these are only included to make dependencies unnecessary.
