@@ -7,14 +7,24 @@ import {inertialToFixed, fixedToInertial} from './inertialToFixed';
 import {orbitalPlaneToInertial} from './orbitalPlaneToInertial';
 import {topocentricToHorizontal, horizontalToTopocentric} from './topocentricToHorizontal';
 
-const transformations = {
-  sphericalToCartesian, cartesianToSpherical,
-  ellipsoidalToCartesian, cartesianToEllipsoidal,
-  geodeticToCartesian, cartesianToGeodetic,
-  fixedToTopocentric, topocentricToFixed,
-  inertialToFixed, fixedToInertial,
-  orbitalPlaneToInertial,
-  topocentricToHorizontal, horizontalToTopocentric
-};
+export default {
+  sphericalToCartesian,
+  cartesianToSpherical,
 
-export default transformations;
+  ellipsoidalToCartesian,
+  cartesianToEllipsoidal,
+
+  geodeticToCartesian,
+  cartesianToGeodetic,
+
+  fixedToTopocentric,
+  topocentricToFixed,
+
+  inertialToFixed,
+  fixedToInertial,
+
+  orbitalPlaneToInertial,
+
+  topocentricToHorizontal,
+  horizontalToTopocentric
+};

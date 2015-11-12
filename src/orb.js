@@ -3,18 +3,22 @@ import './polyfill';
 
 import pkg from '../package.json';
 
-import * as common from './common';
+import common from './common';
 import constants from './constants';
+import functions from './functions';
 import time from './time';
-import vector from './vector';
 import transformations from './transformations';
 import position from './position';
-import * as functions from './functions';
+import vector from './vector';
 
-const version = pkg.version;
-
-const orb = {
-  version, common, constants, time, vector, v: vector, transformations, position, functions
+export default {
+  version: pkg.version,
+  common,
+  constants,
+  functions,
+  time,
+  transformations,
+  position,
+  vector,
+  v: vector
 };
-
-export default orb;
