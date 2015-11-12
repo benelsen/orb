@@ -12,39 +12,39 @@
 
 export default function dateToJD (date) {
 
-  let y, m, d, h;
+  let y, m, d, h
 
   if ( date instanceof Array ) {
 
-    y = date[0];
-    m = date[1];
-    d = date[2];
+    y = date[0]
+    m = date[1]
+    d = date[2]
     h = (date[3] || 0) +
         (date[4] || 0) / 60 +
         (date[5] || 0) / 3600 +
-        (date[6] || 0) / 3600e3;
+        (date[6] || 0) / 3600e3
 
   } else if ( date instanceof Date || typeof date === 'number' ) {
 
-    y = date.getUTCFullYear();
-    m = date.getUTCMonth() + 1;
-    d = date.getUTCDate();
+    y = date.getUTCFullYear()
+    m = date.getUTCMonth() + 1
+    d = date.getUTCDate()
     h = date.getUTCHours() +
         date.getUTCMinutes() / 60 +
         date.getUTCSeconds() / 3600 +
-        date.getUTCMilliseconds() / 3600e3;
+        date.getUTCMilliseconds() / 3600e3
 
   } else {
-    throw new Error('date is of invalid type');
+    throw new Error('date is of invalid type')
   }
 
-  let f = m > 2 ? y : y - 1;
-  let g = m > 2 ? m : m + 12;
+  let f = m > 2 ? y : y - 1
+  let g = m > 2 ? m : m + 12
 
-  let a = 2 - Math.floor( f / 100 ) + Math.floor( f / 400 );
+  let a = 2 - Math.floor( f / 100 ) + Math.floor( f / 400 )
 
-  let jd = Math.floor( 365.25 * f ) + Math.floor( 30.6001 * ( g + 1 ) ) + d + a + 1720994.5;
+  let jd = Math.floor( 365.25 * f ) + Math.floor( 30.6001 * ( g + 1 ) ) + d + a + 1720994.5
 
-  return jd + h / 24;
+  return jd + h / 24
 
 }

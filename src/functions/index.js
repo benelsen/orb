@@ -1,6 +1,6 @@
 
-import era from './era.js';
+import era from './era.js'
 
 export default {
-  era
-};
+  era,
+}

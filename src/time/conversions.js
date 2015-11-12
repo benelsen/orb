@@ -3,8 +3,8 @@
  * All time values are in seconds unless specified
  */
 
-import leapSeconds from 'leapseconds';
-import * as constants from '../constants/time';
+import leapSeconds from 'leapseconds'
+import * as constants from '../constants/time'
 
 /*eslint-disable new-cap */
 
@@ -14,7 +14,7 @@ import * as constants from '../constants/time';
  * @returns {number} mjd Modified Julian Date
  */
 export function JDtoMJD (jd) {
-  return jd + constants.MJDJD;
+  return jd + constants.MJDJD
 }
 
 /**
@@ -23,7 +23,7 @@ export function JDtoMJD (jd) {
  * @returns {number} jd  Julian Date
  */
 export function MJDtoJD (mjd) {
-  return mjd - constants.MJDJD;
+  return mjd - constants.MJDJD
 }
 
 /**
@@ -32,7 +32,7 @@ export function MJDtoJD (mjd) {
  * @returns {number} tt  TT (seconds)
  */
 export function TAItoTT (tai) {
-  return tai + constants.TTTAI;
+  return tai + constants.TTTAI
 }
 
 /**
@@ -41,7 +41,7 @@ export function TAItoTT (tai) {
  * @returns {number} tai TAI (seconds)
  */
 export function TTtoTAI (tt) {
-  return tt - constants.TTTAI;
+  return tt - constants.TTTAI
 }
 
 /**
@@ -51,7 +51,7 @@ export function TTtoTAI (tt) {
  */
 // TAI -> UTC
 export function TAItoUTC (tai) {
-  return tai - leapSeconds(new Date( tai * 1e3 ));
+  return tai - leapSeconds(new Date( tai * 1e3 ))
 }
 
 /**
@@ -60,7 +60,7 @@ export function TAItoUTC (tai) {
  * @returns {number} tai TAI (seconds)
  */
 export function UTCtoTAI (utc) {
-  return utc + leapSeconds(new Date( utc * 1e3 ));
+  return utc + leapSeconds(new Date( utc * 1e3 ))
 }
 
 /**
@@ -69,7 +69,7 @@ export function UTCtoTAI (utc) {
  * @returns {number} gps GPS (seconds)
  */
 export function TAItoGPS (tai) {
-  return tai - constants.TAIGPS;
+  return tai - constants.TAIGPS
 }
 
 /**
@@ -78,7 +78,7 @@ export function TAItoGPS (tai) {
  * @returns {number} tai TAI (seconds)
  */
 export function GPStoTAI (gps) {
-  return gps + constants.TAIGPS;
+  return gps + constants.TAIGPS
 }
 
 /**
@@ -87,7 +87,7 @@ export function GPStoTAI (gps) {
  * @returns {number} gps GPS (seconds)
  */
 export function UTCtoGPS (utc) {
-  return TAItoGPS( UTCtoTAI(utc) );
+  return TAItoGPS( UTCtoTAI(utc) )
 }
 
 /**
@@ -96,7 +96,7 @@ export function UTCtoGPS (utc) {
  * @returns {number} utc UTC (seconds)
  */
 export function GPStoUTC (gps) {
-  return TAItoUTC( GPStoTAI(gps) );
+  return TAItoUTC( GPStoTAI(gps) )
 }
 
 /*eslint-enable new-cap */

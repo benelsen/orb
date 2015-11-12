@@ -1,9 +1,9 @@
 
-import matrixMultiplication from './matrixMultiplication';
-import mirrorMatrix from './mirrorMatrix';
-import rotationMatrix from './rotationMatrix';
-import crossProduct from './crossProduct';
-import dotProduct from './dotProduct';
+import matrixMultiplication from './matrixMultiplication'
+import mirrorMatrix from './mirrorMatrix'
+import rotationMatrix from './rotationMatrix'
+import crossProduct from './crossProduct'
+import dotProduct from './dotProduct'
 
 export default {
   matrixMultiplication,
@@ -19,5 +19,5 @@ export default {
   cross: crossProduct,
 
   dotProduct,
-  dot: dotProduct
-};
+  dot: dotProduct,
+}

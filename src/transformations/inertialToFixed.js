@@ -1,9 +1,9 @@
-import vector from '../vector';
+import vector from '../vector'
 
 export function inertialToFixed (x, α, axis=3) {
-  return vector.mm( vector.r( α, axis ), x );
+  return vector.mm( vector.r( α, axis ), x )
 }
 
 export function fixedToInertial (x, α, axis=3) {
-  return inertialToFixed( x, -α, axis );
+  return inertialToFixed( x, -α, axis )
 }

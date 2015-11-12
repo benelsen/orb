@@ -5,5 +5,5 @@
  * @return {number}      ERA (radians)
  */
 export default function era(days) {
-  return 2 * Math.PI * ( ( 0.7790572732640 + 1.00273781191135448 * days ) % 1 );
+  return 2 * Math.PI * ( ( 0.7790572732640 + 1.00273781191135448 * days ) % 1 )
 }

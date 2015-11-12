@@ -1,4 +1,4 @@
-import vector from '../vector';
+import vector from '../vector'
 
 export function orbitalPlaneToInertial (x, Ω, ω, i) {
 
@@ -8,6 +8,6 @@ export function orbitalPlaneToInertial (x, Ω, ω, i) {
         vector.r(-ω, 3), x
       )
     )
-  );
+  )
 
 }

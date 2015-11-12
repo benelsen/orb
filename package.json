@@ -7,40 +7,33 @@
     "orbital mechanics",
     "orbit determination"
   ],
-  "homepage": "https://github.com/benelsen/orb",
-  "author": {
-    "name": "Ben Elsen",
-    "url": "http://benelsen.com"
-  },
+  "author": "Ben Elsen <mail@benelsen.com> (https://benelsen.com/)",
   "repository": {
     "type": "git",
     "url": "https://github.com/benelsen/orb.git"
   },
-  "main": "index.js",
+  "main": "lib5/index.js",
+  "scripts": {
+    "lint": "eslint lib/ test/",
+    "build": "babel -d lib5/ lib/",
+    "pretest": "npm run lint",
+    "test": "babel-tape-runner test/**/*",
+    "version": "npm run lint && npm run test && npm run build",
+    "prepublish": "npm run lint && npm run test && npm run build"
+  },
   "dependencies": {
     "core-js": "^0.9.11",
     "leapseconds": "^1.1.1"
   },
   "devDependencies": {
-    "babel": "^5.2.17",
-    "babelify": "^6.0.2",
-    "browserify": "^10.1.3",
-    "complexity-report": "^1.0.6",
-    "eslint": "^0.21.2",
-    "exorcist": "^0.4.0",
-    "mocha": "^2.2.4",
-    "should": "^6.0.3",
-    "uglify-js": "^2.4.22"
+    "babel-cli": "^6.1.4",
+    "babel-preset-es2015": "^6.1.4",
+    "babel-tape-runner": "^1.3.0",
+    "eslint": "^1.9.0",
+    "tape": "^4.2.2"
   },
-  "scripts": {
-    "lint": "eslint src/",
-    "babel": "babel src/ -d src5/ --source-maps",
-    "browserify": "browserify src/orb.js -d -s orb -t [babelify --sourceMapRelative .] | exorcist dist/orb.js.map > dist/orb.js",
-    "uglifyjs": "uglifyjs dist/orb.js -o dist/orb.min.js --source-map dist/orb.min.js.map --source-map-url orb.min.js.map --in-source-map dist/orb.js.map --compress unused=false --mangle",
-    "build": "npm run babel && npm run browserify && npm run uglifyjs",
-    "pretest": "npm run lint && npm run babel",
-    "test": "mocha --recursive --reporter spec --require should",
-    "prepublish": "npm run build"
+  "engines": {
+    "node": ">=4.0.0"
   },
   "license": "MIT"
 }

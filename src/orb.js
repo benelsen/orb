@@ -1,18 +1,18 @@
 
-import './polyfill';
+import './polyfill'
 
-import pkg from '../package.json';
+import {version} from '../package.json'
 
-import common from './common';
-import constants from './constants';
-import functions from './functions';
-import time from './time';
-import transformations from './transformations';
-import position from './position';
-import vector from './vector';
+import common from './common'
+import constants from './constants'
+import functions from './functions'
+import time from './time'
+import transformations from './transformations'
+import position from './position'
+import vector from './vector'
 
 export default {
-  version: pkg.version,
+  version,
   common,
   constants,
   functions,
@@ -20,5 +20,5 @@ export default {
   transformations,
   position,
   vector,
-  v: vector
-};
+  v: vector,
+}
