@@ -13,6 +13,7 @@
     "url": "https://github.com/benelsen/orb.git"
   },
   "main": "lib5/index.js",
+  "browser": "dist/orb.min.js",
   "scripts": {
     "lint": "eslint lib/ test/",
     "build": "babel -d lib5/ lib/",
