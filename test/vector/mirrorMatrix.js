@@ -1,37 +1,44 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb.vector.mirrorMatrix', function() {
+import mirrorMatrix from './../../lib/vector/mirrorMatrix'
 
-  it('should return a correct Q1 matrix', function() {
-    var q1 = orb.vector.mirrorMatrix(1)
+experiment('orb.vector.mirrorMatrix', function () {
 
-    q1.should.eql([
+  test('should return a correct Q1 matrix', function (done) {
+    var q1 = mirrorMatrix(1)
+
+    expect( q1 ).to.deep.equal([
       -1, 0, 0,
       0, 1, 0,
       0, 0, 1,
     ])
+    done()
   })
 
-  it('should return a correct Q2 matrix', function() {
-    var q2 = orb.vector.mirrorMatrix(2)
+  test('should return a correct Q2 matrix', function (done) {
+    var q2 = mirrorMatrix(2)
 
-    q2.should.eql([
+    expect( q2 ).to.deep.equal([
       1,  0, 0,
       0, -1, 0,
       0,  0, 1,
     ])
+    done()
   })
 
-  it('should return a correct Q3 matrix', function() {
-    var q3 = orb.vector.mirrorMatrix(3)
+  test('should return a correct Q3 matrix', function (done) {
+    var q3 = mirrorMatrix(3)
 
-    q3.should.eql([
+    expect( q3 ).to.deep.equal([
       1, 0,  0,
       0, 1,  0,
       0, 0, -1,
     ])
+    done()
   })
 
 })

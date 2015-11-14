@@ -1,8 +1,12 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb.transformations.inertialToFixed', function() {
+import {inertialToFixed, fixedToInertial} from './../../lib/transformations/inertialToFixed'
+
+experiment('orb.transformations.inertialToFixed', function () {
 
   var x1 = [
     1, 0, 0.2,
@@ -10,27 +14,29 @@ describe('orb.transformations.inertialToFixed', function() {
 
   var ω = 2*Math.PI
 
-  it('should be rotated pi/2 after 1/4 second', function() {
+  test('should be rotated pi/2 after 1/4 second', function (done) {
 
-    var fixed = orb.transformations.inertialToFixed(x1, 0.25 * ω, 3)
-    fixed[0].should.be.approximately( 0,   1e-15)
-    fixed[1].should.be.approximately(-1,   1e-15)
-    fixed[2].should.be.approximately( 0.2, 1e-15)
+    var fixed = inertialToFixed(x1, 0.25 * ω, 3)
+    expect( fixed[0] ).to.be.about( 0,   1e-15)
+    expect( fixed[1] ).to.be.about(-1,   1e-15)
+    expect( fixed[2] ).to.be.about( 0.2, 1e-15)
 
+    done()
   })
 
-  it('should be in same position after 1 second', function() {
+  test('should be in same position after 1 second', function (done) {
 
-    var fixed = orb.transformations.inertialToFixed(x1, 1 * ω, 3)
-    fixed[0].should.be.approximately(1,   1e-15)
-    fixed[1].should.be.approximately(0,   1e-15)
-    fixed[2].should.be.approximately(0.2, 1e-15)
+    var fixed = inertialToFixed(x1, 1 * ω, 3)
+    expect( fixed[0] ).to.be.about(1,   1e-15)
+    expect( fixed[1] ).to.be.about(0,   1e-15)
+    expect( fixed[2] ).to.be.about(0.2, 1e-15)
 
+    done()
   })
 
 })
 
-describe('orb.transformations.fixedToInertial', function() {
+experiment('orb.transformations.fixedToInertial', function () {
 
   var x1 = [
     1, 0, 0.2,
@@ -38,22 +44,24 @@ describe('orb.transformations.fixedToInertial', function() {
 
   var ω = 2*Math.PI
 
-  it('should be rotated -pi/2 after 1/4 second', function() {
+  test('should be rotated -pi/2 after 1/4 second', function (done) {
 
-    var fixed = orb.transformations.fixedToInertial(x1, 0.25 * ω, 3)
-    fixed[0].should.be.approximately( 0,   1e-15)
-    fixed[1].should.be.approximately( 1,   1e-15)
-    fixed[2].should.be.approximately( 0.2, 1e-15)
+    var fixed = fixedToInertial(x1, 0.25 * ω, 3)
+    expect( fixed[0] ).to.be.about( 0,   1e-15)
+    expect( fixed[1] ).to.be.about( 1,   1e-15)
+    expect( fixed[2] ).to.be.about( 0.2, 1e-15)
 
+    done()
   })
 
-  it('should be in same position after 1 second', function() {
+  test('should be in same position after 1 second', function (done) {
 
-    var fixed = orb.transformations.fixedToInertial(x1, 1 * ω, 3)
-    fixed[0].should.be.approximately( 1,   1e-15)
-    fixed[1].should.be.approximately( 0,   1e-15)
-    fixed[2].should.be.approximately( 0.2, 1e-15)
+    var fixed = fixedToInertial(x1, 1 * ω, 3)
+    expect( fixed[0] ).to.be.about( 1,   1e-15)
+    expect( fixed[1] ).to.be.about( 0,   1e-15)
+    expect( fixed[2] ).to.be.about( 0.2, 1e-15)
 
+    done()
   })
 
 })

@@ -1,26 +1,31 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb.transformations.topocentricToHorizontal', function() {
+import {topocentricToHorizontal, horizontalToTopocentric} from './../../lib/transformations/topocentricToHorizontal'
 
-  it('should calculate azimith, elevation and distance from x, y, z', function() {
+experiment('orb.transformations.topocentricToHorizontal', function () {
+
+  test('should calculate azimith, elevation and distance from x, y, z', function (done) {
 
     var x = [
       1, -1, 1,
     ]
 
-    var hor = orb.transformations.topocentricToHorizontal(x)
-    hor[0].should.be.approximately(7*Math.PI/4, 1e-12)
-    hor[1].should.be.approximately(Math.atan2( 1, Math.SQRT2 ), 1e-12)
-    hor[2].should.be.approximately(Math.sqrt(3), 1e-12)
+    var hor = topocentricToHorizontal(x)
+    expect( hor[0] ).to.be.about(7*Math.PI/4, 1e-12)
+    expect( hor[1] ).to.be.about(Math.atan2( 1, Math.SQRT2 ), 1e-12)
+    expect( hor[2] ).to.be.about(Math.sqrt(3), 1e-12)
+    done()
   })
 
 })
 
-describe('orb.transformations.horizontalToTopocentric', function() {
+experiment('orb.transformations.horizontalToTopocentric', function () {
 
-  it('should calculate x, y, z from azimith, elevation and distance', function() {
+  test('should calculate x, y, z from azimith, elevation and distance', function (done) {
 
     var x = [
       7*Math.PI/4,
@@ -28,10 +33,11 @@ describe('orb.transformations.horizontalToTopocentric', function() {
       Math.sqrt(3),
     ]
 
-    var topo = orb.transformations.horizontalToTopocentric(x)
-    topo[0].should.be.approximately(1, 1e-12)
-    topo[1].should.be.approximately(-1, 1e-12)
-    topo[2].should.be.approximately(1, 1e-12)
+    var topo = horizontalToTopocentric(x)
+    expect( topo[0] ).to.be.about(1, 1e-12)
+    expect( topo[1] ).to.be.about(-1, 1e-12)
+    expect( topo[2] ).to.be.about(1, 1e-12)
+    done()
   })
 
 })

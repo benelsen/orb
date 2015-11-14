@@ -1,67 +1,77 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb.time.JDtoMJD', function() {
-  it('should convert JD to MJD', function() {
-    orb.time.JDtoMJD(2456380.63071).should.be.approximately(56380.13071, 10-6)
+import time from './../../lib/time'
+
+experiment('orb.time.JDtoMJD', function () {
+  test('should convert JD to MJD', function (done) {
+    expect( time.JDtoMJD(2456380.63071) ).to.be.about(56380.13071, 10e-6)
+    done()
   })
 })
 
-describe('orb.time.MJDtoJD', function() {
-  it('should convert MJD to JD', function() {
-    orb.time.MJDtoJD(56380.13071).should.be.approximately(2456380.63071, 10-6)
+experiment('orb.time.MJDtoJD', function () {
+  test('should convert MJD to JD', function (done) {
+    expect( time.MJDtoJD(56380.13071) ).to.be.about(2456380.63071, 10e-6)
+    done()
   })
 })
 
-describe('orb.time.TAItoTT', function() {
-  it('should convert TAI to TT', function() {
-    orb.time.TAItoTT(0).should.equal(32.184)
+experiment('orb.time.TAItoTT', function () {
+  test('should convert TAI to TT', function (done) {
+    expect( time.TAItoTT(0) ).to.equal(32.184)
+    done()
   })
 })
 
-describe('orb.time.TTtoTAI', function() {
-  it('should convert TT to TAI', function() {
-    orb.time.TTtoTAI(0).should.equal(-32.184)
+experiment('orb.time.TTtoTAI', function () {
+  test('should convert TT to TAI', function (done) {
+    expect( time.TTtoTAI(0) ).to.equal(-32.184)
+    done()
   })
 })
 
-describe('orb.time.TAItoUTC', function() {
-  it('should convert TAI to UTC', function() {
-    orb.time.TAItoUTC( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 )
-      .should.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 - 35.000)
+experiment('orb.time.TAItoUTC', function () {
+  test('should convert TAI to UTC', function (done) {
+    expect( time.TAItoUTC( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 ) ).to.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 - 35.000)
+    done()
   })
 })
 
-describe('orb.time.UTCtoTAI', function() {
-  it('should convert UTC to TAI', function() {
-    orb.time.UTCtoTAI( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 )
-      .should.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 + 35.000)
+experiment('orb.time.UTCtoTAI', function () {
+  test('should convert UTC to TAI', function (done) {
+    expect( time.UTCtoTAI( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 ) ).to.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 + 35.000)
+    done()
   })
 })
 
-describe('orb.time.TAItoGPS', function() {
-  it('should convert TAI to GPS', function() {
-    orb.time.TAItoGPS(0).should.equal(-19.000)
+experiment('orb.time.TAItoGPS', function () {
+  test('should convert TAI to GPS', function (done) {
+    expect( time.TAItoGPS(0) ).to.equal(-19.000)
+    done()
   })
 })
 
-describe('orb.time.GPStoTAI', function() {
-  it('should convert GPS to TAI', function() {
-    orb.time.GPStoTAI(0).should.equal(19.000)
+experiment('orb.time.GPStoTAI', function () {
+  test('should convert GPS to TAI', function (done) {
+    expect( time.GPStoTAI(0) ).to.equal(19.000)
+    done()
   })
 })
 
-describe('orb.time.UTCtoGPS', function() {
-  it('should convert UTC to GPS', function() {
-    orb.time.UTCtoGPS( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 )
-      .should.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 + 16.000)
+experiment('orb.time.UTCtoGPS', function () {
+  test('should convert UTC to GPS', function (done) {
+    expect( time.UTCtoGPS( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 ) ).to.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 + 16.000)
+    done()
   })
 })
 
-describe('orb.time.GPStoUTC', function() {
-  it('should convert GPS to UTC', function() {
-    orb.time.GPStoUTC( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 )
-      .should.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 - 16.000)
+experiment('orb.time.GPStoUTC', function () {
+  test('should convert GPS to UTC', function (done) {
+    expect( time.GPStoUTC( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 ) ).to.equal( new Date('2014-07-11T00:00:00.000Z').getTime() * 1e-3 - 16.000)
+    done()
   })
 })

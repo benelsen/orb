@@ -1,15 +1,21 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb.functions.era', function() {
+import era from './../../lib/functions/era'
 
-  it('should return the ERA after 0 days', function() {
-    orb.functions.era(0.0).should.be.approximately(4.894961212823756, 1e-12)
+experiment('orb.functions.era', function () {
+
+  test('should return the ERA after 0 days', function (done) {
+    expect( era(0.0) ).to.be.about(4.894961212823756, 1e-12)
+    done()
   })
 
-  it('should return the ERA after 1000 days', function() {
-    orb.functions.era(1000.0).should.be.approximately(3.247584866529671, 1e-12)
+  test('should return the ERA after 1000 days', function (done) {
+    expect( era(1000.0) ).to.be.about(3.247584866529671, 1e-12)
+    done()
   })
 
 })

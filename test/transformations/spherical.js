@@ -1,6 +1,10 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
+
+import {sphericalToCartesian, cartesianToSpherical} from './../../lib/transformations/spherical'
 
 var testLocation = {
   x:  6219769.945228009,
@@ -11,20 +15,22 @@ var testLocation = {
   r:  6378137.0,
 }
 
-describe('orb.transformations.sphericalToCartesian', function() {
-  it('should convert to cartesian coordinates', function() {
-    var cartesian = orb.transformations.sphericalToCartesian([testLocation.λ, testLocation.φ, testLocation.r])
-    cartesian[0].should.be.approximately(testLocation.x, 1e-6)
-    cartesian[1].should.be.approximately(testLocation.y, 1e-6)
-    cartesian[2].should.be.approximately(testLocation.z, 1e-6)
+experiment('orb.transformations.sphericalToCartesian', function () {
+  test('should convert to cartesian coordinates', function (done) {
+    var cartesian = sphericalToCartesian([testLocation.λ, testLocation.φ, testLocation.r])
+    expect( cartesian[0] ).to.be.about(testLocation.x, 1e-6)
+    expect( cartesian[1] ).to.be.about(testLocation.y, 1e-6)
+    expect( cartesian[2] ).to.be.about(testLocation.z, 1e-6)
+    done()
   })
 })
 
-describe('orb.transformations.cartesianToSpherical', function() {
-  it('should convert to spherical coordinates', function() {
-    var spherical = orb.transformations.cartesianToSpherical([testLocation.x, testLocation.y, testLocation.z])
-    spherical[0].should.be.approximately(testLocation.λ, 1e-12)
-    spherical[1].should.be.approximately(testLocation.φ, 1e-12)
-    spherical[2].should.be.approximately(testLocation.r, 1e-6)
+experiment('orb.transformations.cartesianToSpherical', function () {
+  test('should convert to spherical coordinates', function (done) {
+    var spherical = cartesianToSpherical([testLocation.x, testLocation.y, testLocation.z])
+    expect( spherical[0] ).to.be.about(testLocation.λ, 1e-12)
+    expect( spherical[1] ).to.be.about(testLocation.φ, 1e-12)
+    expect( spherical[2] ).to.be.about(testLocation.r, 1e-6)
+    done()
   })
 })

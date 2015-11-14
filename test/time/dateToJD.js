@@ -1,23 +1,27 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb.time.dateToJD', function() {
+import dateToJD from './../../lib/time/dateToJD'
 
-  it('should convert a Date to JD', function() {
+experiment('orb.time.dateToJD', function () {
 
-    orb.time.dateToJD( new Date( Date.UTC(2014, 0, 30, 0, 0, 0, 0) ) ).should.be.exactly(2456687.500000)
+  test('should convert a Date to JD', function (done) {
 
-    orb.time.dateToJD( new Date( Date.UTC(2014, 0, 30, 22, 56, 35, 100) ) ).should.be.exactly(2456688.455961806)
+    expect( dateToJD( new Date( Date.UTC(2014, 0, 30, 0, 0, 0, 0) ) ) ).to.equal(2456687.500000)
+    expect( dateToJD( new Date( Date.UTC(2014, 0, 30, 22, 56, 35, 100) ) ) ).to.equal(2456688.455961806)
 
+    done()
   })
 
-  it('should convert an Array to JD', function() {
+  test('should convert an Array to JD', function (done) {
 
-    orb.time.dateToJD( [2014, 1, 30, 0, 0, 0, 0] ).should.be.exactly(2456687.500000)
+    expect( dateToJD( [2014, 1, 30, 0, 0, 0, 0] ) ).to.equal(2456687.500000)
+    expect( dateToJD( [2014, 1, 30, 22, 56, 35, 100] ) ).to.equal(2456688.455961806)
 
-    orb.time.dateToJD( [2014, 1, 30, 22, 56, 35, 100] ).should.be.exactly(2456688.455961806)
-
+    done()
   })
 
 })

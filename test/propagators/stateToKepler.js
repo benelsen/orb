@@ -1,20 +1,25 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb.propagators.stateToKepler', function() {
+import {deg2rad, rad2deg} from './../../lib/common/angular'
+import stateToKepler from './../../lib/propagators/stateToKepler'
 
-  it('should return the state vectors of a satellite after 900s', function() {
+experiment('orb.propagators.stateToKepler', function() {
 
-    var a = 6649e3,
-      e = 0.002,
-      i = orb.common.deg2rad(97),
-      Ω = orb.common.deg2rad(118),
-      ω = orb.common.deg2rad(-250+360),
-      T0 = 0,
-      t = 15*60
+  test('should return the state vectors of a satellite after 900s', function (done) {
 
-    var testPosition = {
+    const a = 6649e3
+    const e = 0.002
+    const i = deg2rad(97)
+    const Ω = deg2rad(118)
+    const ω = deg2rad(-250+360)
+    const T0 = 0
+    const t = 15*60
+
+    const testPosition = {
       x: {
         x:  3194418.35653,
         y: -5715730.19269,
@@ -27,31 +32,35 @@ describe('orb.propagators.stateToKepler', function() {
       },
     }
 
-    var x = orb.propagators.stateToKepler(
+    const x = stateToKepler(
       [testPosition.x.x, testPosition.x.y, testPosition.x.z],
-      [testPosition.v.x, testPosition.v.y, testPosition.v.z], t)
-    x[0].should.be.approximately(a, 1e-3)
-    x[1].should.be.approximately(e, 1e-5)
-    x[2].should.be.approximately(i, 1e-5)
-    x[3].should.be.approximately(Ω, 1e-5)
-    x[4].should.be.approximately(ω, 1e-5)
-    x[5].should.be.approximately(T0, 1e-5)
+      [testPosition.v.x, testPosition.v.y, testPosition.v.z], t
+    )
+
+    expect( x[0] ).to.be.about(a, 1e-3)
+    expect( x[1] ).to.be.about(e, 1e-5)
+    expect( x[2] ).to.be.about(i, 1e-5)
+    expect( x[3] ).to.be.about(Ω, 1e-5)
+    expect( x[4] ).to.be.about(ω, 1e-5)
+    expect( x[5] ).to.be.about(T0, 1e-5)
+
+    done()
   })
 
-  it('should return the state vectors of earth after 1yr', function() {
+  test('should return the state vectors of earth after 1yr', function (done) {
 
-    var a = 149598261150,
-      e = 0.01671123,
-      i = orb.common.deg2rad(7.155),
-      Ω = orb.common.deg2rad(348.73936),
-      ω = orb.common.deg2rad(114.20783),
-      T0 = 0,
-      t = 365.256363004*86400
+    const a = 149598261150
+    const e = 0.01671123
+    const i = deg2rad(7.155)
+    const Ω = deg2rad(348.73936)
+    const ω = deg2rad(114.20783)
+    const T0 = 0
+    const t = 365.256363004*86400
 
-    var m1 = 1.988546944e30,
-      m2 = 5.9725801308e24*1.0123000371
+    const m1 = 1.988546944e30
+    const m2 = 5.9725801308e24*1.0123000371
 
-    var testPosition = {
+    const testPosition = {
       x: {
         x: -33158216645.818844,
         y: 142334785036.72403,
@@ -64,15 +73,19 @@ describe('orb.propagators.stateToKepler', function() {
       },
     }
 
-    var x = orb.propagators.stateToKepler(
+    const x = stateToKepler(
       [testPosition.x.x, testPosition.x.y, testPosition.x.z],
-      [testPosition.v.x, testPosition.v.y, testPosition.v.z], t, m1, m2)
-    x[0].should.be.approximately(a, 1e-3)
-    x[1].should.be.approximately(e, 1e-5)
-    x[2].should.be.approximately(i, 1e-5)
-    x[3].should.be.approximately(Ω-2*Math.PI, 1e-5)
-    x[4].should.be.approximately(ω, 1e-5);
-    (x[5] - t).should.be.approximately(T0, 1e+3)
+      [testPosition.v.x, testPosition.v.y, testPosition.v.z], t, m1, m2
+    )
+
+    expect( x[0] ).to.be.about(a, 1e-3)
+    expect( x[1] ).to.be.about(e, 1e-5)
+    expect( x[2] ).to.be.about(i, 1e-5)
+    expect( x[3] ).to.be.about(Ω-2*Math.PI, 1e-5)
+    expect( x[4] ).to.be.about(ω, 1e-5);
+    expect( x[5] - t ).to.be.about(T0, 1e+3)
+
+    done()
   })
 
 })

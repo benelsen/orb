@@ -1,6 +1,10 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
+
+import {geodeticToCartesian, cartesianToGeodetic} from './../../lib/transformations/geodetic'
 
 var testLocation = {
   x:  6220786.460040262,
@@ -11,20 +15,22 @@ var testLocation = {
   h:  200.0,
 }
 
-describe('orb.transformations.geodeticToCartesian', function() {
-  it('should convert to cartesian coordinates', function() {
-    var cartesian = orb.transformations.geodeticToCartesian([testLocation.L, testLocation.B, testLocation.h])
-    cartesian[0].should.be.approximately(testLocation.x, 1e-6)
-    cartesian[1].should.be.approximately(testLocation.y, 1e-6)
-    cartesian[2].should.be.approximately(testLocation.z, 1e-6)
+experiment('orb.transformations.geodeticToCartesian', function () {
+  test('should convert to cartesian coordinates', function (done) {
+    var cartesian = geodeticToCartesian([testLocation.L, testLocation.B, testLocation.h])
+    expect( cartesian[0] ).to.be.about(testLocation.x, 1e-6)
+    expect( cartesian[1] ).to.be.about(testLocation.y, 1e-6)
+    expect( cartesian[2] ).to.be.about(testLocation.z, 1e-6)
+    done()
   })
 })
 
-describe('orb.transformations.cartesianToGeodetic', function() {
-  it('should convert to geodetic coordinates', function() {
-    var geodetic = orb.transformations.cartesianToGeodetic([testLocation.x, testLocation.y, testLocation.z])
-    geodetic[0].should.be.approximately(testLocation.L, 1e-8)
-    geodetic[1].should.be.approximately(testLocation.B, 1e-8)
-    geodetic[2].should.be.approximately(testLocation.h, 1e-8)
+experiment('orb.transformations.cartesianToGeodetic', function () {
+  test('should convert to geodetic coordinates', function (done) {
+    var geodetic = cartesianToGeodetic([testLocation.x, testLocation.y, testLocation.z])
+    expect( geodetic[0] ).to.be.about(testLocation.L, 1e-8)
+    expect( geodetic[1] ).to.be.about(testLocation.B, 1e-8)
+    expect( geodetic[2] ).to.be.about(testLocation.h, 1e-8)
+    done()
   })
 })

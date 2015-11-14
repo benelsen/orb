@@ -1,6 +1,10 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
+
+import {orbitalPlaneToInertial} from './../../lib/transformations/orbitalPlaneToInertial'
 
 var Ω = 118,
   ω = -250,
@@ -18,12 +22,13 @@ var x = [
   82.5825,
 ]
 
-describe('orb.transformations.orbitalPlaneToInertial', function() {
-  it('should transform vector from orbital plance to ECI', function() {
-    var eci = orb.transformations.orbitalPlaneToInertial(x_o, Ω, ω, i)
-    eci[0].should.be.approximately(x[0], 1e-4)
-    eci[1].should.be.approximately(x[1], 1e-4)
-    eci[2].should.be.approximately(x[2], 1e-4)
+experiment('orb.transformations.orbitalPlaneToInertial', function () {
+  test('should transform vector from orbital plance to ECI', function (done) {
+    var eci = orbitalPlaneToInertial(x_o, Ω, ω, i)
+    expect( eci[0] ).to.be.about(x[0], 1e-4)
+    expect( eci[1] ).to.be.about(x[1], 1e-4)
+    expect( eci[2] ).to.be.about(x[2], 1e-4)
+    done()
   })
 })
 

@@ -1,21 +1,27 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-var e1 = 0.002,
-  e2 = 0.9,
-  M = 1.048037758440223,
-  E1 = 1.049772378330563,
-  E2 = 1.899773668961998
+import keplerEquation from './../../lib/functions/keplerEquation'
 
-describe('orb.functions.keplerEquation', function() {
+const e1 = 0.002
+const e2 = 0.9
+const M = 1.048037758440223
+const E1 = 1.049772378330563
+const E2 = 1.899773668961998
 
-  it('should return the eccentric anomaly for low eccentricity', function() {
-    orb.functions.keplerEquation(e1, M).should.be.approximately(E1, 1e-12)
+experiment('orb.functions.keplerEquation', function() {
+
+  test('should return the eccentric anomaly for low eccentricity', function (done) {
+    expect( keplerEquation(e1, M) ).to.be.about(E1, 1e-12)
+    done()
   })
 
-  it('should return the eccentric anomaly for high eccentricity', function() {
-    orb.functions.keplerEquation(e2, M).should.be.approximately(E2, 1e-12)
+  test('should return the eccentric anomaly for high eccentricity', function (done) {
+    expect( keplerEquation(e2, M) ).to.be.about(E2, 1e-12)
+    done()
   })
 
 })

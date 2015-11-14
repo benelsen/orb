@@ -1,19 +1,27 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb', function() {
+import orb from './../lib/'
 
-  it('should exist', function() {
-    should.exist(orb)
+experiment('orb', function () {
+
+  test('should exist', function (done) {
+    expect(orb).to.exist()
+    done()
   })
 
-  it('should be a object', function() {
-    orb.should.be.an.instanceOf(Object)
+  test('should be a object', function (done) {
+    expect( orb ).to.be.an.instanceOf(Object)
+    done()
   })
 
-  it('should have a version', function() {
-    orb.should.have.property('version')
+  test('should have a version', function (done) {
+    expect( orb.version ).to.exist()
+    expect( orb.version ).to.not.be.empty()
+    done()
   })
 
 })

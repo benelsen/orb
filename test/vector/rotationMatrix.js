@@ -1,72 +1,78 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
 
-describe('orb.vector.rotationMatrix', function() {
+import rotationMatrix from './../../lib/vector/rotationMatrix'
 
-  it('should return correct values for Ri(0 + n∙2π)', function() {
-    var r1 = orb.vector.rotationMatrix(0, 1)
+experiment('orb.vector.rotationMatrix', function () {
 
-    r1.should.eql([
+  test('should return correct values for Ri(0 + n∙2π)', function (done) {
+    var r1 = rotationMatrix(0, 1)
+
+    expect( r1 ).to.deep.equal([
       1, 0, 0,
       0, 1, 0,
       0,-0, 1,
     ])
 
-    var r2 = orb.vector.rotationMatrix(2*Math.PI, 2)
+    var r2 = rotationMatrix(2*Math.PI, 2)
 
-    r2.should.eql([
+    expect( r2 ).to.deep.equal([
       1, 0,-0,
       0, 1, 0,
       0, 0, 1,
     ])
 
-    var r3 = orb.vector.rotationMatrix(-4*Math.PI, 3)
+    var r3 = rotationMatrix(-4*Math.PI, 3)
 
-    r3.should.eql([
+    expect( r3 ).to.deep.equal([
       1, 0, 0,
       -0, 1, 0,
       0, 0, 1,
     ])
+    done()
 
   })
 
-  it('should return correct values for Ri(α)', function() {
-    var r1 = orb.vector.rotationMatrix(Math.PI/4, 1)
+  test('should return correct values for Ri(α)', function (done) {
+    var r1 = rotationMatrix(Math.PI/4, 1)
 
-    r1[0].should.be.approximately(            1, 1e-15)
-    r1[1].should.be.approximately(            0, 1e-15)
-    r1[2].should.be.approximately(            0, 1e-15)
-    r1[3].should.be.approximately(            0, 1e-15)
-    r1[4].should.be.approximately( Math.SQRT1_2, 1e-15)
-    r1[5].should.be.approximately( Math.SQRT1_2, 1e-15)
-    r1[6].should.be.approximately(            0, 1e-15)
-    r1[7].should.be.approximately(-Math.SQRT1_2, 1e-15)
-    r1[8].should.be.approximately( Math.SQRT1_2, 1e-15)
+    expect( r1[0] ).to.be.about(            1, 1e-15)
+    expect( r1[1] ).to.be.about(            0, 1e-15)
+    expect( r1[2] ).to.be.about(            0, 1e-15)
+    expect( r1[3] ).to.be.about(            0, 1e-15)
+    expect( r1[4] ).to.be.about( Math.SQRT1_2, 1e-15)
+    expect( r1[5] ).to.be.about( Math.SQRT1_2, 1e-15)
+    expect( r1[6] ).to.be.about(            0, 1e-15)
+    expect( r1[7] ).to.be.about(-Math.SQRT1_2, 1e-15)
+    expect( r1[8] ).to.be.about( Math.SQRT1_2, 1e-15)
 
-    var r2 = orb.vector.rotationMatrix(-Math.PI/3, 2)
+    var r2 = rotationMatrix(-Math.PI/3, 2)
 
-    r2[0].should.be.approximately(             0.5, 1e-15)
-    r2[1].should.be.approximately(               0, 1e-15)
-    r2[2].should.be.approximately(  Math.sqrt(3)/2, 1e-15)
-    r2[3].should.be.approximately(               0, 1e-15)
-    r2[4].should.be.approximately(               1, 1e-15)
-    r2[5].should.be.approximately(               0, 1e-15)
-    r2[6].should.be.approximately( -Math.sqrt(3)/2, 1e-15)
-    r2[7].should.be.approximately(               0, 1e-15)
-    r2[8].should.be.approximately(             0.5, 1e-15)
+    expect( r2[0] ).to.be.about(             0.5, 1e-15)
+    expect( r2[1] ).to.be.about(               0, 1e-15)
+    expect( r2[2] ).to.be.about(  Math.sqrt(3)/2, 1e-15)
+    expect( r2[3] ).to.be.about(               0, 1e-15)
+    expect( r2[4] ).to.be.about(               1, 1e-15)
+    expect( r2[5] ).to.be.about(               0, 1e-15)
+    expect( r2[6] ).to.be.about( -Math.sqrt(3)/2, 1e-15)
+    expect( r2[7] ).to.be.about(               0, 1e-15)
+    expect( r2[8] ).to.be.about(             0.5, 1e-15)
 
-    var r3 = orb.vector.rotationMatrix(7*Math.PI/6, 3)
+    var r3 = rotationMatrix(7*Math.PI/6, 3)
 
-    r3[0].should.be.approximately( -Math.sqrt(3)/2, 1e-15)
-    r3[1].should.be.approximately(            -0.5, 1e-15)
-    r3[2].should.be.approximately(               0, 1e-15)
-    r3[3].should.be.approximately(             0.5, 1e-15)
-    r3[4].should.be.approximately( -Math.sqrt(3)/2, 1e-15)
-    r3[5].should.be.approximately(               0, 1e-15)
-    r3[6].should.be.approximately(               0, 1e-15)
-    r3[7].should.be.approximately(               0, 1e-15)
-    r3[8].should.be.approximately(               1, 1e-15)
+    expect( r3[0] ).to.be.about( -Math.sqrt(3)/2, 1e-15)
+    expect( r3[1] ).to.be.about(            -0.5, 1e-15)
+    expect( r3[2] ).to.be.about(               0, 1e-15)
+    expect( r3[3] ).to.be.about(             0.5, 1e-15)
+    expect( r3[4] ).to.be.about( -Math.sqrt(3)/2, 1e-15)
+    expect( r3[5] ).to.be.about(               0, 1e-15)
+    expect( r3[6] ).to.be.about(               0, 1e-15)
+    expect( r3[7] ).to.be.about(               0, 1e-15)
+    expect( r3[8] ).to.be.about(               1, 1e-15)
+    done()
 
   })
 

@@ -1,6 +1,10 @@
-var should = require('should')
+import Lab from 'lab'
+import {expect} from 'code'
 
-var orb = require('./../../')
+export const lab = Lab.script()
+const {experiment, test} = lab
+
+import {ellipsoidalToCartesian, cartesianToEllipsoidal} from './../../lib/transformations/ellipsoidal'
 
 var testLocation = {
   x:  6219769.555159878,
@@ -10,19 +14,21 @@ var testLocation = {
   β: -0.2,
 }
 
-describe('orb.transformations.ellipsoidalToCartesian', function() {
-  it('should convert to cartesian coordinates', function() {
-    var cartesian = orb.transformations.ellipsoidalToCartesian([testLocation.L, testLocation.β])
-    cartesian[0].should.be.approximately(testLocation.x, 1e-6)
-    cartesian[1].should.be.approximately(testLocation.y, 1e-6)
-    cartesian[2].should.be.approximately(testLocation.z, 1e-6)
+experiment('orb.transformations.ellipsoidalToCartesian', function () {
+  test('should convert to cartesian coordinates', function (done) {
+    var cartesian = ellipsoidalToCartesian([testLocation.L, testLocation.β])
+    expect( cartesian[0] ).to.be.about(testLocation.x, 1e-6)
+    expect( cartesian[1] ).to.be.about(testLocation.y, 1e-6)
+    expect( cartesian[2] ).to.be.about(testLocation.z, 1e-6)
+    done()
   })
 })
 
-describe('orb.transformations.cartesianToEllipsoidal', function() {
-  it('should convert to ellipsoidal coordinates', function() {
-    var ellipsoidal = orb.transformations.cartesianToEllipsoidal([testLocation.x, testLocation.y, testLocation.z])
-    ellipsoidal[0].should.be.approximately(testLocation.L, 1e-12)
-    ellipsoidal[1].should.be.approximately(testLocation.β, 1e-12)
+experiment('orb.transformations.cartesianToEllipsoidal', function () {
+  test('should convert to ellipsoidal coordinates', function (done) {
+    var ellipsoidal = cartesianToEllipsoidal([testLocation.x, testLocation.y, testLocation.z])
+    expect( ellipsoidal[0] ).to.be.about(testLocation.L, 1e-12)
+    expect( ellipsoidal[1] ).to.be.about(testLocation.β, 1e-12)
+    done()
   })
 })
