@@ -17,7 +17,7 @@
   "scripts": {
     "lint": "eslint lib/ test/",
     "build": "babel -d lib5/ lib/",
-    "pretest": "true # npm run lint",
+    "pretest": "npm run lint",
     "test": "babel-node node_modules/.bin/lab -l test/**/*.js",
     "version": "npm run test && npm run build",
     "prepublish": "npm run test && npm run build"
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
+    "babel-eslint": "^5.0.0-beta6",
     "babel-plugin-transform-exponentiation-operator": "^6.3.13",
     "babel-preset-es2015": "^6.3.13",
     "code": "^2.0.1",

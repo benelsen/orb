@@ -4,7 +4,7 @@ import {expect} from 'code'
 export const lab = Lab.script()
 const {experiment, test} = lab
 
-import {deg2rad, rad2deg} from './../../lib/common/angular'
+import {deg2rad} from './../../lib/common/angular'
 import stateToKepler from './../../lib/propagators/stateToKepler'
 
 experiment('orb.propagators.stateToKepler', function() {
@@ -82,7 +82,7 @@ experiment('orb.propagators.stateToKepler', function() {
     expect( x[1] ).to.be.about(e, 1e-5)
     expect( x[2] ).to.be.about(i, 1e-5)
     expect( x[3] ).to.be.about(Ω-2*Math.PI, 1e-5)
-    expect( x[4] ).to.be.about(ω, 1e-5);
+    expect( x[4] ).to.be.about(ω, 1e-5)
     expect( x[5] - t ).to.be.about(T0, 1e+3)
 
     done()

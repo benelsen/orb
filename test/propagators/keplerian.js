@@ -4,7 +4,7 @@ import {expect} from 'code'
 export const lab = Lab.script()
 const {experiment, test} = lab
 
-import {deg2rad, rad2deg} from './../../lib/common/angular'
+import {deg2rad} from './../../lib/common/angular'
 import keplerian from './../../lib/propagators/keplerian'
 
 experiment('orb.propagators.keplerian', function() {
