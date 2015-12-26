@@ -2,10 +2,10 @@
 
 orb offers a few simple methods for several common problems of orbital mechanics, like transformations between various coordinate systems and simple orbit propagation using Keplerian elements.
 
-[![npm version](https://badge.fury.io/js/orbjs.svg)](https://badge.fury.io/js/orbjs)
-[![Build Status](https://travis-ci.org/benelsen/orb.svg?branch=master)](https://travis-ci.org/benelsen/orb)
-[![Dependency Status](https://david-dm.org/benelsen/orb.svg)](https://david-dm.org/benelsen/orb)
-[![devDependency Status](https://david-dm.org/benelsen/orb/dev-status.svg)](https://david-dm.org/benelsen/orb#info=devDependencies)
+[![npm version](https://img.shields.io/npm/v/orbjs.svg)](https://www.npmjs.com/package/orbjs)
+[![Build Status](https://travis-ci.org/benelsen/orb.svg?branch=v1)](https://travis-ci.org/benelsen/orb)
+[![Dependency Status](https://david-dm.org/benelsen/orb/v1.svg)](https://david-dm.org/benelsen/orb/v1)
+[![devDependency Status](https://david-dm.org/benelsen/orb/v1/dev-status.svg)](https://david-dm.org/benelsen/orb/v1#info=devDependencies)
 
 ## Installation
 
