@@ -4,7 +4,7 @@ import {expect} from 'code'
 export const lab = Lab.script()
 const {experiment, test} = lab
 
-import keplerEquation from './../../lib/functions/keplerEquation'
+import {keplerEquation} from './../../lib/functions/keplerEquation'
 
 const e1 = 0.002
 const e2 = 0.9

@@ -4,7 +4,7 @@ import {expect} from 'code'
 export const lab = Lab.script()
 const {experiment, test} = lab
 
-import era from './../../lib/functions/era'
+import {era} from './../../lib/functions/era'
 
 experiment('orb.functions.era', function () {
 

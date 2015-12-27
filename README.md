@@ -242,6 +242,24 @@ var orb = require('orbjs').orb;
 - Output:
 	* ν: true anomaly
 
+[#](lib/functions/orbitalPeriodToSemimajorAxis.js#L15) orb.functions.**orbitalPeriodToSemimajorAxis**(T, m1, m2)
+
+- Input:
+	* T: orbital period
+	* m1: mass of object 1 (optional, default: GM = orb.constants.earth.GM)
+	* m2: mass of object 2 (optional, default: 0)
+- Output:
+	* a: semi-major axis
+
+[#](lib/functions/semimajorAxisToOrbitalPeriod.js#L28) orb.functions.**semimajorAxisToOrbitalPeriod**(a, m1, m2)
+
+- Input:
+	* a: semi-major axis
+	* m1: mass of object 1 (optional, default: GM = orb.constants.earth.GM)
+	* m2: mass of object 2 (optional, default: 0)
+- Output:
+	* T: orbital period
+
 ### orb.vector
 Common vector and matrix operations, these are only included to make dependencies unnecessary.
 Don’t use these, there are a lot of better, more comprehensive and well tested libraries to do this.
