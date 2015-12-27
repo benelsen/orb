@@ -18,10 +18,4 @@ experiment('orb', function () {
     done()
   })
 
-  test('should have a version', function (done) {
-    expect( orb.version ).to.exist()
-    expect( orb.version ).to.not.be.empty()
-    done()
-  })
-
 })
