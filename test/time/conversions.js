@@ -4,7 +4,7 @@ import {expect} from 'code'
 export const lab = Lab.script()
 const {experiment, test} = lab
 
-import time from './../../lib/time'
+import * as time from './../../lib/time'
 
 experiment('orb.time.JDtoMJD', function () {
   test('should convert JD to MJD', function (done) {
