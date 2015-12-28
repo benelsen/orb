@@ -6,10 +6,10 @@ const {experiment, test} = lab
 
 import rotationMatrix from './../../lib/vector/rotationMatrix'
 
-experiment('orb.vector.rotationMatrix', function () {
+experiment('orb.vector.rotationMatrix', () => {
 
-  test('should return correct values for Ri(0 + n∙2π)', function (done) {
-    var r1 = rotationMatrix(0, 1)
+  test('should return correct values for Ri(0 + n∙2π)', done => {
+    const r1 = rotationMatrix(0, 1)
 
     expect( r1 ).to.deep.equal([
       1, 0, 0,
@@ -17,7 +17,7 @@ experiment('orb.vector.rotationMatrix', function () {
       0,-0, 1,
     ])
 
-    var r2 = rotationMatrix(2*Math.PI, 2)
+    const r2 = rotationMatrix(2*Math.PI, 2)
 
     expect( r2 ).to.deep.equal([
       1, 0,-0,
@@ -25,7 +25,7 @@ experiment('orb.vector.rotationMatrix', function () {
       0, 0, 1,
     ])
 
-    var r3 = rotationMatrix(-4*Math.PI, 3)
+    const r3 = rotationMatrix(-4*Math.PI, 3)
 
     expect( r3 ).to.deep.equal([
       1, 0, 0,
@@ -36,8 +36,8 @@ experiment('orb.vector.rotationMatrix', function () {
 
   })
 
-  test('should return correct values for Ri(α)', function (done) {
-    var r1 = rotationMatrix(Math.PI/4, 1)
+  test('should return correct values for Ri(α)', done => {
+    const r1 = rotationMatrix(Math.PI/4, 1)
 
     expect( r1[0] ).to.be.about(            1, 1e-15)
     expect( r1[1] ).to.be.about(            0, 1e-15)
@@ -49,7 +49,7 @@ experiment('orb.vector.rotationMatrix', function () {
     expect( r1[7] ).to.be.about(-Math.SQRT1_2, 1e-15)
     expect( r1[8] ).to.be.about( Math.SQRT1_2, 1e-15)
 
-    var r2 = rotationMatrix(-Math.PI/3, 2)
+    const r2 = rotationMatrix(-Math.PI/3, 2)
 
     expect( r2[0] ).to.be.about(             0.5, 1e-15)
     expect( r2[1] ).to.be.about(               0, 1e-15)
@@ -61,7 +61,7 @@ experiment('orb.vector.rotationMatrix', function () {
     expect( r2[7] ).to.be.about(               0, 1e-15)
     expect( r2[8] ).to.be.about(             0.5, 1e-15)
 
-    var r3 = rotationMatrix(7*Math.PI/6, 3)
+    const r3 = rotationMatrix(7*Math.PI/6, 3)
 
     expect( r3[0] ).to.be.about( -Math.sqrt(3)/2, 1e-15)
     expect( r3[1] ).to.be.about(            -0.5, 1e-15)

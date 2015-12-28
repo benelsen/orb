@@ -12,14 +12,14 @@ const M = 1.048037758440223
 const E1 = 1.049772378330563
 const E2 = 1.899773668961998
 
-experiment('orb.functions.keplerEquation', function() {
+experiment('orb.functions.keplerEquation', () => {
 
-  test('should return the eccentric anomaly for low eccentricity', function (done) {
+  test('should return the eccentric anomaly for low eccentricity', done => {
     expect( keplerEquation(e1, M) ).to.be.about(E1, 1e-12)
     done()
   })
 
-  test('should return the eccentric anomaly for high eccentricity', function (done) {
+  test('should return the eccentric anomaly for high eccentricity', done => {
     expect( keplerEquation(e2, M) ).to.be.about(E2, 1e-12)
     done()
   })

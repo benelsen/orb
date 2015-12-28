@@ -7,9 +7,9 @@ const {experiment, test} = lab
 import {deg2rad} from './../../lib/common/angular'
 import keplerian from './../../lib/propagators/keplerian'
 
-experiment('orb.propagators.keplerian', function() {
+experiment('orb.propagators.keplerian', () => {
 
-  test('should return the state vectors of a satellite after 900s', function (done) {
+  test('should return the state vectors of a satellite after 900s', done => {
 
     const a = 6649e3
     const e = 0.002
@@ -43,7 +43,7 @@ experiment('orb.propagators.keplerian', function() {
     done()
   })
 
-  test('should return the state vectors of earth after 1yr', function (done) {
+  test('should return the state vectors of earth after 1yr', done => {
 
     const a = 149598261150
     const e = 0.01671123

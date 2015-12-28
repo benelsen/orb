@@ -6,15 +6,15 @@ const {experiment, test} = lab
 
 import orb from './../'
 
-experiment('orb', function () {
+experiment('orb', () => {
 
-  test('should exist and be an object', function (done) {
+  test('should exist and be an object', done => {
     expect(orb).to.exist()
     expect(orb).to.be.an.instanceOf(Object)
     done()
   })
 
-  test('should contain all namespaces', function (done) {
+  test('should contain all namespaces', done => {
     expect(orb).to.only.include([
       'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector', 'v',
     ])
@@ -23,17 +23,17 @@ experiment('orb', function () {
 
 })
 
-experiment('orb (CommonJS)', function () {
+experiment('orb (CommonJS)', () => {
 
   const orbCJS = require('./../').orb
 
-  test('should exist and be an object', function (done) {
+  test('should exist and be an object', done => {
     expect(orbCJS).to.exist()
     expect(orbCJS).to.be.an.instanceOf(Object)
     done()
   })
 
-  test('should contain all namespaces', function (done) {
+  test('should contain all namespaces', done => {
     expect(orbCJS).to.only.include([
       'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector', 'v',
     ])
@@ -44,15 +44,15 @@ experiment('orb (CommonJS)', function () {
 
 import orbES2015 from './../lib/'
 
-experiment('orb (ES2015)', function () {
+experiment('orb (ES2015)', () => {
 
-  test('should exist and be an object', function (done) {
+  test('should exist and be an object', done => {
     expect(orbES2015).to.exist()
     expect(orbES2015).to.be.an.instanceOf(Object)
     done()
   })
 
-  test('should contain all namespaces', function (done) {
+  test('should contain all namespaces', done => {
     expect(orbES2015).to.only.include([
       'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector', 'v',
     ])

@@ -7,9 +7,9 @@ const {experiment, test} = lab
 import {deg2rad} from './../../lib/common/angular'
 import stateToKepler from './../../lib/propagators/stateToKepler'
 
-experiment('orb.propagators.stateToKepler', function() {
+experiment('orb.propagators.stateToKepler', () => {
 
-  test('should return the state vectors of a satellite after 900s', function (done) {
+  test('should return the state vectors of a satellite after 900s', done => {
 
     const a = 6649e3
     const e = 0.002
@@ -47,7 +47,7 @@ experiment('orb.propagators.stateToKepler', function() {
     done()
   })
 
-  test('should return the state vectors of earth after 1yr', function (done) {
+  test('should return the state vectors of earth after 1yr', done => {
 
     const a = 149598261150
     const e = 0.01671123
