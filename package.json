@@ -17,10 +17,9 @@
   "scripts": {
     "lint": "eslint lib/ test/",
     "build": "babel -d lib5/ lib/",
-    "pretest": "npm run lint",
+    "pretest": "npm run lint && npm run build",
     "test": "babel-node node_modules/.bin/lab -l test/",
-    "version": "npm run test && npm run build",
-    "prepublish": "npm run test && npm run build"
+    "version": "npm run test && npm run build"
   },
   "dependencies": {
     "core-js": "^2.0.0",
