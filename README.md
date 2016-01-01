@@ -74,7 +74,7 @@ var orb = require('orbjs').orb;
 
 [#](lib/time/index.js#L2) orb.time.**leapSeconds**(date) Amount of leap seconds that occurred before `date`. `date` is a JS Date object.
 
-[#](lib/time/dateToJD.js#L13) orb.time.**dateToJD**(date) Convert a date to Julian Date. `date` is either a Date object, or an array of the form [Y, M, D, h, m, s, ms].
+[#](lib/time/dateToJD.js#L13) orb.time.**dateToJD**(date) Convert a date to Julian Date. `date` is either a Date object, an array of the form [Y, M, D, h, m, s, ms] or a Unix Offset (milliseconds).
 
 ### orb.transformations
 [#](lib/transformations/spherical.js#L2) orb.transformations.**sphericalToCartesian**(x)
