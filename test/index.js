@@ -1,3 +1,4 @@
+
 import Lab from 'lab'
 import {expect} from 'code'
 
@@ -25,7 +26,7 @@ experiment('orb', () => {
 
 experiment('orb (CommonJS)', () => {
 
-  const orbCJS = require('./../').orb
+  const orbCJS = require('./../')
 
   test('should exist and be an object', done => {
     expect(orbCJS).to.exist()

@@ -24,7 +24,7 @@ import orb from 'orbjs';
 ### CommonJS Module
 
 ```javascript
-var orb = require('orbjs').orb;
+var orb = require('orbjs');
 ```
 
 ### Browser
