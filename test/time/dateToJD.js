@@ -24,4 +24,12 @@ experiment('orb.time.dateToJD', () => {
     done()
   })
 
+  test('should convert an Unix Offset to JD', done => {
+
+    expect( dateToJD( Date.UTC(2014, 0, 30, 0, 0, 0, 0) ) ).to.equal(2456687.500000)
+    expect( dateToJD( Date.UTC(2014, 0, 30, 22, 56, 35, 100) ) ).to.equal(2456688.455961806)
+
+    done()
+  })
+
 })
