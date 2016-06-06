@@ -1,3 +1,9 @@
 node_modules/
-lib5
-dist
+
+lib5/
+docs/
+dist/
+
+support/
+
+documentation.yml
