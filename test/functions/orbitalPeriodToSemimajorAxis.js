@@ -7,57 +7,53 @@ const {experiment, test} = lab
 import {orbitalPeriodToSemimajorAxis, semimajorAxisToOrbitalPeriod} from './../../lib/functions/orbitalPeriodToSemimajorAxis'
 
 experiment('orb.functions.orbitalPeriodToSemimajorAxis', () => {
-
-  test('should return the semi-major axis with default parameters', done => {
-    const T1 = 3 * 60**2
+  test('should return the semi-major axis with default parameters', (done) => {
+    const T1 = 3 * 60 ** 2
     const a1 = 10560273.918564
-    expect( orbitalPeriodToSemimajorAxis(T1) ).to.be.about(a1, 1e-6)
+    expect(orbitalPeriodToSemimajorAxis(T1)).to.be.about(a1, 1e-6)
     done()
   })
 
-  test('should return', done => {
-    const T1 = 60**2
+  test('should return', (done) => {
+    const T1 = 60 ** 2
     const m1 = 1e3
-    const a1 = 0.279816735224899
-    expect( orbitalPeriodToSemimajorAxis(T1, m1) ).to.be.about(a1, 1e-15)
+    const a1 = 0.2798200893764048
+    expect(orbitalPeriodToSemimajorAxis(T1, m1)).to.be.about(a1, 1e-15)
     done()
   })
 
-  test('should return', done => {
-    const T1 = 27.321582 * 24 * 60**2
+  test('should return', (done) => {
+    const T1 = 27.321582 * 24 * 60 ** 2
     const m1 = 5.9721986e24
     const m2 = 7.342e22
-    const a1 = 384738212.727196
-    expect( orbitalPeriodToSemimajorAxis(T1, m1, m2) ).to.be.about(a1, 1e-6)
+    const a1 = 384742824.5680665
+    expect(orbitalPeriodToSemimajorAxis(T1, m1, m2)).to.be.about(a1, 1e-6)
     done()
   })
-
 })
 
 experiment('orb.functions.semimajorAxisToOrbitalPeriod', () => {
-
-  test('should return', done => {
-    const T1 = 3 * 60**2
+  test('should return', (done) => {
+    const T1 = 3 * 60 ** 2
     const a1 = 10560273.918564
-    expect( semimajorAxisToOrbitalPeriod(a1) ).to.be.about(T1, 1e-9)
+    expect(semimajorAxisToOrbitalPeriod(a1)).to.be.about(T1, 1e-9)
     done()
   })
 
-  test('should return', done => {
-    const T1 = 60**2
+  test('should return', (done) => {
+    const T1 = 60 ** 2
     const m1 = 1e3
-    const a1 = 0.279816735224899
-    expect( semimajorAxisToOrbitalPeriod(a1, m1) ).to.be.about(T1, 1e-11)
+    const a1 = 0.2798200893764048
+    expect(semimajorAxisToOrbitalPeriod(a1, m1)).to.be.about(T1, 1e-11)
     done()
   })
 
-  test('should return', done => {
-    const T1 = 27.321582 * 24 * 60**2
+  test('should return', (done) => {
+    const T1 = 27.321582 * 24 * 60 ** 2
     const m1 = 5.9721986e24
     const m2 = 7.342e22
-    const a1 = 384738212.727196
-    expect( semimajorAxisToOrbitalPeriod(a1, m1, m2) ).to.be.about(T1, 1e-8)
+    const a1 = 384742824.5680665
+    expect(semimajorAxisToOrbitalPeriod(a1, m1, m2)).to.be.about(T1, 1e-8)
     done()
   })
-
 })

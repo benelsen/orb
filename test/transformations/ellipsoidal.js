@@ -1,3 +1,5 @@
+/* eslint-disable key-spacing */
+
 import Lab from 'lab'
 import {expect} from 'code'
 
@@ -11,24 +13,24 @@ const testLocation = {
   y:   624058.538764035,
   z: -1262891.637653489,
   L:  0.1,
-  β: -0.2,
+  β: -0.2
 }
 
 experiment('orb.transformations.ellipsoidalToCartesian', () => {
-  test('should convert to cartesian coordinates', done => {
+  test('should convert to cartesian coordinates', (done) => {
     const cartesian = ellipsoidalToCartesian([testLocation.L, testLocation.β])
-    expect( cartesian[0] ).to.be.about(testLocation.x, 1e-6)
-    expect( cartesian[1] ).to.be.about(testLocation.y, 1e-6)
-    expect( cartesian[2] ).to.be.about(testLocation.z, 1e-6)
+    expect(cartesian[0]).to.be.about(testLocation.x, 1e-6)
+    expect(cartesian[1]).to.be.about(testLocation.y, 1e-6)
+    expect(cartesian[2]).to.be.about(testLocation.z, 1e-6)
     done()
   })
 })
 
 experiment('orb.transformations.cartesianToEllipsoidal', () => {
-  test('should convert to ellipsoidal coordinates', done => {
+  test('should convert to ellipsoidal coordinates', (done) => {
     const ellipsoidal = cartesianToEllipsoidal([testLocation.x, testLocation.y, testLocation.z])
-    expect( ellipsoidal[0] ).to.be.about(testLocation.L, 1e-12)
-    expect( ellipsoidal[1] ).to.be.about(testLocation.β, 1e-12)
+    expect(ellipsoidal[0]).to.be.about(testLocation.L, 1e-12)
+    expect(ellipsoidal[1]).to.be.about(testLocation.β, 1e-12)
     done()
   })
 })

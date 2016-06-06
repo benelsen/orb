@@ -1,6 +1,5 @@
 {
   "name": "orbjs",
-  "version": "0.2.2",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
     "orbit",
@@ -16,6 +15,7 @@
   "main": "lib5/index.js",
   "browser": "dist/orb.min.js",
   "scripts": {
+    "docs": "documentation build ./lib --name orbjs -f html -o docs -c documentation.yml",
     "lint": "standard",
     "build": "babel -d lib5/ lib/",
     "pretest": "npm run lint && npm run build",
@@ -35,6 +35,7 @@
     "babel-plugin-transform-exponentiation-operator": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "code": "^3.0.0",
+    "documentation": "^4.0.0-beta5",
     "lab": "^10.7.1",
     "standard": "^7.1.2"
   },

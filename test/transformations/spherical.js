@@ -1,3 +1,5 @@
+/* eslint-disable key-spacing */
+
 import Lab from 'lab'
 import {expect} from 'code'
 
@@ -12,25 +14,25 @@ const testLocation = {
   z: -1267140.2095092193,
   λ:  0.1,
   φ: -0.2,
-  r:  6378137.0,
+  r:  6378137.0
 }
 
 experiment('orb.transformations.sphericalToCartesian', () => {
-  test('should convert to cartesian coordinates', done => {
+  test('should convert to cartesian coordinates', (done) => {
     const cartesian = sphericalToCartesian([testLocation.λ, testLocation.φ, testLocation.r])
-    expect( cartesian[0] ).to.be.about(testLocation.x, 1e-6)
-    expect( cartesian[1] ).to.be.about(testLocation.y, 1e-6)
-    expect( cartesian[2] ).to.be.about(testLocation.z, 1e-6)
+    expect(cartesian[0]).to.be.about(testLocation.x, 1e-6)
+    expect(cartesian[1]).to.be.about(testLocation.y, 1e-6)
+    expect(cartesian[2]).to.be.about(testLocation.z, 1e-6)
     done()
   })
 })
 
 experiment('orb.transformations.cartesianToSpherical', () => {
-  test('should convert to spherical coordinates', done => {
+  test('should convert to spherical coordinates', (done) => {
     const spherical = cartesianToSpherical([testLocation.x, testLocation.y, testLocation.z])
-    expect( spherical[0] ).to.be.about(testLocation.λ, 1e-12)
-    expect( spherical[1] ).to.be.about(testLocation.φ, 1e-12)
-    expect( spherical[2] ).to.be.about(testLocation.r, 1e-6)
+    expect(spherical[0]).to.be.about(testLocation.λ, 1e-12)
+    expect(spherical[1]).to.be.about(testLocation.φ, 1e-12)
+    expect(spherical[2]).to.be.about(testLocation.r, 1e-6)
     done()
   })
 })
