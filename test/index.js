@@ -15,14 +15,14 @@ experiment('orb', () => {
 
   test('should contain all namespaces', done => {
     expect(orb).to.only.include([
-      'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector', 'v'
+      'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector'
     ])
     done()
   })
 })
 
 experiment('orb (CommonJS)', () => {
-  const orbCJS = require('./../').orb
+  const orbCJS = require('./../')
 
   test('should exist and be an object', done => {
     expect(orbCJS).to.exist()
@@ -32,7 +32,7 @@ experiment('orb (CommonJS)', () => {
 
   test('should contain all namespaces', done => {
     expect(orbCJS).to.only.include([
-      'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector', 'v'
+      'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector'
     ])
     done()
   })
@@ -49,7 +49,7 @@ experiment('orb (ES2015)', () => {
 
   test('should contain all namespaces', done => {
     expect(orbES2015).to.only.include([
-      'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector', 'v'
+      'common', 'constants', 'functions', 'propagators', 'time', 'transformations', 'vector'
     ])
     done()
   })

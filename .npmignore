@@ -1,0 +1,9 @@
+
+!dist/
+
+documentation.yml
+docs/
+
+.travis.yml
+
+support/
