@@ -65,6 +65,7 @@
     ]
   },
   "ghooks": {
+    "commit-msg": "validate-commit-msg",
     "pre-push": "npm test"
   },
   "config": {
@@ -73,7 +74,6 @@
     }
   },
   "release": {
-    "analyzeCommits": "validate-commit-msg",
     "branch": "v1"
   },
   "publishConfig": {
