@@ -15,21 +15,16 @@ npm install orbjs
 
 ## Usage
 
-### ES2015 Module
-
 ```javascript
-import orb from 'orbjs';
+// ES Module
+import orb from 'orbjs'
+
+// CommonJS Module
+var orb = require('orbjs')
 ```
-
-### CommonJS Module
-
-```javascript
-var orb = require('orbjs');
-```
-
-### Browser
 
 ```html
+<!-- Browser -->
 <script src="dist/orb.min.js"></script>
 ```
 

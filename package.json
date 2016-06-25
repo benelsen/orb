@@ -1,6 +1,5 @@
 {
   "name": "orbjs",
-  "version": "1.0.0-alpha.1",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
     "orbit",
@@ -64,6 +63,9 @@
     "plugins": [
       "transform-exponentiation-operator"
     ]
+  },
+  "ghooks": {
+    "pre-push": "npm test"
   },
   "config": {
     "validate-commit-msg": {
