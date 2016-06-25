@@ -41,7 +41,7 @@
     "documentation": "^4.0.0-beta5",
     "ghooks": "^1.2.4",
     "lab": "^10.7.1",
-    "rollup": "^0.29.0",
+    "rollup": "^0.33.0",
     "rollup-plugin-babel": "^2.5.1",
     "rollup-plugin-commonjs": "^3.0.0",
     "rollup-plugin-node-resolve": "^1.7.0",
@@ -65,9 +65,7 @@
   },
   "config": {
     "validate-commit-msg": {
-      "types": [
-        "feature", "fix", "docs", "style", "refactor", "performance", "test", "chore", "revert", "infra"
-      ]
+      "types": ["feature", "fix", "docs", "style", "refactor", "performance", "test", "chore", "revert", "infra"]
     },
     "ghooks": {
       "commit-msg": "validate-commit-msg",

@@ -21,6 +21,6 @@ export default {
   ],
   targets: [
     { dest: 'dist/orb.js', moduleName: 'orb', format: 'umd' },
-    { dest: 'dist/orb.module.js', format: 'es6' }
+    { dest: 'dist/orb.module.js', format: 'es' }
   ]
 }
