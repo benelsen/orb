@@ -1,6 +1,6 @@
 {
   "name": "orbjs",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
     "orbit",
@@ -22,7 +22,8 @@
     "build": "rollup -c rollup.config.js && uglifyjs dist/orb.js -c -m -o dist/orb.min.js",
     "pretest": "npm run lint && npm run build",
     "test": "babel-node node_modules/.bin/lab -l test/",
-    "version": "npm run test && npm run build"
+    "version": "npm run test && npm run build",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -47,7 +48,8 @@
     "rollup-plugin-node-resolve": "^1.7.0",
     "standard": "^7.1.2",
     "uglify-js": "^2.6.2",
-    "validate-commit-msg": "^2.6.1"
+    "validate-commit-msg": "^2.6.1",
+    "semantic-release": "^4.3.5"
   },
   "standard": {
     "parser": "babel-eslint",
@@ -66,10 +68,13 @@
   "config": {
     "validate-commit-msg": {
       "types": ["feature", "fix", "docs", "style", "refactor", "performance", "test", "chore", "revert", "infra"]
-    },
-    "ghooks": {
-      "commit-msg": "validate-commit-msg",
-      "pre-push": "npm test"
     }
+  },
+  "release": {
+    "analyzeCommits": "validate-commit-msg",
+    "branch": "v1"
+  },
+  "publishConfig": {
+    "tag": "next"
   }
 }
