@@ -1,5 +1,6 @@
 {
   "name": "orbjs",
+  "version": "1.0.0-alpha.0",
   "description": "orb offers a few simple methods for several common problems of orbital mechanics",
   "keywords": [
     "orbit",
@@ -38,13 +39,15 @@
     "babel-preset-es2015-rollup": "^1.1.1",
     "code": "^3.0.1",
     "documentation": "^4.0.0-beta5",
+    "ghooks": "^1.2.4",
     "lab": "^10.7.1",
     "rollup": "^0.29.0",
     "rollup-plugin-babel": "^2.5.1",
     "rollup-plugin-commonjs": "^3.0.0",
     "rollup-plugin-node-resolve": "^1.7.0",
     "standard": "^7.1.2",
-    "uglify-js": "^2.6.2"
+    "uglify-js": "^2.6.2",
+    "validate-commit-msg": "^2.6.1"
   },
   "standard": {
     "parser": "babel-eslint",
@@ -59,5 +62,14 @@
     "plugins": [
       "transform-exponentiation-operator"
     ]
+  },
+  "config": {
+    "validate-commit-msg": {
+      "types": ["feature", "fix", "docs", "style", "refactor", "performance", "test", "chore", "revert", "infra"]
+    },
+    "ghooks": {
+      "commit-msg": "validate-commit-msg",
+      "pre-push": "npm test"
+    }
   }
 }
